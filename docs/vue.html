@@ -485,7 +485,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_ciclo_de_vida_de_los_componentes_y_hooks_principales">Ciclo de vida de los componentes y hooks principales</a>
 <ul class="sectlevel3">
 <li><a href="#_ciclo_de_vida_de_un_componente_en_vue_3">Ciclo de vida de un componente en Vue 3</a></li>
-<li><a href="#_uso_de_los_hooks_del_ciclo_de_vida_en_vue_3">Uso de los hooks del ciclo de vida en Vue 3</a></li>
+<li><a href="#_uso_de_los_hooks_del_ciclo_de_vida_del_componente">Uso de los hooks del ciclo de vida del componente</a></li>
 <li><a href="#_explicación_de_cada_hook">Explicación de cada hook</a></li>
 <li><a href="#_ejemplo_de_un_componente_con_todos_los_hooks_del_ciclo_de_vida">Ejemplo de un componente con todos los hooks del ciclo de vida</a></li>
 </ul>
@@ -930,7 +930,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { ref } from 'vue';
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { ref } from 'vue';
 
 const count = ref(0);
 const message = ref('Hola Mundo');
@@ -952,7 +952,7 @@ message.value = 'Nuevo mensaje';</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { reactive } from 'vue';
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { reactive } from 'vue';
 
 const user = reactive({
   name: 'Juan',
@@ -1015,7 +1015,7 @@ const increment = () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { ref, reactive } from 'vue';
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { ref, reactive } from 'vue';
 
 const count = ref(0);  // dato reactivo primitivo
 const user = reactive({ name: 'Ana', age: 25 });  // objeto reactivo</code></pre>
@@ -1029,7 +1029,7 @@ const user = reactive({ name: 'Ana', age: 25 });  // objeto reactivo</code></pre
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { ref, computed } from 'vue';
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { ref, computed } from 'vue';
 
 const price = ref(100);
 const quantity = ref(2);
@@ -1046,7 +1046,7 @@ const total = computed(() =&gt; price.value * quantity.value);</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { ref } from 'vue';
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { ref } from 'vue';
 
 const count = ref(0);
 
@@ -1442,7 +1442,7 @@ const handleInput = (event: Event) =&gt; {
 </div>
 </div>
 <div class="sect3">
-<h4 id="_uso_de_los_hooks_del_ciclo_de_vida_en_vue_3">Uso de los hooks del ciclo de vida en Vue 3</h4>
+<h4 id="_uso_de_los_hooks_del_ciclo_de_vida_del_componente">Uso de los hooks del ciclo de vida del componente</h4>
 <div class="paragraph">
 <p>A continuación, se muestra cómo utilizar cada hook en un componente con la Composition API. Este componente registra en la consola el momento en que se activa cada hook.</p>
 </div>
@@ -6451,7 +6451,7 @@ describe('Counter.vue', () =&gt; {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-10-31 14:35:40 +0100
+Last updated 2024-10-31 17:16:57 +0100
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

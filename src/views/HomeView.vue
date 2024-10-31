@@ -1,16 +1,21 @@
 <script setup lang="ts">
+import { Calculator } from '@/models/calculator';
 import TheWelcome from '../components/TheWelcome.vue'
 import { ref, type Ref } from 'vue'
 
 let display = ref('')
 
+let calculator = new Calculator()
+
 const handleClick = (input: number | string) => {
-  display.value += input
+  if (typeof input === 'number') {
+    calculator.handleNumber(input)
+  } else if (typeof input === 'string') {
+    calculator.handleSymbol(input)
+  }
+  display.value = calculator.displayString
 }
 
-const clearDisplay = () => {
-  display.value = ''
-}
 
 </script>
 
@@ -35,7 +40,7 @@ const clearDisplay = () => {
       <button type="button" @click="handleClick(2)" class="numbers">2</button>
       <button type="button" @click="handleClick(3)" class="numbers">3</button>
       <button type="button" @click="handleClick('-')" class="key-operate operations">-</button>
-      <button type="button" @click="clearDisplay" class="key-others operations">AC</button>
+      <button type="button" @click="handleClick('AC')" class="key-others operations">AC</button>
       <button type="button" @click="handleClick(0)" class="numbers">0</button>
       <button type="button" @click="handleClick('=')" class="key-others operations">=</button>
       <button type="button" @click="handleClick('+')" class="key-operate operations">+</button>

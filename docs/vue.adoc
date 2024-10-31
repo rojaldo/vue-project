@@ -108,7 +108,7 @@ Vue 3 proporciona dos formas principales de declarar datos reactivos en la Compo
 
 `ref` se utiliza para crear una referencia reactiva a valores primitivos o datos que no requieren estructuras complejas. Al utilizar `ref`, Vue envuelve el valor en un objeto reactivo que se actualiza automáticamente cuando cambia.
 
-[source, html]
+[source, typescript]
 ----
 import { ref } from 'vue';
 
@@ -128,7 +128,7 @@ message.value = 'Nuevo mensaje';
 
 `reactive` es ideal para manejar objetos y arrays, ya que convierte todos los campos del objeto en datos reactivos. Esto permite actualizar directamente las propiedades del objeto o los elementos del array sin tener que acceder a través de `.value`.
 
-[source, html]
+[source, typescript]
 ----
 import { reactive } from 'vue';
 
@@ -185,7 +185,7 @@ En Vue 3, los datos y las funciones que forman el estado y la lógica de un comp
 
 `data` en la Composition API se representa mediante `ref` y `reactive`, los cuales permiten definir datos que pueden ser observados y actualizados reactivamente. Estos valores se declaran dentro de la función `setup`.
 
-[source, html]
+[source, typescript]
 ----
 import { ref, reactive } from 'vue';
 
@@ -197,7 +197,7 @@ const user = reactive({ name: 'Ana', age: 25 });  // objeto reactivo
 
 Las propiedades `computed` se utilizan para declarar valores que dependen de otros datos y que necesitan ser recalculados automáticamente cuando los datos base cambian. Una propiedad `computed` es una función que devuelve un valor basado en otros valores reactivos. Esto permite encapsular lógica derivada sin repetir el cálculo en múltiples lugares del componente.
 
-[source, html]
+[source, typescript]
 ----
 import { ref, computed } from 'vue';
 
@@ -212,7 +212,7 @@ const total = computed(() => price.value * quantity.value);
 
 `methods` en la Composition API se representa como funciones que definen la lógica del componente. Estas funciones se declaran dentro de `setup` y pueden ser llamadas desde el template o por otros métodos. A diferencia de las propiedades `computed`, los métodos se ejecutan en respuesta a eventos específicos, como clics de botones o eventos personalizados.
 
-[source, html]
+[source, typescript]
 ----
 import { ref } from 'vue';
 
@@ -499,7 +499,7 @@ En Vue 3, los componentes pasan por una serie de etapas llamadas "hooks del cicl
    - `onBeforeUnmount`: justo antes de que el componente se retire del DOM.
    - `onUnmounted`: una vez que el componente ha sido retirado del DOM.
 
-==== Uso de los hooks del ciclo de vida en Vue 3
+==== Uso de los hooks del ciclo de vida del componente
 
 A continuación, se muestra cómo utilizar cada hook en un componente con la Composition API. Este componente registra en la consola el momento en que se activa cada hook.
 
