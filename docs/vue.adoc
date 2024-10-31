@@ -108,7 +108,7 @@ Vue 3 proporciona dos formas principales de declarar datos reactivos en la Compo
 
 `ref` se utiliza para crear una referencia reactiva a valores primitivos o datos que no requieren estructuras complejas. Al utilizar `ref`, Vue envuelve el valor en un objeto reactivo que se actualiza automáticamente cuando cambia.
 
-[source, typescript]
+[source, html]
 ----
 import { ref } from 'vue';
 
@@ -128,7 +128,7 @@ message.value = 'Nuevo mensaje';
 
 `reactive` es ideal para manejar objetos y arrays, ya que convierte todos los campos del objeto en datos reactivos. Esto permite actualizar directamente las propiedades del objeto o los elementos del array sin tener que acceder a través de `.value`.
 
-[source, typescript]
+[source, html]
 ----
 import { reactive } from 'vue';
 
@@ -151,7 +151,7 @@ tasks.push({ id: 3, text: 'Dominar Composition API', done: false });
 
 Se pueden combinar `ref` y `reactive` según las necesidades de los datos. A continuación, un ejemplo de un componente que utiliza ambos:
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <div>
@@ -185,7 +185,7 @@ En Vue 3, los datos y las funciones que forman el estado y la lógica de un comp
 
 `data` en la Composition API se representa mediante `ref` y `reactive`, los cuales permiten definir datos que pueden ser observados y actualizados reactivamente. Estos valores se declaran dentro de la función `setup`.
 
-[source, typescript]
+[source, html]
 ----
 import { ref, reactive } from 'vue';
 
@@ -197,7 +197,7 @@ const user = reactive({ name: 'Ana', age: 25 });  // objeto reactivo
 
 Las propiedades `computed` se utilizan para declarar valores que dependen de otros datos y que necesitan ser recalculados automáticamente cuando los datos base cambian. Una propiedad `computed` es una función que devuelve un valor basado en otros valores reactivos. Esto permite encapsular lógica derivada sin repetir el cálculo en múltiples lugares del componente.
 
-[source, typescript]
+[source, html]
 ----
 import { ref, computed } from 'vue';
 
@@ -212,7 +212,7 @@ const total = computed(() => price.value * quantity.value);
 
 `methods` en la Composition API se representa como funciones que definen la lógica del componente. Estas funciones se declaran dentro de `setup` y pueden ser llamadas desde el template o por otros métodos. A diferencia de las propiedades `computed`, los métodos se ejecutan en respuesta a eventos específicos, como clics de botones o eventos personalizados.
 
-[source, typescript]
+[source, html]
 ----
 import { ref } from 'vue';
 
@@ -233,7 +233,7 @@ const decrement = () => {
 
 A continuación, un ejemplo completo que utiliza `data` para manejar el estado, `computed` para definir una propiedad calculada y `methods` para crear acciones.
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <div>
@@ -246,22 +246,22 @@ A continuación, un ejemplo completo que utiliza `data` para manejar el estado, 
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from 'vue';
+  import { ref, computed } from 'vue';
 
-const price = ref(50);
-const quantity = ref(1);
+  const price = ref(50);
+  const quantity = ref(1);
 
-const total = computed(() => price.value * quantity.value);
+  const total = computed(() => price.value * quantity.value);
 
-const incrementQuantity = () => {
-  quantity.value++;
-};
+  const incrementQuantity = () => {
+    quantity.value++;
+  };
 
-const decrementQuantity = () => {
-  if (quantity.value > 1) {
-    quantity.value--;
-  }
-};
+  const decrementQuantity = () => {
+    if (quantity.value > 1) {
+      quantity.value--;
+    }
+  };
 </script>
 ----
 
@@ -279,7 +279,7 @@ Vue 3 ofrece diversas directivas que facilitan el enlace de datos entre el compo
 
 La directiva `v-bind` permite enlazar valores de JavaScript a atributos HTML y propiedades de componentes. Esto es útil para cambiar dinámicamente atributos como `class`, `style`, o `src`, o para pasar datos a componentes hijos.
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <div>
@@ -289,14 +289,14 @@ La directiva `v-bind` permite enlazar valores de JavaScript a atributos HTML y p
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+  import { ref } from 'vue';
 
-const imageUrl = ref('https://via.placeholder.com/150');
-const isActive = ref(false);
+  const imageUrl = ref('https://via.placeholder.com/150');
+  const isActive = ref(false);
 
-const toggleActive = () => {
-  isActive.value = !isActive.value;
-};
+  const toggleActive = () => {
+    isActive.value = !isActive.value;
+  };
 </script>
 ----
 
@@ -308,7 +308,7 @@ const toggleActive = () => {
 
 `v-model` es una directiva que crea un enlace bidireccional entre el valor de un elemento de formulario y una variable en el componente. Esto permite que, al cambiar el valor en el formulario, el dato en el componente se actualice automáticamente y viceversa. En Vue 3, `v-model` también admite personalización mediante el uso de modificadores y nombres de propiedad.
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <div>
@@ -319,9 +319,8 @@ const toggleActive = () => {
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
-
-const username = ref('');
+  import { ref } from 'vue';
+  const username = ref('');
 </script>
 ----
 
@@ -331,7 +330,7 @@ En este ejemplo, `v-model` enlaza el campo de entrada `input` con la variable `u
 
 En Vue 3, `v-model` se puede utilizar en componentes personalizados para enlazar propiedades de forma bidireccional, proporcionando una experiencia de edición fluida.
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <div>
@@ -341,16 +340,15 @@ En Vue 3, `v-model` se puede utilizar en componentes personalizados para enlazar
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
-import CustomInput from './CustomInput.vue';
-
-const userInput = ref('');
+  import { ref } from 'vue';
+  import CustomInput from './CustomInput.vue';
+  const userInput = ref('');
 </script>
 ----
 
 En el componente `CustomInput`:
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <input :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" />
@@ -381,7 +379,7 @@ Vue permite gestionar eventos en el DOM de manera sencilla mediante directivas c
 
 El evento `@click` se utiliza para escuchar clics en elementos HTML. Es útil para activar acciones cuando el usuario interactúa con botones, enlaces o cualquier elemento clicable.
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <button @click="handleClick">Haz clic aquí</button>
@@ -407,7 +405,7 @@ const handleClick = () => {
 
 El evento `@input` detecta cambios en los elementos de formulario, como entradas de texto o áreas de texto, actualizando el estado del componente conforme el usuario escribe.
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <input @input="handleInput" placeholder="Escribe algo..." />
@@ -440,7 +438,7 @@ Vue permite manejar otros eventos comunes en el DOM, utilizando la misma sintaxi
 
 Ejemplo de uso de varios eventos:
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <form @submit.prevent="handleSubmit">
@@ -456,22 +454,22 @@ Ejemplo de uso de varios eventos:
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+  import { ref } from 'vue';
 
-const name = ref('');
-const hoverMessage = ref('No estás sobre el div');
+  const name = ref('');
+  const hoverMessage = ref('No estás sobre el div');
 
-const handleChange = () => {
-  console.log(`Nombre actualizado a: ${name.value}`);
-};
+  const handleChange = () => {
+    console.log(`Nombre actualizado a: ${name.value}`);
+  };
 
-const handleSubmit = () => {
-  console.log(`Formulario enviado con nombre: ${name.value}`);
-};
+  const handleSubmit = () => {
+    console.log(`Formulario enviado con nombre: ${name.value}`);
+  };
 
-const handleMouseOver = () => {
-  hoverMessage.value = '¡Estás sobre el div!';
-};
+  const handleMouseOver = () => {
+    hoverMessage.value = '¡Estás sobre el div!';
+  };
 </script>
 ----
 
@@ -505,7 +503,7 @@ En Vue 3, los componentes pasan por una serie de etapas llamadas "hooks del cicl
 
 A continuación, se muestra cómo utilizar cada hook en un componente con la Composition API. Este componente registra en la consola el momento en que se activa cada hook.
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <div>
@@ -515,38 +513,38 @@ A continuación, se muestra cómo utilizar cada hook en un componente con la Com
 </template>
 
 <script lang="ts" setup>
-import { ref, onBeforeMount, onMounted, onBeforeUpdate, onUpdated, onBeforeUnmount, onUnmounted } from 'vue';
+  import { ref, onBeforeMount, onMounted, onBeforeUpdate, onUpdated, onBeforeUnmount, onUnmounted } from 'vue';
 
-const count = ref(0);
+  const count = ref(0);
 
-const increment = () => {
-  count.value++;
-};
+  const increment = () => {
+    count.value++;
+  };
 
-// Hooks del ciclo de vida
-onBeforeMount(() => {
-  console.log('El componente está a punto de montarse');
-});
+  // Hooks del ciclo de vida
+  onBeforeMount(() => {
+    console.log('El componente está a punto de montarse');
+  });
 
-onMounted(() => {
-  console.log('El componente se ha montado en el DOM');
-});
+  onMounted(() => {
+    console.log('El componente se ha montado en el DOM');
+  });
 
-onBeforeUpdate(() => {
-  console.log('El componente está a punto de actualizarse');
-});
+  onBeforeUpdate(() => {
+    console.log('El componente está a punto de actualizarse');
+  });
 
-onUpdated(() => {
-  console.log('El componente se ha actualizado');
-});
+  onUpdated(() => {
+    console.log('El componente se ha actualizado');
+  });
 
-onBeforeUnmount(() => {
-  console.log('El componente está a punto de desmontarse');
-});
+  onBeforeUnmount(() => {
+    console.log('El componente está a punto de desmontarse');
+  });
 
-onUnmounted(() => {
-  console.log('El componente se ha desmontado');
-});
+  onUnmounted(() => {
+    console.log('El componente se ha desmontado');
+  });
 </script>
 ----
 
@@ -570,7 +568,7 @@ Estos hooks ayudan a controlar y optimizar el flujo del ciclo de vida de los com
 
 En este ejemplo, se utiliza un componente que muestra y actualiza un contador. Cada hook del ciclo de vida ejecuta una acción específica que se registra en la consola, lo que permite observar cómo y cuándo cada hook interactúa durante el ciclo de vida del componente.
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <div>
@@ -581,38 +579,38 @@ En este ejemplo, se utiliza un componente que muestra y actualiza un contador. C
 </template>
 
 <script lang="ts" setup>
-import { ref, onBeforeMount, onMounted, onBeforeUpdate, onUpdated, onBeforeUnmount, onUnmounted } from 'vue';
+  import { ref, onBeforeMount, onMounted, onBeforeUpdate, onUpdated, onBeforeUnmount, onUnmounted } from 'vue';
 
-const count = ref(0);
+  const count = ref(0);
 
-const increment = () => {
-  count.value++;
-};
+  const increment = () => {
+    count.value++;
+  };
 
-// Ejecución de cada hook del ciclo de vida
-onBeforeMount(() => {
-  console.log('onBeforeMount: El componente está a punto de montarse');
-});
+  // Ejecución de cada hook del ciclo de vida
+  onBeforeMount(() => {
+    console.log('onBeforeMount: El componente está a punto de montarse');
+  });
 
-onMounted(() => {
-  console.log('onMounted: El componente se ha montado en el DOM');
-});
+  onMounted(() => {
+    console.log('onMounted: El componente se ha montado en el DOM');
+  });
 
-onBeforeUpdate(() => {
-  console.log('onBeforeUpdate: El componente está a punto de actualizarse');
-});
+  onBeforeUpdate(() => {
+    console.log('onBeforeUpdate: El componente está a punto de actualizarse');
+  });
 
-onUpdated(() => {
-  console.log('onUpdated: El componente se ha actualizado');
-});
+  onUpdated(() => {
+    console.log('onUpdated: El componente se ha actualizado');
+  });
 
-onBeforeUnmount(() => {
-  console.log('onBeforeUnmount: El componente está a punto de desmontarse');
-});
+  onBeforeUnmount(() => {
+    console.log('onBeforeUnmount: El componente está a punto de desmontarse');
+  });
 
-onUnmounted(() => {
-  console.log('onUnmounted: El componente se ha desmontado');
-});
+  onUnmounted(() => {
+    console.log('onUnmounted: El componente se ha desmontado');
+  });
 </script>
 ----
 
@@ -626,7 +624,7 @@ En Vue 3, los componentes permiten encapsular funcionalidad, reutilizar código 
 
 Para crear un componente en Vue 3, primero definimos su estructura en un archivo `.vue`. Este ejemplo muestra un componente llamado `Counter.vue` que mantiene un contador simple y lo incrementa al hacer clic en un botón.
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <div>
@@ -636,13 +634,13 @@ Para crear un componente en Vue 3, primero definimos su estructura en un archivo
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+  import { ref } from 'vue';
 
-const count = ref(0);
+  const count = ref(0);
 
-const increment = () => {
-  count.value++;
-};
+  const increment = () => {
+    count.value++;
+  };
 </script>
 ----
 
@@ -654,7 +652,7 @@ En este componente:
 
 Una vez creado el componente `Counter.vue`, podemos importarlo y utilizarlo dentro de otros componentes o en una página principal.
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <div>
@@ -678,7 +676,7 @@ Los componentes en Vue aceptan datos a través de "props" (propiedades), que per
 
 Modificamos el componente `Counter.vue` para aceptar un valor inicial a través de una prop.
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <div>
@@ -707,7 +705,7 @@ watch(() => props.initialCount, (newVal) => {
 
 Ahora `Counter.vue` acepta una prop llamada `initialCount`, la cual permite inicializar el contador con un valor específico. Podemos usarlo así en el componente principal:
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <div>
@@ -717,7 +715,7 @@ Ahora `Counter.vue` acepta una prop llamada `initialCount`, la cual permite inic
 </template>
 
 <script lang="ts" setup>
-import Counter from './Counter.vue';
+  import Counter from './Counter.vue';
 </script>
 ----
 
@@ -729,7 +727,7 @@ Los componentes pueden comunicarse con su componente padre mediante eventos pers
 
 Agregamos la funcionalidad de emitir el valor del contador cada vez que se actualice en `Counter.vue`:
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <div>
@@ -739,25 +737,25 @@ Agregamos la funcionalidad de emitir el valor del contador cada vez que se actua
 </template>
 
 <script lang="ts" setup>
-import { ref, defineProps, defineEmits } from 'vue';
+  import { ref, defineProps, defineEmits } from 'vue';
 
-const props = defineProps<{ initialCount: number }>();
-const emit = defineEmits<{
-  (e: 'update:count', value: number): void;
-}>();
+  const props = defineProps<{ initialCount: number }>();
+  const emit = defineEmits<{
+    (e: 'update:count', value: number): void;
+  }>();
 
-const count = ref(props.initialCount);
+  const count = ref(props.initialCount);
 
-const increment = () => {
-  count.value++;
-  emit('update:count', count.value);
-};
+  const increment = () => {
+    count.value++;
+    emit('update:count', count.value);
+  };
 </script>
 ----
 
 Ahora el componente `Counter` emite un evento `update:count` cada vez que se incrementa el contador. En el componente padre, podemos escuchar este evento y realizar acciones adicionales:
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <div>
@@ -796,7 +794,7 @@ Las `props` permiten que el componente padre pase datos al componente hijo. Para
 
 Ejemplo de un componente hijo `DisplayMessage.vue` que recibe un mensaje como prop:
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <div>
@@ -813,7 +811,7 @@ const props = defineProps<{ message: string }>();
 
 Este componente espera una prop `message` que mostrará en su plantilla. Ahora, el componente padre puede pasar un valor a esta prop:
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <div>
@@ -837,7 +835,7 @@ Cuando el componente hijo necesita enviar información al padre, puede hacerlo e
 
 Por ejemplo, un componente hijo `Counter.vue` que emite el valor actualizado de un contador cada vez que se incrementa:
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <div>
@@ -867,7 +865,7 @@ En este componente:
 
 En el componente padre, escuchamos el evento `update:count` y actualizamos el estado con el valor emitido:
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <div>
@@ -899,7 +897,7 @@ Vue 3 permite utilizar `v-model` en componentes personalizados, lo que simplific
 
 Modificamos el componente `Counter.vue` para que utilice `v-model` en lugar de `props` y `$emit`:
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <div>
@@ -924,7 +922,7 @@ const increment = () => {
 
 En el componente padre, se puede utilizar `v-model` para enlazar el valor del contador directamente:
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <div>
@@ -959,7 +957,7 @@ Los scoped slots son slots que reciben datos del componente hijo y permiten que 
 
 Por ejemplo, en un componente `UserList.vue` que muestra una lista de usuarios, podemos definir un scoped slot para permitir que el componente padre personalice la visualización de cada usuario.
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <div>
@@ -991,7 +989,7 @@ En este componente:
 
 En el componente padre, se puede personalizar cómo se presenta cada usuario usando el scoped slot:
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <div>
@@ -1019,7 +1017,7 @@ Las render functions permiten definir la estructura del componente directamente 
 
 A continuación, se muestra un ejemplo de un componente `DynamicButton.vue` que renderiza un botón con texto y atributos personalizados.
 
-[source, typescript]
+[source, html]
 ----
 <script lang="ts" setup>
 import { defineComponent, h } from 'vue';
@@ -1057,7 +1055,7 @@ En este componente:
 
 En el componente padre, se puede usar `DynamicButton` y pasarle propiedades:
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <div>
@@ -1085,7 +1083,7 @@ Un composable es una función que encapsula lógica reutilizable. Por convenció
 
 A continuación, se muestra un ejemplo de un composable `useCounter.js` que administra la lógica de un contador.
 
-[source, typescript]
+[source, html]
 ----
 import { ref } from 'vue';
 
@@ -1115,7 +1113,7 @@ Una vez que hemos creado el composable, podemos usarlo en cualquier componente p
 
 En el siguiente ejemplo, el componente `CounterComponent.vue` utiliza `useCounter` para mostrar y actualizar un contador.
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <div>
@@ -1136,56 +1134,236 @@ En este componente:
 - `useCounter` se importa y se llama en la sección `setup`.
 - `count`, `increment`, y `decrement` están disponibles en el template, permitiendo que el contador se muestre y se actualice según la lógica definida en el composable.
 
-==== Composición de Componentes
+==== Composición de varios Componentes en Vue 3
 
-La Composition API también permite componer múltiples composables dentro de un mismo componente. Esto facilita la gestión de múltiples piezas de lógica en componentes complejos, manteniendo el código modular y reutilizable.
+La composición de varios componentes en Vue 3 permite construir interfaces complejas a partir de componentes más pequeños y reutilizables. Utilizando la Composition API con la sintaxis `<script lang="ts" setup>`, se facilita la gestión de la lógica compartida y la comunicación entre componentes.
 
-Supongamos que creamos otro composable `useToggle.js` para manejar la visibilidad de una sección:
+=== Comunicación entre Componentes Padre e Hijo
 
-[source, typescript]
+La comunicación entre componentes padre e hijo es fundamental para la composición efectiva. El componente padre puede pasar datos al hijo mediante **props** y el hijo puede emitir eventos al padre.
+
+.Componente Hijo
+[source, html]
 ----
-import { ref } from 'vue';
-
-export function useToggle(initialState = false) {
-  const isVisible = ref(initialState);
-
-  const toggle = () => {
-    isVisible.value = !isVisible.value;
-  };
-
-  return { isVisible, toggle };
-}
-----
-
-Podemos utilizar ambos composables (`useCounter` y `useToggle`) en un solo componente `EnhancedCounter.vue`:
-
-[source, typescript]
-----
+<!-- Componente Hijo -->
 <template>
   <div>
-    <h2>Contador Mejorado</h2>
-    <button @click="toggle">Mostrar/Ocultar Contador</button>
-    <div v-if="isVisible">
-      <h3>Valor del contador: {{ count }}</h3>
-      <button @click="increment">Incrementar</button>
-      <button @click="decrement">Decrementar</button>
-    </div>
+    <p>Mensaje del Padre: {{ message }}</p>
+    <button @click="sendUpdate">Enviar Actualización</button>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { useCounter } from './useCounter';
-import { useToggle } from './useToggle';
+import { defineProps, defineEmits } from 'vue'
 
-const { count, increment, decrement } = useCounter(5);
-const { isVisible, toggle } = useToggle(true);
+const props = defineProps<{ message: string }>()
+const emit = defineEmits<{ (e: 'update', newMessage: string): void }>()
+
+const sendUpdate = () => {
+  emit('update', 'Nuevo Mensaje desde el Hijo')
+}
 </script>
 ----
 
-.En este ejemplo:
-- El componente utiliza `useCounter` para manejar el contador y `useToggle` para manejar la visibilidad de la sección.
-- `toggle` controla la visibilidad de la sección del contador, y `isVisible` determina si se muestra o no.
-- Esta composición permite que cada función mantenga su lógica de forma separada, facilitando su mantenimiento y reutilización.
+.Componente Padre
+[source, html]
+----
+
+<!-- Componente Padre -->
+<template>
+  <div>
+    <h1>Componente Padre</h1>
+    <ChildComponent :message="parentMessage" @update="handleUpdate" />
+    <p>Mensaje Actualizado: {{ parentMessage }}</p>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+import ChildComponent from './ChildComponent.vue'
+
+const parentMessage = ref('Hola desde el Padre')
+
+const handleUpdate = (newMessage: string) => {
+  parentMessage.value = newMessage
+}
+</script>
+----
+
+=== Uso de Slots para Mayor Flexibilidad
+
+Los **slots** en Vue 3 permiten a los componentes padres inyectar contenido en los componentes hijos, proporcionando una mayor flexibilidad y reutilización. Los slots pueden ser utilizados para definir áreas de contenido que pueden ser personalizadas por el componente padre.
+
+==== Slots Básicos
+
+Un slot básico permite al componente padre insertar contenido en una ubicación específica del componente hijo.
+
+[source, html]
+----
+<!-- Componente Card -->
+<template>
+  <div class="card">
+    <slot>Contenido por Defecto</slot>
+  </div>
+</template>
+
+<script lang="ts" setup>
+</script>
+----
+
+
+[source, html]
+----
+<!-- Componente Padre -->
+<template>
+  <Card>
+    <p>Este es el contenido personalizado del card.</p>
+  </Card>
+</template>
+
+<script lang="ts" setup>
+import Card from './Card.vue'
+</script>
+----
+
+==== Slots Nombrados
+
+Los slots nombrados permiten definir múltiples áreas de contenido personalizables dentro de un componente hijo.
+
+[source, html]
+----
+<!-- Componente Card -->
+<template>
+  <div class="card">
+    <header>
+      <slot name="header">Encabezado por Defecto</slot>
+    </header>
+    <main>
+      <slot>Contenido por Defecto</slot>
+    </main>
+    <footer>
+      <slot name="footer">Pie de Página por Defecto</slot>
+    </footer>
+  </div>
+</template>
+
+<script lang="ts" setup>
+</script>
+----
+
+[source, html]
+----
+<!-- Componente Padre -->
+<template>
+  <Card>
+    <template #header>
+      <h2>Título Personalizado</h2>
+    </template>
+    <p>Este es el contenido personalizado del card.</p>
+    <template #footer>
+      <button>Acción</button>
+    </template>
+  </Card>
+</template>
+
+<script lang="ts" setup>
+import Card from './Card.vue'
+</script>
+----
+
+==== Slots Dinámicos
+
+Los slots dinámicos permiten pasar contenido dinámico a los componentes hijos, lo que es útil para crear componentes altamente reutilizables.
+
+.Componente List
+[source, html]
+----
+<!-- Componente List -->
+<template>
+  <ul>
+    <li v-for="item in items" :key="item.id">
+      <slot :item="item">{{ item.name }}</slot>
+    </li>
+  </ul>
+</template>
+
+<script lang="ts" setup>
+import { defineProps } from 'vue'
+
+const props = defineProps<{ items: Array<{ id: number, name: string }> }>()
+</script>
+----
+
+
+.Componente Padre
+[source, html]
+----
+<!-- Componente Padre -->
+<template>
+  <List :items="items">
+    <template #default="{ item }">
+      <strong>{{ item.name }}</strong>
+    </template>
+  </List>
+</template>
+
+<script lang="ts" setup>
+import List from './List.vue'
+
+const items = [
+  { id: 1, name: 'Item 1' },
+  { id: 2, name: 'Item 2' },
+]
+</script>
+----
+
+=== Composición de Componentes con Provide/Inject
+
+La directiva **provide/inject** permite compartir datos entre componentes sin tener que pasar props a través de múltiples niveles de la jerarquía de componentes.
+
+[source, html]
+----
+<!-- Componente Ancestro -->
+<template>
+  <div>
+    <h1>Componente Ancestro</h1>
+    <DescendantComponent />
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { provide, ref } from 'vue'
+import DescendantComponent from './DescendantComponent.vue'
+
+const sharedState = ref('Estado Compartido')
+provide('sharedState', sharedState)
+</script>
+----
+
+[source, html]
+----
+<!-- Componente Descendiente -->
+<template>
+  <div>
+    <h2>Componente Descendiente</h2>
+    <p>Estado Compartido: {{ sharedState }}</p>
+    <button @click="updateState">Actualizar Estado</button>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { inject, ref } from 'vue'
+
+const sharedState = inject<Ref<string>>('sharedState')
+if (!sharedState) {
+  throw new Error('sharedState no está disponible')
+}
+
+const updateState = () => {
+  sharedState.value = 'Estado Actualizado desde el Descendiente'
+}
+</script>
+----
 
 ==== Beneficios de la Composición y la Reutilización de Lógica
 
@@ -1204,7 +1382,7 @@ El método `setup()` es el corazón de la API de Composición y se ejecuta antes
 
 Ejemplo de un componente básico utilizando `setup()`:
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <div>
@@ -1234,7 +1412,7 @@ function increment() {
 
 Por ejemplo, una variable reactiva de texto puede definirse así:
 
-[source, typescript]
+[source, html]
 ----
 <script lang="ts" setup>
 import { ref } from 'vue';
@@ -1251,7 +1429,7 @@ Mientras `ref()` es ideal para valores simples, `reactive()` permite crear objet
 
 Ejemplo de un objeto reactivo utilizando `reactive()`:
 
-[source, typescript]
+[source, html]
 ----
 <script lang="ts" setup>
 import { reactive } from 'vue';
@@ -1280,7 +1458,7 @@ function incrementAge() {
 
 A continuación, un ejemplo que combina `ref()` y `reactive()` en un mismo componente para administrar diferentes tipos de datos.
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <div>
@@ -1348,7 +1526,7 @@ npm install pinia
 
 Una vez instalado, se configura en la instancia principal de Vue en `main.ts`:
 
-[source, typescript]
+[source, html]
 ----
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
@@ -1365,7 +1543,7 @@ app.mount('#app');
 
 Las stores en Pinia se definen mediante funciones que retornan el estado y métodos para modificarlo. A continuación, se muestra un ejemplo de una store de contador (`useCounterStore`) utilizando `defineStore`.
 
-[source, typescript]
+[source, html]
 ----
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
@@ -1393,7 +1571,7 @@ export const useCounterStore = defineStore('counter', () => {
 
 Para acceder a una store en un componente, primero se importa y se instancia. A continuación, se muestra un ejemplo de cómo usar `useCounterStore` en un componente `CounterComponent.vue`.
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <div>
@@ -1416,67 +1594,119 @@ const counter = useCounterStore();
 
 ==== Estado Derivado y Getters en Pinia
 
-Pinia permite definir **getters** para obtener datos derivados del estado. A continuación, se agrega un getter a la store `useCounterStore` para verificar si el contador es par o impar.
+Pinia es una biblioteca de gestión de estado para Vue que proporciona una API simple y poderosa para manejar el estado global de la aplicación. Los **getters** en Pinia se utilizan para derivar estado basado en el estado almacenado en el store, similar a las propiedades computadas en los componentes Vue.
+
+=== Definiendo un Store con Getters
+
+Para definir un store con getters en Pinia, primero se crea el store y luego se añaden los getters que derivan el estado.
 
 [source, typescript]
 ----
-import { defineStore } from 'pinia';
-import { ref, computed } from 'vue';
+import { defineStore } from 'pinia'
 
-export const useCounterStore = defineStore('counter', () => {
-  const count = ref(0);
-
-  const increment = () => count.value++;
-  const decrement = () => count.value--;
-
-  const isEven = computed(() => count.value % 2 === 0);
-
-  return { count, increment, decrement, isEven };
-});
+export const useUserStore = defineStore('user', {
+  state: () => ({
+    firstName: 'John',
+    lastName: 'Doe',
+    age: 30,
+  }),
+  getters: {
+    fullName: (state) => `${state.firstName} ${state.lastName}`,
+    isAdult: (state) => state.age >= 18,
+  },
+})
 ----
 
-.En este ejemplo:
-- `isEven` es un getter definido usando `computed()`, y su valor cambia automáticamente cuando cambia `count`.
-- Los getters de Pinia funcionan de manera similar a las propiedades computadas en Vue, proporcionando un valor reactivo.
+=== Usando Getters en Componentes
 
-==== Acciones Asíncronas en Pinia
+Una vez definidos los getters en el store, se pueden utilizar en los componentes Vue para acceder al estado derivado.
 
-Pinia también permite definir **acciones asíncronas** dentro de las stores, facilitando el manejo de lógica asíncrona (como llamadas a API). A continuación, se muestra cómo implementar una acción `fetchData` en una store.
+[source, html]
+----
+<template>
+  <div>
+    <p>Nombre Completo: {{ fullName }}</p>
+    <p>Es Adulto: {{ isAdult ? 'Sí' : 'No' }}</p>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { useUserStore } from './stores/user'
+
+const userStore = useUserStore()
+
+const fullName = userStore.fullName
+const isAdult = userStore.isAdult
+</script>
+----
+
+=== Getters con Parámetros
+
+Los getters en Pinia también pueden aceptar parámetros, lo que permite crear funciones más dinámicas y reutilizables.
 
 [source, typescript]
 ----
-import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { defineStore } from 'pinia'
 
-export const useDataStore = defineStore('data', () => {
-  const data = ref(null);
-  const loading = ref(false);
-
-  const fetchData = async () => {
-    loading.value = true;
-    try {
-      const response = await fetch('https://jsonplaceholder.typicode.com/todos/1');
-      data.value = await response.json();
-    } finally {
-      loading.value = false;
-    }
-  };
-
-  return { data, loading, fetchData };
-});
+export const useProductStore = defineStore('product', {
+  state: () => ({
+    products: [
+      { id: 1, name: 'Product A', price: 100 },
+      { id: 2, name: 'Product B', price: 200 },
+    ],
+  }),
+  getters: {
+    getProductById: (state) => {
+      return (id: number) => state.products.find(product => product.id === id)
+    },
+  },
+})
 ----
 
-.En este ejemplo:
-- `fetchData` es una acción asíncrona que obtiene datos desde una API.
-- `loading` indica el estado de carga, permitiendo que los componentes que usen esta store muestren la información de carga adecuadamente.
+=== Usando Getters con Parámetros en Componentes
 
-==== Resumen
+Para usar getters con parámetros en los componentes, simplemente se llama al getter como una función con los argumentos necesarios.
 
-Pinia es una alternativa moderna y ligera a Vuex para gestionar el estado en Vue 3, proporcionando:
-- Una sintaxis más clara y sencilla, que facilita la adopción y el mantenimiento.
-- Soporte completo para la Composition API, aprovechando `ref()`, `reactive()`, y `computed()` para hacer que el estado sea reactivo.
-- Mejora en el tipado, especialmente en proyectos con TypeScript, para una experiencia de desarrollo más segura.
+[source, html]
+----
+<template>
+  <div>
+    <p>Producto: {{ product.name }} - Precio: {{ product.price }}</p>
+  </div>
+</template>
 
+<script lang="ts" setup>
+import { useProductStore } from './stores/product'
+
+const productStore = useProductStore()
+const product = productStore.getProductById(1)
+</script>
+----
+
+=== Computed Properties vs Getters
+
+Aunque los getters en Pinia son similares a las propiedades computadas en Vue, los getters están diseñados específicamente para trabajar con el estado global del store y pueden ser más eficientes en ciertos casos.
+
+[source, typescript]
+----
+import { defineStore } from 'pinia'
+
+export const useCartStore = defineStore('cart', {
+  state: () => ({
+    items: [
+      { id: 1, name: 'Item A', quantity: 2, price: 50 },
+      { id: 2, name: 'Item B', quantity: 1, price: 100 },
+    ],
+  }),
+  getters: {
+    totalPrice: (state) => {
+      return state.items.reduce((total, item) => total + item.quantity * item.price, 0)
+    },
+  },
+})
+----
+
+En resumen, los getters en Pinia son una herramienta poderosa para derivar estado y crear propiedades computadas basadas en el estado del store, proporcionando una forma eficiente y reactiva de manejar el estado global en aplicaciones Vue.
 
 === Organización del estado global con Pinia
 
@@ -1535,7 +1765,7 @@ Una vez que se definen las stores, podemos importarlas y usarlas en cualquier co
 
 A continuación, se muestra cómo utilizar `useAuthStore` y `useProductStore` en un componente `Dashboard.vue`.
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <div>
@@ -1657,7 +1887,7 @@ Para utilizar un store dentro de un componente, simplemente se importa y se inst
 
 A continuación, se muestra cómo utilizar el store `useTaskStore` en un componente `TaskList.vue`.
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <div>
@@ -1701,7 +1931,7 @@ Pinia permite utilizar múltiples stores en un mismo componente, facilitando la 
 
 Supongamos que además de `useTaskStore`, queremos utilizar un store de autenticación (`useAuthStore`) para gestionar el estado del usuario.
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <div>
@@ -1845,7 +2075,7 @@ En este paso:
 
 Para navegar entre diferentes vistas, se puede utilizar el componente `<router-link>`, o programáticamente mediante `$router`.
 
-[source, vue]
+[source, html]
 ----
 <template>
   <div>
@@ -1866,7 +2096,7 @@ Para navegar entre diferentes vistas, se puede utilizar el componente `<router-l
 
 Vue Router permite definir rutas dinámicas usando parámetros (`:param`) para manejar URLs dinámicas.
 
-[source, typescript]
+[source, html]
 ----
 const routes = [
   { path: '/user/:id', name: 'UserProfile', component: UserProfile },
@@ -1875,7 +2105,7 @@ const routes = [
 
 Dentro del componente `UserProfile`, se puede acceder al parámetro `id` usando `$route.params`:
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <div>
@@ -1912,7 +2142,7 @@ const routes = [
 
 También se puede navegar entre rutas de manera programática mediante `$router.push` o `$router.replace`.
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <button @click="goToAbout">Ir a Acerca de</button>
@@ -1937,7 +2167,7 @@ function goToAbout() {
 
 Para capturar rutas no definidas, se puede agregar una ruta de "catch-all" al final de la lista de rutas:
 
-[source, typescript]
+[source, html]
 ----
 const routes = [
   // otras rutas
@@ -2041,7 +2271,7 @@ Los componentes individuales también pueden implementar guardias de navegación
 
 **Ejemplo: Validación dentro de un componente `ProfileView.vue`:**
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <div>
@@ -2388,7 +2618,7 @@ export default defineComponent({
 
 Si un valor no está disponible en `provide`, `inject` puede aceptar un segundo argumento para establecer un valor predeterminado.
 
-[source, typescript]
+[source, html]
 ----
 const userName = inject('userName', 'Usuario Anónimo');
 ----
@@ -2429,7 +2659,7 @@ export default defineComponent({
 
 En el componente hijo:
 
-[source, typescript]
+[source, html]
 ----
 import { defineComponent, inject } from 'vue';
 
@@ -2469,7 +2699,7 @@ Vue 3 ofrece `watch` y `watchEffect` para observar y reaccionar a los cambios en
 
 **Ejemplo básico de `watch`:**
 
-[source, typescript]
+[source, html]
 ----
 import { ref, watch } from 'vue';
 
@@ -2504,7 +2734,7 @@ Cuando se observan propiedades dentro de un objeto reactivo, se debe proporciona
 
 **Ejemplo: Observación de propiedades anidadas:**
 
-[source, typescript]
+[source, html]
 ----
 import { reactive, watch } from 'vue';
 
@@ -2544,7 +2774,7 @@ export default {
 
 **Ejemplo básico de `watchEffect`:**
 
-[source, typescript]
+[source, html]
 ----
 import { ref, watchEffect } from 'vue';
 
@@ -2585,7 +2815,7 @@ export default {
 
 Un caso común es usar ambos cuando se requiere observar propiedades específicas y calcular otros valores derivados de manera reactiva.
 
-[source, typescript]
+[source, html]
 ----
 import { ref, reactive, watch, watchEffect } from 'vue';
 
@@ -2639,7 +2869,7 @@ export default {
 === Creación de composables personalizados
 * **Definición de composables:** Los composables son funciones que encapsulan lógica reutilizable. Utilizan la API de Composición para gestionar el estado y comportamientos.
 
-[source, typescript]
+[source, html]
 ----
   import { ref } from 'vue';
 
@@ -2652,7 +2882,7 @@ export default {
 ----
 * **Uso de un composable en un componente:**
 
-[source, typescript]
+[source, html]
 ----
   import { useCounter } from '@/composables/useCounter';
 
@@ -2672,7 +2902,7 @@ Para crear un composable, simplemente define una función que encapsule lógica 
 
 **Ejemplo básico de un composable para manejar un contador:**
 
-[source, typescript]
+[source, html]
 ----
 import { ref } from 'vue';
 
@@ -2696,7 +2926,7 @@ Para utilizar el composable, importa la función y llámala dentro del `setup()`
 
 **Ejemplo:**
 
-[source, typescript]
+[source, html]
 ----
 import { defineComponent } from 'vue';
 import { useCounter } from './composables/useCounter';
@@ -2727,7 +2957,7 @@ Un composable puede contener datos reactivos complejos y lógica de observación
 
 **Ejemplo de un composable de formulario con validación:**
 
-[source, typescript]
+[source, html]
 ----
 import { reactive, ref, watch } from 'vue';
 
@@ -2771,7 +3001,7 @@ Los composables pueden aceptar parámetros para personalizar su funcionalidad, p
 
 **Ejemplo: Composable de contador con paso de incremento personalizado:**
 
-[source, typescript]
+[source, html]
 ----
 import { ref } from 'vue';
 
@@ -2789,7 +3019,7 @@ Este composable permite definir un valor de incremento o decremento personalizad
 
 **Uso en un componente:**
 
-[source, typescript]
+[source, html]
 ----
 import { defineComponent } from 'vue';
 import { useCounter } from './composables/useCounter';
@@ -2820,7 +3050,7 @@ Los composables también pueden usar `provide` e `inject` para compartir lógica
 
 **Ejemplo de un composable para un tema global:**
 
-[source, typescript]
+[source, html]
 ----
 import { ref, provide, inject } from 'vue';
 
@@ -2874,7 +3104,7 @@ npm install axios
 
 **Ejemplo de una solicitud GET usando `axios`:**
 
-[source, typescript]
+[source, html]
 ----
 import { defineComponent, ref } from 'vue';
 import axios from 'axios';
@@ -2920,7 +3150,7 @@ export default defineComponent({
 
 **Ejemplo de una solicitud POST usando `axios`:**
 
-[source, typescript]
+[source, html]
 ----
 import { defineComponent, ref } from 'vue';
 import axios from 'axios';
@@ -2964,7 +3194,7 @@ La API `fetch` es una alternativa nativa a `axios` que permite realizar solicitu
 
 **Ejemplo de una solicitud GET usando `fetch`:**
 
-[source, typescript]
+[source, html]
 ----
 import { defineComponent, ref } from 'vue';
 
@@ -3012,7 +3242,7 @@ Al igual que con `axios`, `fetch` puede usarse para enviar datos a un servidor.
 
 **Ejemplo de una solicitud POST usando `fetch`:**
 
-[source, typescript]
+[source, html]
 ----
 import { defineComponent, ref } from 'vue';
 
@@ -3078,7 +3308,7 @@ Las promesas son un mecanismo para manejar operaciones asíncronas. La API `fetc
 
 **Ejemplo básico de manejo de promesas con `fetch`:**
 
-[source, typescript]
+[source, html]
 ----
 import { defineComponent, ref } from 'vue';
 
@@ -3126,7 +3356,7 @@ export default defineComponent({
 
 **Ejemplo de manejo de promesas usando `axios`:**
 
-[source, typescript]
+[source, html]
 ----
 import { defineComponent, ref } from 'vue';
 import axios from 'axios';
@@ -3171,7 +3401,7 @@ En situaciones donde necesitas hacer múltiples solicitudes asíncronas, puedes 
 
 **Ejemplo de múltiples solicitudes con `Promise.all`:**
 
-[source, typescript]
+[source, html]
 ----
 import { defineComponent, ref } from 'vue';
 import axios from 'axios';
@@ -3226,7 +3456,7 @@ En algunos casos, puede que necesites actualizar datos reactivos basados en even
 
 **Ejemplo de actualización de datos reactivos:**
 
-[source, typescript]
+[source, html]
 ----
 import { defineComponent, ref, watch } from 'vue';
 import axios from 'axios';
@@ -3287,7 +3517,7 @@ La API `fetch` permite realizar solicitudes a un servidor y obtener datos de for
 
 **Ejemplo de carga de datos usando `fetch`:**
 
-[source, typescript]
+[source, html]
 ----
 import { defineComponent, ref, onMounted } from 'vue';
 
@@ -3335,7 +3565,7 @@ export default defineComponent({
 
 **Ejemplo de carga de datos usando `axios`:**
 
-[source, typescript]
+[source, html]
 ----
 import { defineComponent, ref, onMounted } from 'vue';
 import axios from 'axios';
@@ -3381,7 +3611,7 @@ Los datos cargados se pueden mostrar en el DOM utilizando la interpolación de V
 
 **Ejemplo de visualización de datos:**
 
-[source, typescript]
+[source, html]
 ----
 import { defineComponent, ref, onMounted } from 'vue';
 import axios from 'axios';
@@ -3427,7 +3657,7 @@ Es útil manejar estados de carga para mejorar la experiencia del usuario. Puede
 
 **Ejemplo de manejo de estados de carga:**
 
-[source, typescript]
+[source, html]
 ----
 import { defineComponent, ref, onMounted } from 'vue';
 import axios from 'axios';
@@ -3482,7 +3712,7 @@ export default defineComponent({
 === Tratamiento de errores y validaciones de API
 * **Manejo de errores:** Es importante capturar errores en las solicitudes de API y proporcionar un manejo adecuado.
 
-[source, typescript]
+[source, html]
 ----
   try {
       const response = await axios.get('https://api.example.com/data');
@@ -3492,7 +3722,7 @@ export default defineComponent({
 ----
 * **Validaciones de API:** Validar la respuesta de la API antes de usar los datos, asegurando que contenga las propiedades esperadas.
 
-[source, typescript]
+[source, html]
 ----
   if (response && response.data) {
       // Procesar los datos
@@ -3509,7 +3739,7 @@ export default defineComponent({
 ----
 * **Conexión a un servidor WebSocket:**
 
-[source, typescript]
+[source, html]
 ----
   import { io } from 'socket.io-client';
 
@@ -3525,7 +3755,7 @@ export default defineComponent({
 ----
 * **Uso de WebSockets en componentes:** Integrar WebSockets en la lógica del componente para recibir y enviar mensajes.
 
-[source, typescript]
+[source, html]
 ----
   setup() {
       const messages = ref([]);
@@ -3561,7 +3791,7 @@ Luego, puedes crear un archivo de configuración para Vitest en la raíz de tu p
 
 **Ejemplo de archivo de configuración `vitest.config.ts`:**
 
-[source, typescript]
+[source, html]
 ----
 import { defineConfig } from 'vitest/config';
 
@@ -3580,7 +3810,7 @@ Ahora que tienes el entorno de pruebas configurado, puedes escribir pruebas para
 
 **Componente de ejemplo `HelloWorld.vue`:**
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <div>
@@ -3607,7 +3837,7 @@ export default defineComponent({
 
 **Prueba unitaria para `HelloWorld.vue`:**
 
-[source, typescript]
+[source, html]
 ----
 import { mount } from '@vue/test-utils';
 import HelloWorld from '@/components/HelloWorld.vue';
@@ -3647,7 +3877,7 @@ También puedes probar componentes que aceptan propiedades. A continuación se p
 
 **Componente de ejemplo `Greeting.vue`:**
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <div>
@@ -3671,7 +3901,7 @@ export default defineComponent({
 
 **Prueba unitaria para `Greeting.vue`:**
 
-[source, typescript]
+[source, html]
 ----
 import { mount } from '@vue/test-utils';
 import Greeting from '@/components/Greeting.vue';
@@ -3695,7 +3925,7 @@ También puedes probar métodos y estados reactivos en tus componentes. Aquí ti
 
 **Componente de ejemplo `Counter.vue`:**
 
-[source, typescript]
+[source, html]
 ----
 <template>
   <div>
@@ -3722,7 +3952,7 @@ export default defineComponent({
 
 **Prueba unitaria para `Counter.vue`:**
 
-[source, typescript]
+[source, html]
 ----
 import { mount } from '@vue/test-utils';
 import Counter from '@/components/Counter.vue';
@@ -3756,7 +3986,7 @@ describe('Counter.vue', () => {
 === Simulación de eventos y cambios de estado
 * **Simulación de eventos:** Utiliza el método `trigger` para simular eventos como clics o entradas de texto.
 
-[source, typescript]
+[source, html]
 ----
   it('emits an event when button is clicked', async () => {
       const wrapper = mount(MyComponent);
@@ -3766,7 +3996,7 @@ describe('Counter.vue', () => {
 ----
 * **Cambios de estado:** Asegúrate de que los métodos de cambio de estado se comporten como se espera.
 
-[source, typescript]
+[source, html]
 ----
   it('updates the data when input changes', async () => {
       const wrapper = mount(MyComponent);
@@ -3789,7 +4019,7 @@ describe('Counter.vue', () => {
 === Pruebas de Pinia
 * **Configuración de Pinia en pruebas:** Para probar componentes que utilizan Pinia, primero debes crear una store de prueba.
 
-[source, typescript]
+[source, html]
 ----
   import { createPinia } from 'pinia';
   import { mount } from '@vue/test-utils';
@@ -3804,7 +4034,7 @@ describe('Counter.vue', () => {
 ----
 * **Ejemplo de prueba de una acción de Pinia:** Verifica que una acción en tu store cambie el estado correctamente.
 
-[source, typescript]
+[source, html]
 ----
   import { defineStore } from 'pinia';
 
@@ -3827,7 +4057,7 @@ describe('Counter.vue', () => {
 === Pruebas de Vue Router
 * **Configuración de Vue Router en pruebas:** Al probar componentes que dependen de Vue Router, debes configurar un router de prueba.
 
-[source, typescript]
+[source, html]
 ----
   import { createRouter, createWebHistory } from 'vue-router';
 
@@ -3847,7 +4077,7 @@ describe('Counter.vue', () => {
 ----
 * **Ejemplo de prueba de navegación:** Verifica que la navegación entre rutas funcione correctamente.
 
-[source, typescript]
+[source, html]
 ----
   test('navigates to about page', async () => {
       const wrapper = mount(MyComponent, {
@@ -3863,7 +4093,7 @@ describe('Counter.vue', () => {
 === Combinando Pinia y Vue Router
 * **Prueba de un componente que utiliza tanto Pinia como Vue Router:** Asegúrate de que ambos funcionan juntos en una prueba.
 
-[source, typescript]
+[source, html]
 ----
   import { createPinia } from 'pinia';
 
@@ -3903,7 +4133,7 @@ describe('Counter.vue', () => {
 * **Definición de pruebas de integración:** Aseguran que diferentes partes de la aplicación funcionen correctamente juntas.
 * **Ejemplo de prueba de integración:** Monta varios componentes y prueba la interacción entre ellos.
 
-[source, typescript]
+[source, html]
 ----
   test('should interact with child component', async () => {
       const wrapper = mount(ParentComponent);
@@ -3913,7 +4143,7 @@ describe('Counter.vue', () => {
 ----
 * **Pruebas de flujo completo:** Asegúrate de que la funcionalidad completa se prueba, desde la entrada del usuario hasta la visualización de datos.
 
-[source, typescript]
+[source, html]
 ----
   test('full flow test', async () => {
       const wrapper = mount(MyForm);
@@ -3930,7 +4160,7 @@ describe('Counter.vue', () => {
 * **Implementación de code splitting en Vue:** Usa funciones de importación dinámica para dividir el código.
 
 
-[source, typescript]
+[source, html]
 ----
   const AsyncComponent = () => import('./components/AsyncComponent.vue');
 
@@ -3965,7 +4195,7 @@ describe('Counter.vue', () => {
 === Lazy loading en rutas y componentes
 * **Lazy loading en rutas:** Implementar lazy loaging en Vue Router para cargar solo las rutas necesarias.
 
-[source, typescript]
+[source, html]
 ----
   const routes = [
       {
@@ -3976,7 +4206,7 @@ describe('Counter.vue', () => {
 ----
 * **Lazy loading en componentes:** Similar al code splitting, permite cargar componentes solo cuando son necesarios.
 
-[source, typescript]
+[source, html]
 ----
   const LazyComponent = () => import('./components/LazyComponent.vue');
 ----
@@ -4022,7 +4252,7 @@ describe('Counter.vue', () => {
 * **Despliegue en GitHub Pages:**
   - Configura el `vue.config.js` para que la aplicación se publique correctamente.
 
-[source, typescript]
+[source, html]
 ----
     module.exports = {
         publicPath: process.env.NODE_ENV === 'production' ? '/nombre-del-repositorio/' : '/'
@@ -4040,10 +4270,31 @@ describe('Counter.vue', () => {
 * **Uso de CDN:** Considera usar un CDN para mejorar la entrega de contenido y reducir la latencia.
 
 === Monitorización y mantenimiento post-despliegue
-* **Herramientas de monitorización:** Implementa herramientas como Google Analytics o Sentry para monitorear el rendimiento y los errores de la aplicación en producción.
+* **Herramientas de monitorización:** Implementa herramientas como Google Analytics o Sentry para monitorizar el rendimiento y los errores de la aplicación en producción.
 * **Actualizaciones periódicas:** Realiza actualizaciones de seguridad y mantenimiento regularmente para asegurar que la aplicación siga funcionando correctamente.
 * **Feedback del usuario:** Recoge comentarios de los usuarios para identificar áreas de mejora y nuevas características.
 
 
-== Módulo 11: Proyecto Final - Aplicación Completa con Vue 3
+== Módulo 11: Librerías y Recursos Adicionales
 
+.Librerías de Terceros Más Usadas con Vue.js
+1. Vue Router - Manejo de rutas. https://router.vuejs.org[link]
+2. Vuex - Manejo del estado global. https://vuex.vuejs.org[link]
+3. Vuetify - Componentes UI basados en Material Design. https://vuetifyjs.com[link]
+4. Element UI - Marco de componentes UI para aplicaciones de escritorio. https://element.eleme.io[link]
+5. Axios - Solicitudes HTTP. https://axios-http.com[link]
+6. Vue-i18n - Internacionalización. https://kazupon.github.io/vue-i18n[link]
+7. Vuex ORM - Manejo de datos relacionales en Vuex. https://vuex-orm.github.io/vuex-orm[link]
+8. VeeValidate - Validación de formularios. https://vee-validate.logaretm.com[link]
+9. Vue Apollo - Integración de GraphQL. https://vue-apollo.netlify.app[link]
+10. Nuxt.js - Framework para aplicaciones universales. https://nuxtjs.org[link]
+11. BootstrapVue - Integración de Bootstrap con Vue. https://bootstrap-vue.org[link]
+12. Vue Toastification - Notificaciones toast. https://github.com/Maronato/vue-toastification[link]
+13. Chart.js (con vue-chartjs) - Gráficas y visualizaciones. https://vue-chartjs.org[link]
+14. Vue Draggable - Para implementar listas arrastrables. https://github.com/SortableJS/Vue.Draggable[link]
+15. Vue Lazyload - Carga diferida de imágenes. https://github.com/hilongjw/vue-lazyload[link]
+16. Vue Multiselect - Componente de selección múltiple. https://vue-multiselect.js.org[link]
+17. Vue Sweetalert2 - Dialogs y alertas personalizables. https://sweetalert2.github.io[link]
+18. Quasar Framework - Framework para aplicaciones en múltiples plataformas. https://quasar.dev[link]
+19. Vue Formulate - Manejo avanzado de formularios. https://vueformulate.com[link]
+20. Vue Snotify - Notificaciones de manera sencilla. https://github.com/artemsky/vue-snotify[link]

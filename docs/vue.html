@@ -519,7 +519,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#_creando_un_composable">Creando un Composable</a></li>
 <li><a href="#_usando_un_composable_en_un_componente">Usando un Composable en un Componente</a></li>
-<li><a href="#_composición_de_componentes">Composición de Componentes</a></li>
+<li><a href="#_composición_de_varios_componentes_en_vue_3">Composición de varios Componentes en Vue 3</a></li>
+</ul>
+</li>
+<li><a href="#_comunicación_entre_componentes_padre_e_hijo">Comunicación entre Componentes Padre e Hijo</a></li>
+<li><a href="#_uso_de_slots_para_mayor_flexibilidad">Uso de Slots para Mayor Flexibilidad</a>
+<ul class="sectlevel3">
+<li><a href="#_slots_básicos">Slots Básicos</a></li>
+<li><a href="#_slots_nombrados">Slots Nombrados</a></li>
+<li><a href="#_slots_dinámicos">Slots Dinámicos</a></li>
+</ul>
+</li>
+<li><a href="#_composición_de_componentes_con_provideinject">Composición de Componentes con Provide/Inject</a>
+<ul class="sectlevel3">
 <li><a href="#_beneficios_de_la_composición_y_la_reutilización_de_lógica">Beneficios de la Composición y la Reutilización de Lógica</a></li>
 </ul>
 </li>
@@ -544,17 +556,20 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_creación_de_una_store_básica_en_pinia">Creación de una store básica en Pinia</a></li>
 <li><a href="#_usando_una_store_en_un_componente">Usando una store en un componente</a></li>
 <li><a href="#_estado_derivado_y_getters_en_pinia">Estado Derivado y Getters en Pinia</a></li>
-<li><a href="#_acciones_asíncronas_en_pinia">Acciones Asíncronas en Pinia</a></li>
-<li><a href="#_resumen_2">Resumen</a></li>
 </ul>
 </li>
+<li><a href="#_definiendo_un_store_con_getters">Definiendo un Store con Getters</a></li>
+<li><a href="#_usando_getters_en_componentes">Usando Getters en Componentes</a></li>
+<li><a href="#_getters_con_parámetros">Getters con Parámetros</a></li>
+<li><a href="#_usando_getters_con_parámetros_en_componentes">Usando Getters con Parámetros en Componentes</a></li>
+<li><a href="#_computed_properties_vs_getters">Computed Properties vs Getters</a></li>
 <li><a href="#_organización_del_estado_global_con_pinia">Organización del estado global con Pinia</a>
 <ul class="sectlevel3">
 <li><a href="#_creación_de_múltiples_stores">Creación de múltiples stores</a></li>
 <li><a href="#_accediendo_al_estado_global_desde_componentes">Accediendo al estado global desde componentes</a></li>
 <li><a href="#_estructura_de_carpetas_para_múltiples_stores">Estructura de Carpetas para Múltiples stores</a></li>
 <li><a href="#_composición_de_stores">Composición de stores</a></li>
-<li><a href="#_resumen_3">Resumen</a></li>
+<li><a href="#_resumen_2">Resumen</a></li>
 </ul>
 </li>
 <li><a href="#_creación_de_stores_y_acceso_desde_componentes">Creación de stores y acceso desde componentes</a>
@@ -563,7 +578,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_accediendo_a_un_store_desde_un_componente">Accediendo a un store desde un componente</a></li>
 <li><a href="#_utilizando_múltiples_stores_en_un_componente">Utilizando múltiples stores en un componente</a></li>
 <li><a href="#_ejemplo_avanzado_getters_y_acciones_asíncronas">Ejemplo avanzado: Getters y acciones asíncronas</a></li>
-<li><a href="#_resumen_4">Resumen</a></li>
+<li><a href="#_resumen_3">Resumen</a></li>
 </ul>
 </li>
 <li><a href="#_mejores_prácticas_de_uso_de_pinia_en_aplicaciones_vue_3">Mejores prácticas de uso de Pinia en aplicaciones Vue 3</a></li>
@@ -581,7 +596,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_rutas_anidadas">Rutas anidadas</a></li>
 <li><a href="#_navegación_programática">Navegación programática</a></li>
 <li><a href="#_manejo_de_rutas_no_encontradas_404">Manejo de rutas no encontradas (404)</a></li>
-<li><a href="#_resumen_5">Resumen</a></li>
+<li><a href="#_resumen_4">Resumen</a></li>
 </ul>
 </li>
 <li><a href="#_protegiendo_rutas_con_guardias_de_navegación">Protegiendo rutas con guardias de navegación</a>
@@ -590,7 +605,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_guardias_específicos_de_ruta">Guardias específicos de ruta</a></li>
 <li><a href="#_guardias_de_navegación_dentro_de_componentes">Guardias de navegación dentro de componentes</a></li>
 <li><a href="#_uso_de_meta_campos_para_roles_y_permisos">Uso de meta campos para roles y permisos</a></li>
-<li><a href="#_resumen_6">Resumen</a></li>
+<li><a href="#_resumen_5">Resumen</a></li>
 </ul>
 </li>
 </ul>
@@ -604,7 +619,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_toref"><code>toRef</code></a></li>
 <li><a href="#_combinación_de_reactive_torefs_y_toref">Combinación de <code>reactive</code>, <code>toRefs</code> y <code>toRef</code></a></li>
 <li><a href="#_consideraciones_al_usar_torefs_y_toref">Consideraciones al usar <code>toRefs</code> y <code>toRef</code></a></li>
-<li><a href="#_resumen_7">Resumen</a></li>
+<li><a href="#_resumen_6">Resumen</a></li>
 </ul>
 </li>
 <li><a href="#_provide_y_inject_para_dependencias"><code>provide</code> y <code>inject</code> para dependencias</a>
@@ -614,7 +629,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_proveer_funciones_como_dependencias">Proveer funciones como dependencias</a></li>
 <li><a href="#_valores_predeterminados_con_inject">Valores predeterminados con <code>inject</code></a></li>
 <li><a href="#_provide_e_inject_reactivos_con_ref_o_reactive"><code>provide</code> e <code>inject</code> reactivos con <code>ref</code> o <code>reactive</code></a></li>
-<li><a href="#_resumen_8">Resumen</a></li>
+<li><a href="#_resumen_7">Resumen</a></li>
 </ul>
 </li>
 <li><a href="#_uso_de_watch_y_watcheffect_para_observación_reactiva">Uso de <code>watch</code> y <code>watchEffect</code> para observación reactiva</a>
@@ -624,7 +639,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_watcheffect_observación_automática_de_dependencias"><code>watchEffect</code>: Observación automática de dependencias</a></li>
 <li><a href="#_diferencias_clave_entre_watch_y_watcheffect">Diferencias clave entre <code>watch</code> y <code>watchEffect</code></a></li>
 <li><a href="#_ejemplo_combinado_de_watch_y_watcheffect">Ejemplo combinado de <code>watch</code> y <code>watchEffect</code></a></li>
-<li><a href="#_resumen_9">Resumen</a></li>
+<li><a href="#_resumen_8">Resumen</a></li>
 </ul>
 </li>
 <li><a href="#_creación_de_composables_personalizados">Creación de composables personalizados</a></li>
@@ -635,7 +650,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_composables_con_datos_reactivos_y_watch">Composables con datos reactivos y <code>watch</code></a></li>
 <li><a href="#_reutilización_avanzada_con_parámetros_en_composables">Reutilización avanzada con parámetros en composables</a></li>
 <li><a href="#_composables_con_provide_e_inject_para_dependencia_global">Composables con <code>provide</code> e <code>inject</code> para dependencia global</a></li>
-<li><a href="#_resumen_10">Resumen</a></li>
+<li><a href="#_resumen_9">Resumen</a></li>
 </ul>
 </li>
 </ul>
@@ -649,7 +664,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_realizando_solicitudes_post_con_axios">Realizando solicitudes POST con <code>axios</code></a></li>
 <li><a href="#_uso_de_la_api_fetch">Uso de la API <code>fetch</code></a></li>
 <li><a href="#_realizando_solicitudes_post_con_fetch">Realizando solicitudes POST con <code>fetch</code></a></li>
-<li><a href="#_resumen_11">Resumen</a></li>
+<li><a href="#_resumen_10">Resumen</a></li>
 </ul>
 </li>
 <li><a href="#_manejo_de_promesas_y_datos_asíncronos_en_componentes">Manejo de promesas y datos asíncronos en componentes</a>
@@ -658,7 +673,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_uso_de_axios_para_manejar_promesas">Uso de <code>axios</code> para manejar promesas</a></li>
 <li><a href="#_manejo_de_múltiples_promesas">Manejo de múltiples promesas</a></li>
 <li><a href="#_actualización_de_datos_reactivos_en_tiempo_real">Actualización de datos reactivos en tiempo real</a></li>
-<li><a href="#_resumen_12">Resumen</a></li>
+<li><a href="#_resumen_11">Resumen</a></li>
 </ul>
 </li>
 <li><a href="#_carga_y_visualización_de_datos_externos">Carga y visualización de datos externos</a>
@@ -667,7 +682,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_carga_de_datos_externos_con_axios">Carga de datos externos con <code>axios</code></a></li>
 <li><a href="#_visualización_de_datos_en_componentes">Visualización de datos en componentes</a></li>
 <li><a href="#_manejo_de_estados_de_carga">Manejo de estados de carga</a></li>
-<li><a href="#_resumen_13">Resumen</a></li>
+<li><a href="#_resumen_12">Resumen</a></li>
 </ul>
 </li>
 <li><a href="#_tratamiento_de_errores_y_validaciones_de_api">Tratamiento de errores y validaciones de API</a></li>
@@ -683,7 +698,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_ejecutando_pruebas">Ejecutando pruebas</a></li>
 <li><a href="#_pruebas_de_componentes_con_propiedades_props">Pruebas de componentes con propiedades (<code>props</code>)</a></li>
 <li><a href="#_pruebas_de_métodos_y_estados_reactivos">Pruebas de métodos y estados reactivos</a></li>
-<li><a href="#_resumen_14">Resumen</a></li>
+<li><a href="#_resumen_13">Resumen</a></li>
 </ul>
 </li>
 <li><a href="#_simulación_de_eventos_y_cambios_de_estado">Simulación de eventos y cambios de estado</a></li>
@@ -715,7 +730,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_monitorización_y_mantenimiento_post_despliegue">Monitorización y mantenimiento post-despliegue</a></li>
 </ul>
 </li>
-<li><a href="#_módulo_11_proyecto_final_aplicación_completa_con_vue_3">Módulo 11: Proyecto Final - Aplicación Completa con Vue 3</a></li>
+<li><a href="#_módulo_11_librerías_y_recursos_adicionales">Módulo 11: Librerías y Recursos Adicionales</a></li>
 </ul>
 </div>
 </div>
@@ -915,7 +930,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { ref } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { ref } from 'vue';
 
 const count = ref(0);
 const message = ref('Hola Mundo');
@@ -937,7 +952,7 @@ message.value = 'Nuevo mensaje';</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { reactive } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { reactive } from 'vue';
 
 const user = reactive({
   name: 'Juan',
@@ -962,7 +977,7 @@ tasks.push({ id: 3, text: 'Dominar Composition API', done: false });</code></pre
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
     &lt;p&gt;Contador: {{ count }}&lt;/p&gt;
     &lt;button @click="increment"&gt;Incrementar&lt;/button&gt;
@@ -1000,7 +1015,7 @@ const increment = () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { ref, reactive } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { ref, reactive } from 'vue';
 
 const count = ref(0);  // dato reactivo primitivo
 const user = reactive({ name: 'Ana', age: 25 });  // objeto reactivo</code></pre>
@@ -1014,7 +1029,7 @@ const user = reactive({ name: 'Ana', age: 25 });  // objeto reactivo</code></pre
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { ref, computed } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { ref, computed } from 'vue';
 
 const price = ref(100);
 const quantity = ref(2);
@@ -1031,7 +1046,7 @@ const total = computed(() =&gt; price.value * quantity.value);</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { ref } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { ref } from 'vue';
 
 const count = ref(0);
 
@@ -1054,7 +1069,7 @@ const decrement = () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
     &lt;p&gt;Precio unitario: {{ price }}&lt;/p&gt;
     &lt;p&gt;Cantidad: {{ quantity }}&lt;/p&gt;
@@ -1065,22 +1080,22 @@ const decrement = () =&gt; {
 &lt;/template&gt;
 
 &lt;script lang="ts" setup&gt;
-import { ref, computed } from 'vue';
+  import { ref, computed } from 'vue';
 
-const price = ref(50);
-const quantity = ref(1);
+  const price = ref(50);
+  const quantity = ref(1);
 
-const total = computed(() =&gt; price.value * quantity.value);
+  const total = computed(() =&gt; price.value * quantity.value);
 
-const incrementQuantity = () =&gt; {
-  quantity.value++;
-};
+  const incrementQuantity = () =&gt; {
+    quantity.value++;
+  };
 
-const decrementQuantity = () =&gt; {
-  if (quantity.value &gt; 1) {
-    quantity.value--;
-  }
-};
+  const decrementQuantity = () =&gt; {
+    if (quantity.value &gt; 1) {
+      quantity.value--;
+    }
+  };
 &lt;/script&gt;</code></pre>
 </div>
 </div>
@@ -1112,7 +1127,7 @@ const decrementQuantity = () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
     &lt;img :src="imageUrl" alt="Imagen dinámica" /&gt;
     &lt;button :class="{ active: isActive }" @click="toggleActive"&gt;Toggle Estado&lt;/button&gt;
@@ -1120,14 +1135,14 @@ const decrementQuantity = () =&gt; {
 &lt;/template&gt;
 
 &lt;script lang="ts" setup&gt;
-import { ref } from 'vue';
+  import { ref } from 'vue';
 
-const imageUrl = ref('https://via.placeholder.com/150');
-const isActive = ref(false);
+  const imageUrl = ref('https://via.placeholder.com/150');
+  const isActive = ref(false);
 
-const toggleActive = () =&gt; {
-  isActive.value = !isActive.value;
-};
+  const toggleActive = () =&gt; {
+    isActive.value = !isActive.value;
+  };
 &lt;/script&gt;</code></pre>
 </div>
 </div>
@@ -1150,7 +1165,7 @@ const toggleActive = () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
     &lt;label for="username"&gt;Nombre de usuario:&lt;/label&gt;
     &lt;input id="username" v-model="username" placeholder="Ingresa tu nombre" /&gt;
@@ -1159,9 +1174,8 @@ const toggleActive = () =&gt; {
 &lt;/template&gt;
 
 &lt;script lang="ts" setup&gt;
-import { ref } from 'vue';
-
-const username = ref('');
+  import { ref } from 'vue';
+  const username = ref('');
 &lt;/script&gt;</code></pre>
 </div>
 </div>
@@ -1176,7 +1190,7 @@ const username = ref('');
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
     &lt;CustomInput v-model="userInput" /&gt;
     &lt;p&gt;Valor ingresado: {{ userInput }}&lt;/p&gt;
@@ -1184,10 +1198,9 @@ const username = ref('');
 &lt;/template&gt;
 
 &lt;script lang="ts" setup&gt;
-import { ref } from 'vue';
-import CustomInput from './CustomInput.vue';
-
-const userInput = ref('');
+  import { ref } from 'vue';
+  import CustomInput from './CustomInput.vue';
+  const userInput = ref('');
 &lt;/script&gt;</code></pre>
 </div>
 </div>
@@ -1196,7 +1209,7 @@ const userInput = ref('');
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;input :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" /&gt;
 &lt;/template&gt;
 
@@ -1238,7 +1251,7 @@ const emit = defineEmits&lt;{
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;button @click="handleClick"&gt;Haz clic aquí&lt;/button&gt;
 &lt;/template&gt;
 
@@ -1273,7 +1286,7 @@ const handleClick = () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;input @input="handleInput" placeholder="Escribe algo..." /&gt;
   &lt;p&gt;Valor ingresado: {{ inputValue }}&lt;/p&gt;
 &lt;/template&gt;
@@ -1325,7 +1338,7 @@ const handleInput = (event: Event) =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;form @submit.prevent="handleSubmit"&gt;
     &lt;label&gt;
       Nombre:
@@ -1339,22 +1352,22 @@ const handleInput = (event: Event) =&gt; {
 &lt;/template&gt;
 
 &lt;script lang="ts" setup&gt;
-import { ref } from 'vue';
+  import { ref } from 'vue';
 
-const name = ref('');
-const hoverMessage = ref('No estás sobre el div');
+  const name = ref('');
+  const hoverMessage = ref('No estás sobre el div');
 
-const handleChange = () =&gt; {
-  console.log(`Nombre actualizado a: ${name.value}`);
-};
+  const handleChange = () =&gt; {
+    console.log(`Nombre actualizado a: ${name.value}`);
+  };
 
-const handleSubmit = () =&gt; {
-  console.log(`Formulario enviado con nombre: ${name.value}`);
-};
+  const handleSubmit = () =&gt; {
+    console.log(`Formulario enviado con nombre: ${name.value}`);
+  };
 
-const handleMouseOver = () =&gt; {
-  hoverMessage.value = '¡Estás sobre el div!';
-};
+  const handleMouseOver = () =&gt; {
+    hoverMessage.value = '¡Estás sobre el div!';
+  };
 &lt;/script&gt;</code></pre>
 </div>
 </div>
@@ -1435,7 +1448,7 @@ const handleMouseOver = () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
     &lt;p&gt;Contador: {{ count }}&lt;/p&gt;
     &lt;button @click="increment"&gt;Incrementar&lt;/button&gt;
@@ -1443,38 +1456,38 @@ const handleMouseOver = () =&gt; {
 &lt;/template&gt;
 
 &lt;script lang="ts" setup&gt;
-import { ref, onBeforeMount, onMounted, onBeforeUpdate, onUpdated, onBeforeUnmount, onUnmounted } from 'vue';
+  import { ref, onBeforeMount, onMounted, onBeforeUpdate, onUpdated, onBeforeUnmount, onUnmounted } from 'vue';
 
-const count = ref(0);
+  const count = ref(0);
 
-const increment = () =&gt; {
-  count.value++;
-};
+  const increment = () =&gt; {
+    count.value++;
+  };
 
-// Hooks del ciclo de vida
-onBeforeMount(() =&gt; {
-  console.log('El componente está a punto de montarse');
-});
+  // Hooks del ciclo de vida
+  onBeforeMount(() =&gt; {
+    console.log('El componente está a punto de montarse');
+  });
 
-onMounted(() =&gt; {
-  console.log('El componente se ha montado en el DOM');
-});
+  onMounted(() =&gt; {
+    console.log('El componente se ha montado en el DOM');
+  });
 
-onBeforeUpdate(() =&gt; {
-  console.log('El componente está a punto de actualizarse');
-});
+  onBeforeUpdate(() =&gt; {
+    console.log('El componente está a punto de actualizarse');
+  });
 
-onUpdated(() =&gt; {
-  console.log('El componente se ha actualizado');
-});
+  onUpdated(() =&gt; {
+    console.log('El componente se ha actualizado');
+  });
 
-onBeforeUnmount(() =&gt; {
-  console.log('El componente está a punto de desmontarse');
-});
+  onBeforeUnmount(() =&gt; {
+    console.log('El componente está a punto de desmontarse');
+  });
 
-onUnmounted(() =&gt; {
-  console.log('El componente se ha desmontado');
-});
+  onUnmounted(() =&gt; {
+    console.log('El componente se ha desmontado');
+  });
 &lt;/script&gt;</code></pre>
 </div>
 </div>
@@ -1514,7 +1527,7 @@ onUnmounted(() =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
     &lt;h2&gt;Contador de Ejemplo&lt;/h2&gt;
     &lt;p&gt;Contador: {{ count }}&lt;/p&gt;
@@ -1523,38 +1536,38 @@ onUnmounted(() =&gt; {
 &lt;/template&gt;
 
 &lt;script lang="ts" setup&gt;
-import { ref, onBeforeMount, onMounted, onBeforeUpdate, onUpdated, onBeforeUnmount, onUnmounted } from 'vue';
+  import { ref, onBeforeMount, onMounted, onBeforeUpdate, onUpdated, onBeforeUnmount, onUnmounted } from 'vue';
 
-const count = ref(0);
+  const count = ref(0);
 
-const increment = () =&gt; {
-  count.value++;
-};
+  const increment = () =&gt; {
+    count.value++;
+  };
 
-// Ejecución de cada hook del ciclo de vida
-onBeforeMount(() =&gt; {
-  console.log('onBeforeMount: El componente está a punto de montarse');
-});
+  // Ejecución de cada hook del ciclo de vida
+  onBeforeMount(() =&gt; {
+    console.log('onBeforeMount: El componente está a punto de montarse');
+  });
 
-onMounted(() =&gt; {
-  console.log('onMounted: El componente se ha montado en el DOM');
-});
+  onMounted(() =&gt; {
+    console.log('onMounted: El componente se ha montado en el DOM');
+  });
 
-onBeforeUpdate(() =&gt; {
-  console.log('onBeforeUpdate: El componente está a punto de actualizarse');
-});
+  onBeforeUpdate(() =&gt; {
+    console.log('onBeforeUpdate: El componente está a punto de actualizarse');
+  });
 
-onUpdated(() =&gt; {
-  console.log('onUpdated: El componente se ha actualizado');
-});
+  onUpdated(() =&gt; {
+    console.log('onUpdated: El componente se ha actualizado');
+  });
 
-onBeforeUnmount(() =&gt; {
-  console.log('onBeforeUnmount: El componente está a punto de desmontarse');
-});
+  onBeforeUnmount(() =&gt; {
+    console.log('onBeforeUnmount: El componente está a punto de desmontarse');
+  });
 
-onUnmounted(() =&gt; {
-  console.log('onUnmounted: El componente se ha desmontado');
-});
+  onUnmounted(() =&gt; {
+    console.log('onUnmounted: El componente se ha desmontado');
+  });
 &lt;/script&gt;</code></pre>
 </div>
 </div>
@@ -1577,7 +1590,7 @@ onUnmounted(() =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
     &lt;h3&gt;Contador: {{ count }}&lt;/h3&gt;
     &lt;button @click="increment"&gt;Incrementar&lt;/button&gt;
@@ -1585,13 +1598,13 @@ onUnmounted(() =&gt; {
 &lt;/template&gt;
 
 &lt;script lang="ts" setup&gt;
-import { ref } from 'vue';
+  import { ref } from 'vue';
 
-const count = ref(0);
+  const count = ref(0);
 
-const increment = () =&gt; {
-  count.value++;
-};
+  const increment = () =&gt; {
+    count.value++;
+  };
 &lt;/script&gt;</code></pre>
 </div>
 </div>
@@ -1608,7 +1621,7 @@ const increment = () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
     &lt;h2&gt;Ejemplo de Uso de un Componente Básico&lt;/h2&gt;
     &lt;Counter /&gt;
@@ -1642,7 +1655,7 @@ import Counter from './Counter.vue';
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
     &lt;h3&gt;Contador: {{ count }}&lt;/h3&gt;
     &lt;button @click="increment"&gt;Incrementar&lt;/button&gt;
@@ -1672,7 +1685,7 @@ watch(() =&gt; props.initialCount, (newVal) =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
     &lt;h2&gt;Ejemplo de Componente con Propiedades&lt;/h2&gt;
     &lt;Counter :initialCount="5" /&gt;
@@ -1680,7 +1693,7 @@ watch(() =&gt; props.initialCount, (newVal) =&gt; {
 &lt;/template&gt;
 
 &lt;script lang="ts" setup&gt;
-import Counter from './Counter.vue';
+  import Counter from './Counter.vue';
 &lt;/script&gt;</code></pre>
 </div>
 </div>
@@ -1698,7 +1711,7 @@ import Counter from './Counter.vue';
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
     &lt;h3&gt;Contador: {{ count }}&lt;/h3&gt;
     &lt;button @click="increment"&gt;Incrementar&lt;/button&gt;
@@ -1706,19 +1719,19 @@ import Counter from './Counter.vue';
 &lt;/template&gt;
 
 &lt;script lang="ts" setup&gt;
-import { ref, defineProps, defineEmits } from 'vue';
+  import { ref, defineProps, defineEmits } from 'vue';
 
-const props = defineProps&lt;{ initialCount: number }&gt;();
-const emit = defineEmits&lt;{
-  (e: 'update:count', value: number): void;
-}&gt;();
+  const props = defineProps&lt;{ initialCount: number }&gt;();
+  const emit = defineEmits&lt;{
+    (e: 'update:count', value: number): void;
+  }&gt;();
 
-const count = ref(props.initialCount);
+  const count = ref(props.initialCount);
 
-const increment = () =&gt; {
-  count.value++;
-  emit('update:count', count.value);
-};
+  const increment = () =&gt; {
+    count.value++;
+    emit('update:count', count.value);
+  };
 &lt;/script&gt;</code></pre>
 </div>
 </div>
@@ -1727,7 +1740,7 @@ const increment = () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
     &lt;h2&gt;Ejemplo de Componente con Eventos&lt;/h2&gt;
     &lt;Counter :initialCount="5" @update:count="handleCountUpdate" /&gt;
@@ -1778,7 +1791,7 @@ const handleCountUpdate = (value: number) =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
     &lt;p&gt;Mensaje recibido: {{ message }}&lt;/p&gt;
   &lt;/div&gt;
@@ -1796,7 +1809,7 @@ const props = defineProps&lt;{ message: string }&gt;();
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
     &lt;h2&gt;Componente Padre&lt;/h2&gt;
     &lt;DisplayMessage message="¡Hola desde el componente padre!" /&gt;
@@ -1830,7 +1843,7 @@ import DisplayMessage from './DisplayMessage.vue';
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
     &lt;p&gt;Contador: {{ count }}&lt;/p&gt;
     &lt;button @click="increment"&gt;Incrementar&lt;/button&gt;
@@ -1862,7 +1875,7 @@ const increment = () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
     &lt;h2&gt;Componente Padre con Evento&lt;/h2&gt;
     &lt;Counter @update:count="handleCountUpdate" /&gt;
@@ -1898,7 +1911,7 @@ const handleCountUpdate = (value: number) =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
     &lt;p&gt;Contador: {{ modelValue }}&lt;/p&gt;
     &lt;button @click="increment"&gt;Incrementar&lt;/button&gt;
@@ -1924,7 +1937,7 @@ const increment = () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
     &lt;h2&gt;Componente Padre con `v-model`&lt;/h2&gt;
     &lt;Counter v-model="parentCount" /&gt;
@@ -1971,7 +1984,7 @@ const parentCount = ref(0);
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
     &lt;h3&gt;Lista de Usuarios&lt;/h3&gt;
     &lt;ul&gt;
@@ -2005,7 +2018,7 @@ const users = ref([
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
     &lt;h2&gt;Componente Padre&lt;/h2&gt;
     &lt;UserList&gt;
@@ -2043,7 +2056,7 @@ import UserList from './UserList.vue';
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;script lang="ts" setup&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;script lang="ts" setup&gt;
 import { defineComponent, h } from 'vue';
 
 export default defineComponent({
@@ -2083,7 +2096,7 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
     &lt;DynamicButton label="Haz clic aquí" :onClick="handleClick" /&gt;
   &lt;/div&gt;
@@ -2116,7 +2129,7 @@ const handleClick = () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { ref } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { ref } from 'vue';
 
 export function useCounter(initialValue = 0) {
   const count = ref(initialValue);
@@ -2150,7 +2163,7 @@ export function useCounter(initialValue = 0) {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
     &lt;h3&gt;Valor del contador: {{ count }}&lt;/h3&gt;
     &lt;button @click="increment"&gt;Incrementar&lt;/button&gt;
@@ -2172,67 +2185,245 @@ const { count, increment, decrement } = useCounter(10);
 </div>
 </div>
 <div class="sect3">
-<h4 id="_composición_de_componentes">Composición de Componentes</h4>
+<h4 id="_composición_de_varios_componentes_en_vue_3">Composición de varios Componentes en Vue 3</h4>
 <div class="paragraph">
-<p>La Composition API también permite componer múltiples composables dentro de un mismo componente. Esto facilita la gestión de múltiples piezas de lógica en componentes complejos, manteniendo el código modular y reutilizable.</p>
+<p>La composición de varios componentes en Vue 3 permite construir interfaces complejas a partir de componentes más pequeños y reutilizables. Utilizando la Composition API con la sintaxis <code>&lt;script lang="ts" setup&gt;</code>, se facilita la gestión de la lógica compartida y la comunicación entre componentes.</p>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_comunicación_entre_componentes_padre_e_hijo">Comunicación entre Componentes Padre e Hijo</h3>
 <div class="paragraph">
-<p>Supongamos que creamos otro composable <code>useToggle.js</code> para manejar la visibilidad de una sección:</p>
+<p>La comunicación entre componentes padre e hijo es fundamental para la composición efectiva. El componente padre puede pasar datos al hijo mediante <strong>props</strong> y el hijo puede emitir eventos al padre.</p>
 </div>
 <div class="listingblock">
+<div class="title">Componente Hijo</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { ref } from 'vue';
-
-export function useToggle(initialState = false) {
-  const isVisible = ref(initialState);
-
-  const toggle = () =&gt; {
-    isVisible.value = !isVisible.value;
-  };
-
-  return { isVisible, toggle };
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Podemos utilizar ambos composables (<code>useCounter</code> y <code>useToggle</code>) en un solo componente <code>EnhancedCounter.vue</code>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;!-- Componente Hijo --&gt;
+&lt;template&gt;
   &lt;div&gt;
-    &lt;h2&gt;Contador Mejorado&lt;/h2&gt;
-    &lt;button @click="toggle"&gt;Mostrar/Ocultar Contador&lt;/button&gt;
-    &lt;div v-if="isVisible"&gt;
-      &lt;h3&gt;Valor del contador: {{ count }}&lt;/h3&gt;
-      &lt;button @click="increment"&gt;Incrementar&lt;/button&gt;
-      &lt;button @click="decrement"&gt;Decrementar&lt;/button&gt;
-    &lt;/div&gt;
+    &lt;p&gt;Mensaje del Padre: {{ message }}&lt;/p&gt;
+    &lt;button @click="sendUpdate"&gt;Enviar Actualización&lt;/button&gt;
   &lt;/div&gt;
 &lt;/template&gt;
 
 &lt;script lang="ts" setup&gt;
-import { useCounter } from './useCounter';
-import { useToggle } from './useToggle';
+import { defineProps, defineEmits } from 'vue'
 
-const { count, increment, decrement } = useCounter(5);
-const { isVisible, toggle } = useToggle(true);
+const props = defineProps&lt;{ message: string }&gt;()
+const emit = defineEmits&lt;{ (e: 'update', newMessage: string): void }&gt;()
+
+const sendUpdate = () =&gt; {
+  emit('update', 'Nuevo Mensaje desde el Hijo')
+}
 &lt;/script&gt;</code></pre>
 </div>
 </div>
-<div class="ulist">
-<div class="title">En este ejemplo:</div>
-<ul>
-<li>
-<p>El componente utiliza <code>useCounter</code> para manejar el contador y <code>useToggle</code> para manejar la visibilidad de la sección.</p>
-</li>
-<li>
-<p><code>toggle</code> controla la visibilidad de la sección del contador, y <code>isVisible</code> determina si se muestra o no.</p>
-</li>
-<li>
-<p>Esta composición permite que cada función mantenga su lógica de forma separada, facilitando su mantenimiento y reutilización.</p>
-</li>
-</ul>
+<div class="listingblock">
+<div class="title">Componente Padre</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;!-- Componente Padre --&gt;
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;h1&gt;Componente Padre&lt;/h1&gt;
+    &lt;ChildComponent :message="parentMessage" @update="handleUpdate" /&gt;
+    &lt;p&gt;Mensaje Actualizado: {{ parentMessage }}&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script lang="ts" setup&gt;
+import { ref } from 'vue'
+import ChildComponent from './ChildComponent.vue'
+
+const parentMessage = ref('Hola desde el Padre')
+
+const handleUpdate = (newMessage: string) =&gt; {
+  parentMessage.value = newMessage
+}
+&lt;/script&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_uso_de_slots_para_mayor_flexibilidad">Uso de Slots para Mayor Flexibilidad</h3>
+<div class="paragraph">
+<p>Los <strong>slots</strong> en Vue 3 permiten a los componentes padres inyectar contenido en los componentes hijos, proporcionando una mayor flexibilidad y reutilización. Los slots pueden ser utilizados para definir áreas de contenido que pueden ser personalizadas por el componente padre.</p>
+</div>
+<div class="sect3">
+<h4 id="_slots_básicos">Slots Básicos</h4>
+<div class="paragraph">
+<p>Un slot básico permite al componente padre insertar contenido en una ubicación específica del componente hijo.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;!-- Componente Card --&gt;
+&lt;template&gt;
+  &lt;div class="card"&gt;
+    &lt;slot&gt;Contenido por Defecto&lt;/slot&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script lang="ts" setup&gt;
+&lt;/script&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;!-- Componente Padre --&gt;
+&lt;template&gt;
+  &lt;Card&gt;
+    &lt;p&gt;Este es el contenido personalizado del card.&lt;/p&gt;
+  &lt;/Card&gt;
+&lt;/template&gt;
+
+&lt;script lang="ts" setup&gt;
+import Card from './Card.vue'
+&lt;/script&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_slots_nombrados">Slots Nombrados</h4>
+<div class="paragraph">
+<p>Los slots nombrados permiten definir múltiples áreas de contenido personalizables dentro de un componente hijo.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;!-- Componente Card --&gt;
+&lt;template&gt;
+  &lt;div class="card"&gt;
+    &lt;header&gt;
+      &lt;slot name="header"&gt;Encabezado por Defecto&lt;/slot&gt;
+    &lt;/header&gt;
+    &lt;main&gt;
+      &lt;slot&gt;Contenido por Defecto&lt;/slot&gt;
+    &lt;/main&gt;
+    &lt;footer&gt;
+      &lt;slot name="footer"&gt;Pie de Página por Defecto&lt;/slot&gt;
+    &lt;/footer&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script lang="ts" setup&gt;
+&lt;/script&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;!-- Componente Padre --&gt;
+&lt;template&gt;
+  &lt;Card&gt;
+    &lt;template #header&gt;
+      &lt;h2&gt;Título Personalizado&lt;/h2&gt;
+    &lt;/template&gt;
+    &lt;p&gt;Este es el contenido personalizado del card.&lt;/p&gt;
+    &lt;template #footer&gt;
+      &lt;button&gt;Acción&lt;/button&gt;
+    &lt;/template&gt;
+  &lt;/Card&gt;
+&lt;/template&gt;
+
+&lt;script lang="ts" setup&gt;
+import Card from './Card.vue'
+&lt;/script&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_slots_dinámicos">Slots Dinámicos</h4>
+<div class="paragraph">
+<p>Los slots dinámicos permiten pasar contenido dinámico a los componentes hijos, lo que es útil para crear componentes altamente reutilizables.</p>
+</div>
+<div class="listingblock">
+<div class="title">Componente List</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;!-- Componente List --&gt;
+&lt;template&gt;
+  &lt;ul&gt;
+    &lt;li v-for="item in items" :key="item.id"&gt;
+      &lt;slot :item="item"&gt;{{ item.name }}&lt;/slot&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/template&gt;
+
+&lt;script lang="ts" setup&gt;
+import { defineProps } from 'vue'
+
+const props = defineProps&lt;{ items: Array&lt;{ id: number, name: string }&gt; }&gt;()
+&lt;/script&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Componente Padre</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;!-- Componente Padre --&gt;
+&lt;template&gt;
+  &lt;List :items="items"&gt;
+    &lt;template #default="{ item }"&gt;
+      &lt;strong&gt;{{ item.name }}&lt;/strong&gt;
+    &lt;/template&gt;
+  &lt;/List&gt;
+&lt;/template&gt;
+
+&lt;script lang="ts" setup&gt;
+import List from './List.vue'
+
+const items = [
+  { id: 1, name: 'Item 1' },
+  { id: 2, name: 'Item 2' },
+]
+&lt;/script&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_composición_de_componentes_con_provideinject">Composición de Componentes con Provide/Inject</h3>
+<div class="paragraph">
+<p>La directiva <strong>provide/inject</strong> permite compartir datos entre componentes sin tener que pasar props a través de múltiples niveles de la jerarquía de componentes.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;!-- Componente Ancestro --&gt;
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;h1&gt;Componente Ancestro&lt;/h1&gt;
+    &lt;DescendantComponent /&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script lang="ts" setup&gt;
+import { provide, ref } from 'vue'
+import DescendantComponent from './DescendantComponent.vue'
+
+const sharedState = ref('Estado Compartido')
+provide('sharedState', sharedState)
+&lt;/script&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;!-- Componente Descendiente --&gt;
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;h2&gt;Componente Descendiente&lt;/h2&gt;
+    &lt;p&gt;Estado Compartido: {{ sharedState }}&lt;/p&gt;
+    &lt;button @click="updateState"&gt;Actualizar Estado&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script lang="ts" setup&gt;
+import { inject, ref } from 'vue'
+
+const sharedState = inject&lt;Ref&lt;string&gt;&gt;('sharedState')
+if (!sharedState) {
+  throw new Error('sharedState no está disponible')
+}
+
+const updateState = () =&gt; {
+  sharedState.value = 'Estado Actualizado desde el Descendiente'
+}
+&lt;/script&gt;</code></pre>
 </div>
 </div>
 <div class="sect3">
@@ -2270,7 +2461,7 @@ const { isVisible, toggle } = useToggle(true);
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
     &lt;h3&gt;Contador: {{ count }}&lt;/h3&gt;
     &lt;button @click="increment"&gt;Incrementar&lt;/button&gt;
@@ -2310,7 +2501,7 @@ function increment() {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;script lang="ts" setup&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;script lang="ts" setup&gt;
 import { ref } from 'vue';
 
 const message = ref('Hola, Vue 3!');
@@ -2331,7 +2522,7 @@ const message = ref('Hola, Vue 3!');
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;script lang="ts" setup&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;script lang="ts" setup&gt;
 import { reactive } from 'vue';
 
 const user = reactive({
@@ -2377,7 +2568,7 @@ function incrementAge() {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
     &lt;h3&gt;Información del Usuario&lt;/h3&gt;
     &lt;p&gt;Nombre: {{ user.name }}&lt;/p&gt;
@@ -2482,7 +2673,7 @@ function incrementAge() {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { createApp } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import App from './App.vue';
 
@@ -2501,7 +2692,7 @@ app.mount('#app');</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { defineStore } from 'pinia';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
 export const useCounterStore = defineStore('counter', () =&gt; {
@@ -2538,7 +2729,7 @@ export const useCounterStore = defineStore('counter', () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
     &lt;h3&gt;Contador: {{ counter.count }}&lt;/h3&gt;
     &lt;button @click="counter.increment"&gt;Incrementar&lt;/button&gt;
@@ -2568,85 +2759,131 @@ const counter = useCounterStore();
 <div class="sect3">
 <h4 id="_estado_derivado_y_getters_en_pinia">Estado Derivado y Getters en Pinia</h4>
 <div class="paragraph">
-<p>Pinia permite definir <strong>getters</strong> para obtener datos derivados del estado. A continuación, se agrega un getter a la store <code>useCounterStore</code> para verificar si el contador es par o impar.</p>
+<p>Pinia es una biblioteca de gestión de estado para Vue que proporciona una API simple y poderosa para manejar el estado global de la aplicación. Los <strong>getters</strong> en Pinia se utilizan para derivar estado basado en el estado almacenado en el store, similar a las propiedades computadas en los componentes Vue.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_definiendo_un_store_con_getters">Definiendo un Store con Getters</h3>
+<div class="paragraph">
+<p>Para definir un store con getters en Pinia, primero se crea el store y luego se añaden los getters que derivan el estado.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { defineStore } from 'pinia';
-import { ref, computed } from 'vue';
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { defineStore } from 'pinia'
 
-export const useCounterStore = defineStore('counter', () =&gt; {
-  const count = ref(0);
-
-  const increment = () =&gt; count.value++;
-  const decrement = () =&gt; count.value--;
-
-  const isEven = computed(() =&gt; count.value % 2 === 0);
-
-  return { count, increment, decrement, isEven };
-});</code></pre>
+export const useUserStore = defineStore('user', {
+  state: () =&gt; ({
+    firstName: 'John',
+    lastName: 'Doe',
+    age: 30,
+  }),
+  getters: {
+    fullName: (state) =&gt; `${state.firstName} ${state.lastName}`,
+    isAdult: (state) =&gt; state.age &gt;= 18,
+  },
+})</code></pre>
 </div>
 </div>
-<div class="ulist">
-<div class="title">En este ejemplo:</div>
-<ul>
-<li>
-<p><code>isEven</code> es un getter definido usando <code>computed()</code>, y su valor cambia automáticamente cuando cambia <code>count</code>.</p>
-</li>
-<li>
-<p>Los getters de Pinia funcionan de manera similar a las propiedades computadas en Vue, proporcionando un valor reactivo.</p>
-</li>
-</ul>
 </div>
-</div>
-<div class="sect3">
-<h4 id="_acciones_asíncronas_en_pinia">Acciones Asíncronas en Pinia</h4>
+<div class="sect2">
+<h3 id="_usando_getters_en_componentes">Usando Getters en Componentes</h3>
 <div class="paragraph">
-<p>Pinia también permite definir <strong>acciones asíncronas</strong> dentro de las stores, facilitando el manejo de lógica asíncrona (como llamadas a API). A continuación, se muestra cómo implementar una acción <code>fetchData</code> en una store.</p>
+<p>Una vez definidos los getters en el store, se pueden utilizar en los componentes Vue para acceder al estado derivado.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { defineStore } from 'pinia';
-import { ref } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
+  &lt;div&gt;
+    &lt;p&gt;Nombre Completo: {{ fullName }}&lt;/p&gt;
+    &lt;p&gt;Es Adulto: {{ isAdult ? 'Sí' : 'No' }}&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
 
-export const useDataStore = defineStore('data', () =&gt; {
-  const data = ref(null);
-  const loading = ref(false);
+&lt;script lang="ts" setup&gt;
+import { useUserStore } from './stores/user'
 
-  const fetchData = async () =&gt; {
-    loading.value = true;
-    try {
-      const response = await fetch('https://jsonplaceholder.typicode.com/todos/1');
-      data.value = await response.json();
-    } finally {
-      loading.value = false;
-    }
-  };
+const userStore = useUserStore()
 
-  return { data, loading, fetchData };
-});</code></pre>
+const fullName = userStore.fullName
+const isAdult = userStore.isAdult
+&lt;/script&gt;</code></pre>
 </div>
 </div>
-<div class="ulist">
-<div class="title">En este ejemplo:</div>
-<ul>
-<li>
-<p><code>fetchData</code> es una acción asíncrona que obtiene datos desde una API.</p>
-</li>
-<li>
-<p><code>loading</code> indica el estado de carga, permitiendo que los componentes que usen esta store muestren la información de carga adecuadamente.</p>
-</li>
-</ul>
 </div>
-</div>
-<div class="sect3">
-<h4 id="_resumen_2">Resumen</h4>
+<div class="sect2">
+<h3 id="_getters_con_parámetros">Getters con Parámetros</h3>
 <div class="paragraph">
-<p>Pinia es una alternativa moderna y ligera a Vuex para gestionar el estado en Vue 3, proporcionando:
-- Una sintaxis más clara y sencilla, que facilita la adopción y el mantenimiento.
-- Soporte completo para la Composition API, aprovechando <code>ref()</code>, <code>reactive()</code>, y <code>computed()</code> para hacer que el estado sea reactivo.
-- Mejora en el tipado, especialmente en proyectos con TypeScript, para una experiencia de desarrollo más segura.</p>
+<p>Los getters en Pinia también pueden aceptar parámetros, lo que permite crear funciones más dinámicas y reutilizables.</p>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { defineStore } from 'pinia'
+
+export const useProductStore = defineStore('product', {
+  state: () =&gt; ({
+    products: [
+      { id: 1, name: 'Product A', price: 100 },
+      { id: 2, name: 'Product B', price: 200 },
+    ],
+  }),
+  getters: {
+    getProductById: (state) =&gt; {
+      return (id: number) =&gt; state.products.find(product =&gt; product.id === id)
+    },
+  },
+})</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_usando_getters_con_parámetros_en_componentes">Usando Getters con Parámetros en Componentes</h3>
+<div class="paragraph">
+<p>Para usar getters con parámetros en los componentes, simplemente se llama al getter como una función con los argumentos necesarios.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
+  &lt;div&gt;
+    &lt;p&gt;Producto: {{ product.name }} - Precio: {{ product.price }}&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script lang="ts" setup&gt;
+import { useProductStore } from './stores/product'
+
+const productStore = useProductStore()
+const product = productStore.getProductById(1)
+&lt;/script&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_computed_properties_vs_getters">Computed Properties vs Getters</h3>
+<div class="paragraph">
+<p>Aunque los getters en Pinia son similares a las propiedades computadas en Vue, los getters están diseñados específicamente para trabajar con el estado global del store y pueden ser más eficientes en ciertos casos.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { defineStore } from 'pinia'
+
+export const useCartStore = defineStore('cart', {
+  state: () =&gt; ({
+    items: [
+      { id: 1, name: 'Item A', quantity: 2, price: 50 },
+      { id: 2, name: 'Item B', quantity: 1, price: 100 },
+    ],
+  }),
+  getters: {
+    totalPrice: (state) =&gt; {
+      return state.items.reduce((total, item) =&gt; total + item.quantity * item.price, 0)
+    },
+  },
+})</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En resumen, los getters en Pinia son una herramienta poderosa para derivar estado y crear propiedades computadas basadas en el estado del store, proporcionando una forma eficiente y reactiva de manejar el estado global en aplicaciones Vue.</p>
 </div>
 </div>
 <div class="sect2">
@@ -2727,7 +2964,7 @@ export const useProductStore = defineStore('product', () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
     &lt;h2&gt;Panel de Usuario&lt;/h2&gt;
     &lt;p v-if="auth.isAuthenticated"&gt;Bienvenido, {{ auth.user.name }}&lt;/p&gt;
@@ -2818,7 +3055,7 @@ export const useProductStore = defineStore('product', () =&gt; {
 </div>
 </div>
 <div class="sect3">
-<h4 id="_resumen_3">Resumen</h4>
+<h4 id="_resumen_2">Resumen</h4>
 <div class="paragraph">
 <p>Pinia facilita la organización del estado global en aplicaciones Vue 3 con:
 - <strong>Modularidad</strong>: Las stores se organizan en módulos que pueden interactuar de forma independiente o conjunta.
@@ -2879,7 +3116,7 @@ export const useTaskStore = defineStore('task', () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
     &lt;h2&gt;Lista de Tareas&lt;/h2&gt;
     &lt;ul&gt;
@@ -2927,7 +3164,7 @@ function addNewTask() {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
     &lt;h2&gt;Bienvenido, {{ authStore.user.name }}&lt;/h2&gt;
     &lt;button @click="authStore.logout"&gt;Cerrar sesión&lt;/button&gt;
@@ -3009,7 +3246,7 @@ export const useTaskStore = defineStore('task', () =&gt; {
 </div>
 </div>
 <div class="sect3">
-<h4 id="_resumen_4">Resumen</h4>
+<h4 id="_resumen_3">Resumen</h4>
 <div class="paragraph">
 <p>Pinia permite definir stores modulares con estados, getters y acciones que facilitan la gestión y sincronización de datos entre componentes. Acceder a estos stores desde los componentes es sencillo y permite compartir estados de manera centralizada, logrando una arquitectura limpia y escalable en aplicaciones Vue 3.</p>
 </div>
@@ -3133,7 +3370,7 @@ app.mount('#app');</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-vue hljs" data-lang="vue">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
     &lt;h1&gt;Mi Aplicación&lt;/h1&gt;
     &lt;nav&gt;
@@ -3163,7 +3400,7 @@ app.mount('#app');</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">const routes = [
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">const routes = [
   { path: '/user/:id', name: 'UserProfile', component: UserProfile },
 ];</code></pre>
 </div>
@@ -3173,7 +3410,7 @@ app.mount('#app');</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
     &lt;h2&gt;Perfil del Usuario&lt;/h2&gt;
     &lt;p&gt;ID de Usuario: {{ $route.params.id }}&lt;/p&gt;
@@ -3222,7 +3459,7 @@ app.mount('#app');</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;button @click="goToAbout"&gt;Ir a Acerca de&lt;/button&gt;
 &lt;/template&gt;
 
@@ -3256,7 +3493,7 @@ function goToAbout() {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">const routes = [
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">const routes = [
   // otras rutas
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFoundView },
 ];</code></pre>
@@ -3267,7 +3504,7 @@ function goToAbout() {
 </div>
 </div>
 <div class="sect3">
-<h4 id="_resumen_5">Resumen</h4>
+<h4 id="_resumen_4">Resumen</h4>
 <div class="paragraph">
 <p>Vue Router 4 permite:
 - <strong>Definir rutas</strong> simples, dinámicas y anidadas.
@@ -3390,7 +3627,7 @@ export default router;</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
     &lt;h1&gt;Perfil de Usuario&lt;/h1&gt;
     &lt;p&gt;Bienvenido, {{ userName }}&lt;/p&gt;
@@ -3480,7 +3717,7 @@ router.beforeEach((to, from, next) =&gt; {
 </div>
 </div>
 <div class="sect3">
-<h4 id="_resumen_6">Resumen</h4>
+<h4 id="_resumen_5">Resumen</h4>
 <div class="paragraph">
 <p>Los guardias de navegación en Vue Router permiten implementar de manera eficaz el control de acceso en las rutas:
 - <strong>Guardias globales</strong>: Protegen todas las rutas y se configuran en el router principal.
@@ -3662,7 +3899,7 @@ export default {
 </div>
 </div>
 <div class="sect3">
-<h4 id="_resumen_7">Resumen</h4>
+<h4 id="_resumen_6">Resumen</h4>
 <div class="paragraph">
 <p><code>reactive</code>, <code>toRefs</code> y <code>toRef</code> son herramientas poderosas para:
 - Convertir objetos y propiedades en reactivos con <code>reactive</code>.
@@ -3837,7 +4074,7 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">const userName = inject('userName', 'Usuario Anónimo');</code></pre>
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">const userName = inject('userName', 'Usuario Anónimo');</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -3886,7 +4123,7 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { defineComponent, inject } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { defineComponent, inject } from 'vue';
 
 export default defineComponent({
   name: 'ChildComponentReactive',
@@ -3914,7 +4151,7 @@ export default defineComponent({
 </div>
 </div>
 <div class="sect3">
-<h4 id="_resumen_8">Resumen</h4>
+<h4 id="_resumen_7">Resumen</h4>
 <div class="ulist">
 <div class="title"><code>provide</code> e <code>inject</code> permiten:</div>
 <ul>
@@ -3946,7 +4183,7 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { ref, watch } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { ref, watch } from 'vue';
 
 export default {
   setup() {
@@ -3991,7 +4228,7 @@ export default {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { reactive, watch } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { reactive, watch } from 'vue';
 
 export default {
   setup() {
@@ -4039,7 +4276,7 @@ export default {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { ref, watchEffect } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { ref, watchEffect } from 'vue';
 
 export default {
   setup() {
@@ -4097,7 +4334,7 @@ export default {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { ref, reactive, watch, watchEffect } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { ref, reactive, watch, watchEffect } from 'vue';
 
 export default {
   setup() {
@@ -4148,7 +4385,7 @@ export default {
 </div>
 </div>
 <div class="sect3">
-<h4 id="_resumen_9">Resumen</h4>
+<h4 id="_resumen_8">Resumen</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -4175,7 +4412,7 @@ export default {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">  import { ref } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">  import { ref } from 'vue';
 
   export function useCounter() {
       const count = ref(0);
@@ -4194,7 +4431,7 @@ export default {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">  import { useCounter } from '@/composables/useCounter';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">  import { useCounter } from '@/composables/useCounter';
 
   setup() {
       const { count, increment, decrement } = useCounter();
@@ -4218,7 +4455,7 @@ export default {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { ref } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { ref } from 'vue';
 
 export function useCounter() {
   const count = ref(0);
@@ -4252,7 +4489,7 @@ export function useCounter() {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { defineComponent } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { defineComponent } from 'vue';
 import { useCounter } from './composables/useCounter';
 
 export default defineComponent({
@@ -4293,7 +4530,7 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { reactive, ref, watch } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { reactive, ref, watch } from 'vue';
 
 export function useForm() {
   const form = reactive({
@@ -4349,7 +4586,7 @@ export function useForm() {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { ref } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { ref } from 'vue';
 
 export function useCounter(step = 1) {
   const count = ref(0);
@@ -4369,7 +4606,7 @@ export function useCounter(step = 1) {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { defineComponent } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { defineComponent } from 'vue';
 import { useCounter } from './composables/useCounter';
 
 export default defineComponent({
@@ -4410,7 +4647,7 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { ref, provide, inject } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { ref, provide, inject } from 'vue';
 
 const ThemeSymbol = Symbol('theme');
 
@@ -4446,7 +4683,7 @@ export function useTheme() {
 </div>
 </div>
 <div class="sect3">
-<h4 id="_resumen_10">Resumen</h4>
+<h4 id="_resumen_9">Resumen</h4>
 <div class="paragraph">
 <p>Los composables son una forma poderosa de optimizar y reutilizar lógica en Vue 3. Mediante el uso de <code>ref</code>, <code>reactive</code>, <code>watch</code>, <code>provide</code>, y <code>inject</code>, se pueden crear funciones flexibles y modulares, mejorando la organización y escalabilidad del código.</p>
 </div>
@@ -4483,7 +4720,7 @@ export function useTheme() {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { defineComponent, ref } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { defineComponent, ref } from 'vue';
 import axios from 'axios';
 
 export default defineComponent({
@@ -4539,7 +4776,7 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { defineComponent, ref } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { defineComponent, ref } from 'vue';
 import axios from 'axios';
 
 export default defineComponent({
@@ -4593,7 +4830,7 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { defineComponent, ref } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
   setup() {
@@ -4651,7 +4888,7 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { defineComponent, ref } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
   setup() {
@@ -4707,7 +4944,7 @@ export default defineComponent({
 </div>
 </div>
 <div class="sect3">
-<h4 id="_resumen_11">Resumen</h4>
+<h4 id="_resumen_10">Resumen</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -4738,7 +4975,7 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { defineComponent, ref } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
   setup() {
@@ -4796,7 +5033,7 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { defineComponent, ref } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { defineComponent, ref } from 'vue';
 import axios from 'axios';
 
 export default defineComponent({
@@ -4849,7 +5086,7 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { defineComponent, ref } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { defineComponent, ref } from 'vue';
 import axios from 'axios';
 
 export default defineComponent({
@@ -4914,7 +5151,7 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { defineComponent, ref, watch } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { defineComponent, ref, watch } from 'vue';
 import axios from 'axios';
 
 export default defineComponent({
@@ -4965,7 +5202,7 @@ export default defineComponent({
 </div>
 </div>
 <div class="sect3">
-<h4 id="_resumen_12">Resumen</h4>
+<h4 id="_resumen_11">Resumen</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -4999,7 +5236,7 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { defineComponent, ref, onMounted } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { defineComponent, ref, onMounted } from 'vue';
 
 export default defineComponent({
   setup() {
@@ -5057,7 +5294,7 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { defineComponent, ref, onMounted } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { defineComponent, ref, onMounted } from 'vue';
 import axios from 'axios';
 
 export default defineComponent({
@@ -5113,7 +5350,7 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { defineComponent, ref, onMounted } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { defineComponent, ref, onMounted } from 'vue';
 import axios from 'axios';
 
 export default defineComponent({
@@ -5169,7 +5406,7 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { defineComponent, ref, onMounted } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { defineComponent, ref, onMounted } from 'vue';
 import axios from 'axios';
 
 export default defineComponent({
@@ -5220,7 +5457,7 @@ export default defineComponent({
 </div>
 </div>
 <div class="sect3">
-<h4 id="_resumen_13">Resumen</h4>
+<h4 id="_resumen_12">Resumen</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -5250,7 +5487,7 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">  try {
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">  try {
       const response = await axios.get('https://api.example.com/data');
   } catch (error) {
       console.error('Error al cargar los datos:', error);
@@ -5266,7 +5503,7 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">  if (response &amp;&amp; response.data) {
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">  if (response &amp;&amp; response.data) {
       // Procesar los datos
   }</code></pre>
 </div>
@@ -5298,7 +5535,7 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">  import { io } from 'socket.io-client';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">  import { io } from 'socket.io-client';
 
   const socket = io('https://socket.example.com');
 
@@ -5320,7 +5557,7 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">  setup() {
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">  setup() {
       const messages = ref([]);
 
       socket.on('message', (message) =&gt; {
@@ -5364,7 +5601,7 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { defineConfig } from 'vitest/config';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   test: {
@@ -5387,7 +5624,7 @@ export default defineConfig({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
     &lt;h1&gt;{{ message }}&lt;/h1&gt;
     &lt;button @click="updateMessage"&gt;Actualizar Mensaje&lt;/button&gt;
@@ -5415,7 +5652,7 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { mount } from '@vue/test-utils';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { mount } from '@vue/test-utils';
 import HelloWorld from '@/components/HelloWorld.vue';
 
 describe('HelloWorld.vue', () =&gt; {
@@ -5468,7 +5705,7 @@ describe('HelloWorld.vue', () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
     &lt;h1&gt;Hola, {{ name }}!&lt;/h1&gt;
   &lt;/div&gt;
@@ -5493,7 +5730,7 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { mount } from '@vue/test-utils';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { mount } from '@vue/test-utils';
 import Greeting from '@/components/Greeting.vue';
 
 describe('Greeting.vue', () =&gt; {
@@ -5525,7 +5762,7 @@ describe('Greeting.vue', () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">&lt;template&gt;
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
     &lt;p&gt;Cuenta: {{ count }}&lt;/p&gt;
     &lt;button @click="increment"&gt;Incrementar&lt;/button&gt;
@@ -5553,7 +5790,7 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { mount } from '@vue/test-utils';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { mount } from '@vue/test-utils';
 import Counter from '@/components/Counter.vue';
 
 describe('Counter.vue', () =&gt; {
@@ -5580,7 +5817,7 @@ describe('Counter.vue', () =&gt; {
 </div>
 </div>
 <div class="sect3">
-<h4 id="_resumen_14">Resumen</h4>
+<h4 id="_resumen_13">Resumen</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -5610,7 +5847,7 @@ describe('Counter.vue', () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">  it('emits an event when button is clicked', async () =&gt; {
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">  it('emits an event when button is clicked', async () =&gt; {
       const wrapper = mount(MyComponent);
       await wrapper.find('button').trigger('click');
       expect(wrapper.emitted()).toHaveProperty('my-event');
@@ -5626,7 +5863,7 @@ describe('Counter.vue', () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">  it('updates the data when input changes', async () =&gt; {
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">  it('updates the data when input changes', async () =&gt; {
       const wrapper = mount(MyComponent);
       await wrapper.find('input').setValue('Nuevo Valor');
       expect(wrapper.vm.inputValue).toBe('Nuevo Valor');
@@ -5671,7 +5908,7 @@ describe('Counter.vue', () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">  import { createPinia } from 'pinia';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">  import { createPinia } from 'pinia';
   import { mount } from '@vue/test-utils';
   import MyComponent from '@/components/MyComponent.vue';
 
@@ -5692,7 +5929,7 @@ describe('Counter.vue', () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">  import { defineStore } from 'pinia';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">  import { defineStore } from 'pinia';
 
   const useMyStore = defineStore('myStore', {
       state: () =&gt; ({ count: 0 }),
@@ -5722,7 +5959,7 @@ describe('Counter.vue', () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">  import { createRouter, createWebHistory } from 'vue-router';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">  import { createRouter, createWebHistory } from 'vue-router';
 
   const router = createRouter({
       history: createWebHistory(),
@@ -5748,7 +5985,7 @@ describe('Counter.vue', () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">  test('navigates to about page', async () =&gt; {
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">  test('navigates to about page', async () =&gt; {
       const wrapper = mount(MyComponent, {
           global: {
               plugins: [router]
@@ -5771,7 +6008,7 @@ describe('Counter.vue', () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">  import { createPinia } from 'pinia';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">  import { createPinia } from 'pinia';
 
   const pinia = createPinia();
   const wrapper = mount(MyComponent, {
@@ -5848,7 +6085,7 @@ describe('Counter.vue', () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">  test('should interact with child component', async () =&gt; {
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">  test('should interact with child component', async () =&gt; {
       const wrapper = mount(ParentComponent);
       await wrapper.find('button').trigger('click');
       expect(wrapper.findComponent(ChildComponent).text()).toContain('Texto actualizado');
@@ -5864,7 +6101,7 @@ describe('Counter.vue', () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">  test('full flow test', async () =&gt; {
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">  test('full flow test', async () =&gt; {
       const wrapper = mount(MyForm);
       await wrapper.find('input').setValue('Nuevo valor');
       await wrapper.find('form').trigger('submit');
@@ -5892,7 +6129,7 @@ describe('Counter.vue', () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">  const AsyncComponent = () =&gt; import('./components/AsyncComponent.vue');
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">  const AsyncComponent = () =&gt; import('./components/AsyncComponent.vue');
 
   export default {
       components: {
@@ -5946,7 +6183,7 @@ describe('Counter.vue', () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">  const routes = [
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">  const routes = [
       {
           path: '/about',
           component: () =&gt; import('./views/About.vue')
@@ -5963,7 +6200,7 @@ describe('Counter.vue', () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">  const LazyComponent = () =&gt; import('./components/LazyComponent.vue');</code></pre>
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">  const LazyComponent = () =&gt; import('./components/LazyComponent.vue');</code></pre>
 </div>
 </div>
 </div>
@@ -6092,7 +6329,7 @@ describe('Counter.vue', () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">    module.exports = {
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">    module.exports = {
         publicPath: process.env.NODE_ENV === 'production' ? '/nombre-del-repositorio/' : '/'
     };</code></pre>
 </div>
@@ -6128,7 +6365,7 @@ describe('Counter.vue', () =&gt; {
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Herramientas de monitorización:</strong> Implementa herramientas como Google Analytics o Sentry para monitorear el rendimiento y los errores de la aplicación en producción.</p>
+<p><strong>Herramientas de monitorización:</strong> Implementa herramientas como Google Analytics o Sentry para monitorizar el rendimiento y los errores de la aplicación en producción.</p>
 </li>
 <li>
 <p><strong>Actualizaciones periódicas:</strong> Realiza actualizaciones de seguridad y mantenimiento regularmente para asegurar que la aplicación siga funcionando correctamente.</p>
@@ -6142,15 +6379,79 @@ describe('Counter.vue', () =&gt; {
 </div>
 </div>
 <div class="sect1">
-<h2 id="_módulo_11_proyecto_final_aplicación_completa_con_vue_3">Módulo 11: Proyecto Final - Aplicación Completa con Vue 3</h2>
+<h2 id="_módulo_11_librerías_y_recursos_adicionales">Módulo 11: Librerías y Recursos Adicionales</h2>
 <div class="sectionbody">
-
+<div class="olist arabic">
+<div class="title">Librerías de Terceros Más Usadas con Vue.js</div>
+<ol class="arabic">
+<li>
+<p>Vue Router - Manejo de rutas. <a href="https://router.vuejs.org">link</a></p>
+</li>
+<li>
+<p>Vuex - Manejo del estado global. <a href="https://vuex.vuejs.org">link</a></p>
+</li>
+<li>
+<p>Vuetify - Componentes UI basados en Material Design. <a href="https://vuetifyjs.com">link</a></p>
+</li>
+<li>
+<p>Element UI - Marco de componentes UI para aplicaciones de escritorio. <a href="https://element.eleme.io">link</a></p>
+</li>
+<li>
+<p>Axios - Solicitudes HTTP. <a href="https://axios-http.com">link</a></p>
+</li>
+<li>
+<p>Vue-i18n - Internacionalización. <a href="https://kazupon.github.io/vue-i18n">link</a></p>
+</li>
+<li>
+<p>Vuex ORM - Manejo de datos relacionales en Vuex. <a href="https://vuex-orm.github.io/vuex-orm">link</a></p>
+</li>
+<li>
+<p>VeeValidate - Validación de formularios. <a href="https://vee-validate.logaretm.com">link</a></p>
+</li>
+<li>
+<p>Vue Apollo - Integración de GraphQL. <a href="https://vue-apollo.netlify.app">link</a></p>
+</li>
+<li>
+<p>Nuxt.js - Framework para aplicaciones universales. <a href="https://nuxtjs.org">link</a></p>
+</li>
+<li>
+<p>BootstrapVue - Integración de Bootstrap con Vue. <a href="https://bootstrap-vue.org">link</a></p>
+</li>
+<li>
+<p>Vue Toastification - Notificaciones toast. <a href="https://github.com/Maronato/vue-toastification">link</a></p>
+</li>
+<li>
+<p>Chart.js (con vue-chartjs) - Gráficas y visualizaciones. <a href="https://vue-chartjs.org">link</a></p>
+</li>
+<li>
+<p>Vue Draggable - Para implementar listas arrastrables. <a href="https://github.com/SortableJS/Vue.Draggable">link</a></p>
+</li>
+<li>
+<p>Vue Lazyload - Carga diferida de imágenes. <a href="https://github.com/hilongjw/vue-lazyload">link</a></p>
+</li>
+<li>
+<p>Vue Multiselect - Componente de selección múltiple. <a href="https://vue-multiselect.js.org">link</a></p>
+</li>
+<li>
+<p>Vue Sweetalert2 - Dialogs y alertas personalizables. <a href="https://sweetalert2.github.io">link</a></p>
+</li>
+<li>
+<p>Quasar Framework - Framework para aplicaciones en múltiples plataformas. <a href="https://quasar.dev">link</a></p>
+</li>
+<li>
+<p>Vue Formulate - Manejo avanzado de formularios. <a href="https://vueformulate.com">link</a></p>
+</li>
+<li>
+<p>Vue Snotify - Notificaciones de manera sencilla. <a href="https://github.com/artemsky/vue-snotify">link</a></p>
+</li>
+</ol>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-10-28 12:23:30 +0100
+Last updated 2024-10-31 14:35:40 +0100
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
