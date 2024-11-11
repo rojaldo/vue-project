@@ -14,13 +14,17 @@ const addHero = (hero: Hero) => {
     heroes.push(hero);
 }
 
+const remove = (index: number) => {
+    heroes.splice(index, 1);
+}   
+
 </script>
 
 <template>
     <main>
         <HeroForm @addHero="addHero" />
         <!-- <p>{{ heroInfo }}</p> -->
-        <HeroesList :heroesList="heroes" />
+        <HeroesList :heroesList="heroes" @removeHero="remove"/>
     </main>
 </template>
 

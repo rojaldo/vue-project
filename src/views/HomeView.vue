@@ -12,8 +12,8 @@ import HeroesComponent from '@/components/heroes/HeroesComponent.vue';
 
 <template>
   <main>
-    <HeroesComponent/>
-    <!-- <CalculatorComponent/> -->
+    <!-- <HeroesComponent/> -->
+    <CalculatorComponent/>
   </main>
 </template>
 
