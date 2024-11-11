@@ -4,6 +4,7 @@ import TheWelcome from '../components/TheWelcome.vue'
 import { ref, type Ref } from 'vue'
 import CalculatorComponent from '@/components/calculator/CalculatorComponent.vue';
 import HeroesComponent from '@/components/heroes/HeroesComponent.vue';
+import ApodComponent from '@/components/apod/ApodComponent.vue';
 
 
 
@@ -12,8 +13,10 @@ import HeroesComponent from '@/components/heroes/HeroesComponent.vue';
 
 <template>
   <main>
+
     <!-- <HeroesComponent/> -->
-    <CalculatorComponent/>
+    <!-- <CalculatorComponent/> -->
+     <ApodComponent/>
   </main>
 </template>
 

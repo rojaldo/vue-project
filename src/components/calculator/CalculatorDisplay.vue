@@ -20,7 +20,7 @@ const props = defineProps<{
   font-size: 3.5rem;
   text-align: end;
   background: transparent;
-  color: #fff;
+  color: #333333;
   border: none;
   outline: none;
   word-wrap: break-word;
