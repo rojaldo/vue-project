@@ -8,6 +8,8 @@
                     <VanDatePicker
 
                         placeholder="Select Date"
+                        @change="printData"
+                        v-model="currentDate"
                     />
                     <div
                         class="h-100 p-5 text-black bg-light border rounded-3"
@@ -52,17 +54,30 @@ import { ref, type Ref } from 'vue';
 // import { Apod } from '@/models/apod';
 
 let apod: any = ref(null);
+const currentDate = ref(['2024', '11', '11']);
 
-const getApod = async () => {
+const getApod = async (dateStr?: string) => {
 
     let url = '';
     const baseUrl = 'https://api.nasa.gov/planetary/apod';
     const apiKey  = 'DEMO_KEY';
+    if (dateStr) {
+        url = `${baseUrl}?api_key=${apiKey}&date=${dateStr}`;
+    } else {
     url = `${baseUrl}?api_key=${apiKey}`;
+    }
 
     const response = await fetch(url);
     const data = await response.json();
     apod.value = data;
+}
+
+const printData = (date: any) => {
+    console.log(date);
+    console.log(JSON.stringify(date));
+    let tmp = date;
+    let dateStr = `${tmp.selectedValues[0]}-${tmp.selectedValues[1]}-${tmp.selectedValues[2]}`;
+    getApod(dateStr);
 }
 
 getApod();
