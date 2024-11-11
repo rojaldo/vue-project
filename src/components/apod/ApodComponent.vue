@@ -4,7 +4,11 @@
             class="container"
         >
             <div class="row align-items-md-stretch">
-                <div class="col-md-12">
+                <div class="col-md-12" v-if="apod">
+                    <VanDatePicker
+
+                        placeholder="Select Date"
+                    />
                     <div
                         class="h-100 p-5 text-black bg-light border rounded-3"
                     >
@@ -27,6 +31,14 @@
                         </button>
                     </div>
                 </div>
+                <div
+                    class="alert alert-primary"
+                    role="alert"
+                    v-else
+                >
+                    <strong>Loading from APOD</strong> 
+                </div>
+                
 
             </div>
             
