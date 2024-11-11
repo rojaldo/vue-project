@@ -499,24 +499,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#_tipado_de_errores_y_error_en_typescript">Tipado de errores y <code>Error</code> en TypeScript</a></li>
 <li><a href="#_try_catch_finally_y_su_uso_en_typescript"><code>try</code>, <code>catch</code>, <code>finally</code> y su uso en TypeScript</a></li>
-<li><a href="#_creación_de_tipos_personalizados_de_errores">Creación de tipos personalizados de errores</a></li>
-<li><a href="#_manejo_de_errores_en_funciones_asíncronas">Manejo de errores en funciones asíncronas</a></li>
 </ul>
 </li>
 <li><a href="#_módulo_8_integración_con_javascript_y_node_js">Módulo 8: Integración con JavaScript y Node.js</a>
 <ul class="sectlevel2">
-<li><a href="#_uso_de_bibliotecas_de_javascript_en_typescript">Uso de bibliotecas de JavaScript en TypeScript</a></li>
+<li><a href="#_uso_de_librerías_de_javascript_en_typescript">Uso de librerías de JavaScript en TypeScript</a></li>
 <li><a href="#_archivos_de_declaración_de_tipos_d_ts">Archivos de declaración de tipos (<code>.d.ts</code>)</a></li>
 <li><a href="#_configuración_de_typescript_en_proyectos_node_js">Configuración de TypeScript en proyectos Node.js</a></li>
-<li><a href="#_integración_de_typescript_con_herramientas_como_babel_y_webpack">Integración de TypeScript con herramientas como Babel y Webpack</a></li>
-<li><a href="#_ejemplo_de_proyecto_en_node_js_con_typescript">Ejemplo de proyecto en Node.js con TypeScript</a></li>
 </ul>
 </li>
 <li><a href="#_módulo_9_desarrollo_y_pruebas_en_typescript">Módulo 9: Desarrollo y pruebas en TypeScript</a>
 <ul class="sectlevel2">
 <li><a href="#_configuración_de_entornos_de_prueba_para_typescript">Configuración de entornos de prueba para TypeScript</a></li>
 <li><a href="#_pruebas_unitarias_con_jest_y_typescript">Pruebas unitarias con Jest y TypeScript</a></li>
-<li><a href="#_pruebas_de_integración_y_pruebas_e2e">Pruebas de integración y pruebas E2E</a></li>
 <li><a href="#_creación_de_un_proyecto_completo_en_typescript">Creación de un proyecto completo en TypeScript</a></li>
 <li><a href="#_despliegue_y_configuración_para_producción">Despliegue y configuración para producción</a></li>
 </ul>
@@ -526,7 +521,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_decoradores_en_typescript">Decoradores en TypeScript</a></li>
 <li><a href="#_manejo_avanzado_de_tipos_infer_typeof_keyof_in">Manejo avanzado de tipos (<code>infer</code>, <code>typeof</code>, <code>keyof</code>, <code>in</code>)</a></li>
 <li><a href="#_operadores_de_tipo_as">Operadores de tipo (<code>as</code>, <code>!</code>, <code>?</code>)</a></li>
-<li><a href="#_creación_de_bibliotecas_y_herramientas_en_typescript">Creación de bibliotecas y herramientas en TypeScript</a></li>
+<li><a href="#_creación_de_librerías_y_herramientas_en_typescript">Creación de librerías y herramientas en TypeScript</a></li>
 <li><a href="#_buenas_prácticas_y_patrones_comunes_en_typescript">Buenas prácticas y patrones comunes en TypeScript</a></li>
 </ul>
 </li>
@@ -559,18 +554,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="sect2">
 <h3 id="_instalación_y_configuración_básica">Instalación y configuración básica</h3>
-<div class="paragraph">
-<p>Para instalar TypeScript, necesitas tener Node.js y npm (Node Package Manager) instalados. La instalación global se realiza con el siguiente comando:</p>
-</div>
 <div class="listingblock">
+<div class="title">Para instalar TypeScript, necesitas tener Node.js y npm (Node Package Manager) instalados. La instalación global se realiza con el siguiente comando:</div>
 <div class="content">
 <pre class="highlight"><code class="language-bash" data-lang="bash">npm install -g typescript</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>Una vez instalado, puedes verificar la versión con:</p>
-</div>
 <div class="listingblock">
+<div class="title">Una vez instalado, puedes verificar la versión con:</div>
 <div class="content">
 <pre class="highlight"><code class="language-bash" data-lang="bash">tsc --version</code></pre>
 </div>
@@ -578,10 +569,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="sect2">
 <h3 id="_configuración_de_proyectos_con_tsconfig_json">Configuración de proyectos con <code>tsconfig.json</code></h3>
-<div class="paragraph">
-<p>El archivo <code>tsconfig.json</code> permite configurar el compilador TypeScript y personalizar el comportamiento del proyecto. Puedes crear este archivo con:</p>
-</div>
 <div class="listingblock">
+<div class="title">El archivo <code>tsconfig.json</code> permite configurar el compilador TypeScript y personalizar el comportamiento del proyecto. Puedes crear este archivo con:</div>
 <div class="content">
 <pre class="highlight"><code class="language-bash" data-lang="bash">tsc --init</code></pre>
 </div>
@@ -592,10 +581,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="sect2">
 <h3 id="_primeros_pasos_el_primer_programa_en_typescript">Primeros pasos: el primer programa en TypeScript</h3>
-<div class="paragraph">
-<p>Crea un archivo <code>index.ts</code> y añade el siguiente código para probar TypeScript:</p>
-</div>
 <div class="listingblock">
+<div class="title">Crea un archivo <code>index.ts</code> y añade el siguiente código para probar TypeScript:</div>
 <div class="content">
 <pre class="highlight"><code class="language-typescript" data-lang="typescript">function greet(name: string): string {
     return `Hello, ${name}!`;
@@ -604,18 +591,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 console.log(greet("TypeScript"));</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>Para compilarlo, usa el comando:</p>
-</div>
 <div class="listingblock">
+<div class="title">Para compilarlo, usa el comando:</div>
 <div class="content">
 <pre class="highlight"><code class="language-bash" data-lang="bash">tsc index.ts</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>Esto generará un archivo <code>index.js</code> que puedes ejecutar con Node.js:</p>
-</div>
 <div class="listingblock">
+<div class="title">Esto generará un archivo <code>index.js</code> que puedes ejecutar con Node.js:</div>
 <div class="content">
 <pre class="highlight"><code class="language-bash" data-lang="bash">node index.js</code></pre>
 </div>
@@ -650,10 +633,8 @@ console.log(greet("TypeScript"));</code></pre>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_tipos_primitivos_string_number_boolean_null_undefined">Tipos primitivos (<code>string</code>, <code>number</code>, <code>boolean</code>, <code>null</code>, <code>undefined</code>)</h3>
-<div class="paragraph">
-<p>TypeScript proporciona tipos primitivos similares a JavaScript, con la ventaja de que se pueden definir explícitamente:</p>
-</div>
 <div class="listingblock">
+<div class="title">TypeScript proporciona tipos primitivos similares a JavaScript, con la ventaja de que se pueden definir explícitamente:</div>
 <div class="content">
 <pre class="highlight"><code class="language-typescript" data-lang="typescript">let nombre: string = "Alice";
 let edad: number = 30;
@@ -668,81 +649,49 @@ let nulo: null = null;</code></pre>
 </div>
 <div class="sect2">
 <h3 id="_any_unknown_never_cuándo_y_cómo_usarlos"><code>any</code>, <code>unknown</code>, <code>never</code>: Cuándo y cómo usarlos</h3>
-<div class="ulist">
-<ul>
-<li>
-<p><strong><code>any</code></strong>: Usar este tipo cuando una variable puede tener cualquier valor. Sin embargo, su uso debe ser limitado, ya que desactiva el control de tipos.</p>
-</li>
-</ul>
+<div class="listingblock">
+<div class="title"><strong><code>any</code></strong>: Usar este tipo cuando una variable puede tener cualquier valor. Sin embargo, su uso debe ser limitado, ya que desactiva el control de tipos.</div>
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">let valor: any = "Puede ser cualquier cosa";</code></pre>
+</div>
 </div>
 <div class="listingblock">
+<div class="title"><strong><code>unknown</code></strong>: Similar a <code>any</code>, pero requiere una verificación de tipo antes de ser asignado a otros tipos, lo que es más seguro.</div>
 <div class="content">
-<pre>let valor: any = "Puede ser cualquier cosa";</pre>
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong><code>unknown</code></strong>: Similar a <code>any</code>, pero requiere una verificación de tipo antes de ser asignado a otros tipos, lo que es más seguro.</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>let dato: unknown = 10;
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">let dato: unknown = 10;
 if (typeof dato === "number") {
     let numero: number = dato;
-}</pre>
+}</code></pre>
 </div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong><code>never</code></strong>: Representa un valor que nunca ocurre, como en funciones que lanzan errores o tienen bucles infinitos.</p>
-</li>
-</ul>
 </div>
 <div class="listingblock">
+<div class="title"><strong><code>never</code></strong>: Representa un valor que nunca ocurre, como en funciones que lanzan errores o tienen bucles infinitos.</div>
 <div class="content">
-<pre>function error(mensaje: string): never {
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">function error(mensaje: string): never {
     throw new Error(mensaje);
-}</pre>
+}</code></pre>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_arrays_y_tuplas">Arrays y tuplas</h3>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Arrays</strong>: Se puede definir un array especificando el tipo de elementos que contiene.</p>
-</li>
-</ul>
+<div class="listingblock">
+<div class="title"><strong>Arrays</strong>: Se puede definir un array especificando el tipo de elementos que contiene.</div>
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">let listaNumeros: number[] = [1, 2, 3, 4];</code></pre>
+</div>
 </div>
 <div class="listingblock">
+<div class="title"><strong>Tuplas</strong>: Permiten definir un array con un número fijo de elementos de tipos específicos en un orden concreto.</div>
 <div class="content">
-<pre>let listaNumeros: number[] = [1, 2, 3, 4];</pre>
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Tuplas</strong>: Permiten definir un array con un número fijo de elementos de tipos específicos en un orden concreto.</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>let persona: [string, number] = ["Alice", 30];</pre>
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">let persona: [string, number] = ["Alice", 30];</code></pre>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_tipos_de_enumeración_enum">Tipos de enumeración (<code>enum</code>)</h3>
-<div class="paragraph">
-<p>Los <code>enum</code> se utilizan para definir un conjunto de valores constantes con nombres. Son útiles para variables que pueden tener un conjunto limitado de valores.</p>
-</div>
 <div class="listingblock">
+<div class="title">Los <code>enum</code> se utilizan para definir un conjunto de valores constantes con nombres. Son útiles para variables que pueden tener un conjunto limitado de valores.</div>
 <div class="content">
 <pre class="highlight"><code class="language-typescript" data-lang="typescript">enum Color {
     Rojo,
@@ -753,10 +702,8 @@ if (typeof dato === "number") {
 let colorFavorito: Color = Color.Verde;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>Se pueden inicializar con valores personalizados si es necesario:</p>
-</div>
 <div class="listingblock">
+<div class="title">Se pueden inicializar con valores personalizados si es necesario:</div>
 <div class="content">
 <pre class="highlight"><code class="language-typescript" data-lang="typescript">enum Estado {
     Activo = 1,
@@ -767,30 +714,18 @@ let colorFavorito: Color = Color.Verde;</code></pre>
 </div>
 <div class="sect2">
 <h3 id="_tipos_de_unión_y_tipos_literales">Tipos de unión y tipos literales</h3>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Tipos de unión</strong>: Permiten definir una variable que puede ser de más de un tipo.</p>
-</li>
-</ul>
+<div class="listingblock">
+<div class="title"><strong>Tipos de unión</strong>: Permiten definir una variable que puede ser de más de un tipo.</div>
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">let id: number | string = 123;
+id = "ABC";</code></pre>
+</div>
 </div>
 <div class="listingblock">
+<div class="title"><strong>Tipos literales</strong>: Restringen una variable a ciertos valores específicos, útiles para garantizar valores limitados.</div>
 <div class="content">
-<pre>let id: number | string = 123;
-id = "ABC";</pre>
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Tipos literales</strong>: Restringen una variable a ciertos valores específicos, útiles para garantizar valores limitados.</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>type EstadoUsuario = "Activo" | "Inactivo" | "Pendiente";
-let estado: EstadoUsuario = "Activo";</pre>
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">type EstadoUsuario = "Activo" | "Inactivo" | "Pendiente";
+let estado: EstadoUsuario = "Activo";</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -804,10 +739,8 @@ let estado: EstadoUsuario = "Activo";</pre>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_declaración_de_funciones_y_anotaciones_de_tipo">Declaración de funciones y anotaciones de tipo</h3>
-<div class="paragraph">
-<p>En TypeScript, puedes declarar funciones y definir el tipo de los parámetros y el tipo de retorno. Esto permite que el compilador verifique que se usen correctamente.</p>
-</div>
 <div class="listingblock">
+<div class="title">En TypeScript, puedes declarar funciones y definir el tipo de los parámetros y el tipo de retorno. Esto permite que el compilador verifique que se usen correctamente.</div>
 <div class="content">
 <pre class="highlight"><code class="language-typescript" data-lang="typescript">function sumar(a: number, b: number): number {
     return a + b;
@@ -820,10 +753,8 @@ let estado: EstadoUsuario = "Activo";</pre>
 </div>
 <div class="sect2">
 <h3 id="_parámetros_opcionales_y_valores_por_defecto">Parámetros opcionales y valores por defecto</h3>
-<div class="paragraph">
-<p>Los parámetros opcionales se indican con <code>?</code>, permitiendo que se omitan al llamar la función. También puedes definir valores por defecto.</p>
-</div>
 <div class="listingblock">
+<div class="title">Los parámetros opcionales se indican con <code>?</code>, permitiendo que se omitan al llamar la función. También puedes definir valores por defecto.</div>
 <div class="content">
 <pre class="highlight"><code class="language-typescript" data-lang="typescript">function saludo(nombre: string, saludoFormal?: boolean): string {
     return saludoFormal ? `Buenos días, ${nombre}` : `Hola, ${nombre}`;
@@ -840,10 +771,8 @@ function incrementar(base: number, incremento: number = 1): number {
 </div>
 <div class="sect2">
 <h3 id="_sobrecarga_de_funciones">Sobrecarga de funciones</h3>
-<div class="paragraph">
-<p>La sobrecarga permite definir múltiples firmas para una misma función, que puede comportarse de manera distinta según los tipos de los argumentos.</p>
-</div>
 <div class="listingblock">
+<div class="title">La sobrecarga permite definir múltiples firmas para una misma función, que puede comportarse de manera distinta según los tipos de los argumentos.</div>
 <div class="content">
 <pre class="highlight"><code class="language-typescript" data-lang="typescript">function combinar(a: string, b: string): string;
 function combinar(a: number, b: number): number;
@@ -858,10 +787,8 @@ function combinar(a: any, b: any): any {
 </div>
 <div class="sect2">
 <h3 id="_funciones_como_tipos_y_funciones_anónimas">Funciones como tipos y funciones anónimas</h3>
-<div class="paragraph">
-<p>Puedes usar tipos para definir la estructura de una función y luego asignarla a una variable o usar funciones anónimas.</p>
-</div>
 <div class="listingblock">
+<div class="title">Puedes usar tipos para definir la estructura de una función y luego asignarla a una variable o usar funciones anónimas.</div>
 <div class="content">
 <pre class="highlight"><code class="language-typescript" data-lang="typescript">type Operacion = (x: number, y: number) =&gt; number;
 let multiplicar: Operacion = (a, b) =&gt; a * b;</code></pre>
@@ -873,10 +800,8 @@ let multiplicar: Operacion = (a, b) =&gt; a * b;</code></pre>
 </div>
 <div class="sect2">
 <h3 id="_tipo_this_en_funciones">Tipo <code>this</code> en funciones</h3>
-<div class="paragraph">
-<p>TypeScript permite especificar el tipo de <code>this</code> en funciones, lo que es útil en métodos que usan <code>this</code>.</p>
-</div>
 <div class="listingblock">
+<div class="title">TypeScript permite especificar el tipo de <code>this</code> en funciones, lo que es útil en métodos que usan <code>this</code>.</div>
 <div class="content">
 <pre class="highlight"><code class="language-typescript" data-lang="typescript">interface Usuario {
     nombre: string;
@@ -907,7 +832,7 @@ usuario.mostrarNombre();</code></pre>
 <div class="sect2">
 <h3 id="_definición_y_uso_de_interfaces">Definición y uso de interfaces</h3>
 <div class="paragraph">
-<p>Las interfaces en TypeScript definen la estructura de un objeto, permitiendo especificar propiedades y sus tipos. Son útiles para modelar datos y asegurar que los objetos cumplan ciertas condiciones.</p>
+<p>Las interfaces en TypeScript definen la estructura de un objeto, permitiendo especificar propiedades y sus tipos. Son útiles para modelar datos y asegurar que los objetos cumplan ciertas .condiciones.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -930,10 +855,8 @@ mostrarPersona(persona);</code></pre>
 </div>
 <div class="sect2">
 <h3 id="_extensión_de_interfaces">Extensión de interfaces</h3>
-<div class="paragraph">
-<p>Una interfaz puede extender otra para reutilizar propiedades y métodos. Esto permite crear jerarquías de tipos y extender estructuras de datos.</p>
-</div>
 <div class="listingblock">
+<div class="title">Una interfaz puede extender otra para reutilizar propiedades y métodos. Esto permite crear jerarquías de tipos y extender estructuras de datos.</div>
 <div class="content">
 <pre class="highlight"><code class="language-typescript" data-lang="typescript">interface Trabajador extends Persona {
     puesto: string;
@@ -948,10 +871,8 @@ let empleado: Trabajador = { nombre: "Bob", edad: 25, puesto: "Desarrollador" };
 </div>
 <div class="sect2">
 <h3 id="_tipos_compuestos_type_vs_interface">Tipos compuestos (<code>type</code> vs <code>interface</code>)</h3>
-<div class="paragraph">
-<p>TypeScript permite definir tipos personalizados mediante <code>type</code>. Aunque <code>type</code> y <code>interface</code> son similares, <code>type</code> es más flexible y permite combinaciones avanzadas.</p>
-</div>
 <div class="listingblock">
+<div class="title">TypeScript permite definir tipos personalizados mediante <code>type</code>. Aunque <code>type</code> y <code>interface</code> son similares, <code>type</code> es más flexible y permite combinaciones avanzadas.</div>
 <div class="content">
 <pre class="highlight"><code class="language-typescript" data-lang="typescript">type ID = string | number;
 type PersonaConID = Persona &amp; { id: ID };</code></pre>
@@ -970,10 +891,8 @@ type PersonaConID = Persona &amp; { id: ID };</code></pre>
 </div>
 <div class="sect2">
 <h3 id="_clases_y_polimorfismo">Clases y polimorfismo</h3>
-<div class="paragraph">
-<p>Las clases en TypeScript permiten la programación orientada a objetos, proporcionando encapsulamiento, herencia y polimorfismo. Las clases pueden implementar una o varias interfaces.</p>
-</div>
 <div class="listingblock">
+<div class="title">Las clases en TypeScript permiten la programación orientada a objetos, proporcionando encapsulamiento, herencia y polimorfismo. Las clases pueden implementar una o varias interfaces.</div>
 <div class="content">
 <pre class="highlight"><code class="language-typescript" data-lang="typescript">interface SerVivo {
     respirar(): void;
@@ -1001,21 +920,15 @@ mascota.respirar(); // Aplica polimorfismo</code></pre>
 </div>
 <div class="sect2">
 <h3 id="_uso_de_readonly_y_modificadores_de_acceso_public_private_protected">Uso de <code>readonly</code> y modificadores de acceso (<code>public</code>, <code>private</code>, <code>protected</code>)</h3>
-<div class="ulist">
-<ul>
-<li>
-<p><strong><code>readonly</code></strong>: Las propiedades <code>readonly</code> solo pueden asignarse durante la inicialización o en el constructor, evitando modificaciones posteriores.</p>
-</li>
-</ul>
-</div>
 <div class="listingblock">
+<div class="title"><strong><code>readonly</code></strong>: Las propiedades <code>readonly</code> solo pueden asignarse durante la inicialización o en el constructor, evitando modificaciones posteriores.</div>
 <div class="content">
-<pre>class Libro {
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">class Libro {
     readonly titulo: string;
     constructor(titulo: string) {
         this.titulo = titulo;
     }
-}</pre>
+}</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -1030,13 +943,14 @@ mascota.respirar(); // Aplica polimorfismo</code></pre>
 <p><code>private</code>: accesible solo dentro de la clase.</p>
 </li>
 <li>
-<p><code>protected</code>: accesible en la clase y en sus subclases.</p>
+<p><code>protected</code>: accesible en la clase y en sus subclases.
+.</p>
 </li>
 </ul>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-typescript" data-lang="typescript">class Cuenta {
+<pre>class Cuenta {
     public nombre: string;
     private saldo: number;
     protected limite: number;
@@ -1050,7 +964,7 @@ mascota.respirar(); // Aplica polimorfismo</code></pre>
     private calcularInteres(): number {
         return this.saldo * 0.05;
     }
-}</code></pre>
+}</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1064,10 +978,8 @@ mascota.respirar(); // Aplica polimorfismo</code></pre>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_introducción_a_los_tipos_genéricos">Introducción a los tipos genéricos</h3>
-<div class="paragraph">
-<p>Los tipos genéricos permiten que componentes como funciones, clases e interfaces trabajen con varios tipos en lugar de uno específico. Esto permite que el código sea reutilizable y flexible.</p>
-</div>
 <div class="listingblock">
+<div class="title">Los tipos genéricos permiten que componentes como funciones, clases e interfaces trabajen con varios tipos en lugar de uno específico. Esto permite que el código sea reutilizable y flexible.</div>
 <div class="content">
 <pre class="highlight"><code class="language-typescript" data-lang="typescript">function identidad&lt;T&gt;(valor: T): T {
     return valor;
@@ -1083,10 +995,8 @@ console.log(identidad&lt;number&gt;(123));</code></pre>
 </div>
 <div class="sect2">
 <h3 id="_funciones_genéricas">Funciones genéricas</h3>
-<div class="paragraph">
-<p>Las funciones genéricas se definen con un parámetro de tipo y pueden aceptar distintos tipos en cada invocación.</p>
-</div>
 <div class="listingblock">
+<div class="title">Las funciones genéricas se definen con un parámetro de tipo y pueden aceptar distintos tipos en cada invocación.</div>
 <div class="content">
 <pre class="highlight"><code class="language-typescript" data-lang="typescript">function combinar&lt;T, U&gt;(a: T, b: U): [T, U] {
     return [a, b];
@@ -1101,10 +1011,8 @@ console.log(combinar&lt;number, string&gt;(1, "TypeScript"));</code></pre>
 </div>
 <div class="sect2">
 <h3 id="_clases_genéricas">Clases genéricas</h3>
-<div class="paragraph">
-<p>Las clases genéricas permiten trabajar con propiedades de diferentes tipos en la misma estructura. Esto es útil para estructuras de datos como listas o pilas.</p>
-</div>
 <div class="listingblock">
+<div class="title">Las clases genéricas permiten trabajar con propiedades de diferentes tipos en la misma estructura. Esto es útil para estructuras de datos como listas o pilas.</div>
 <div class="content">
 <pre class="highlight"><code class="language-typescript" data-lang="typescript">class Caja&lt;T&gt; {
     contenido: T;
@@ -1123,10 +1031,8 @@ let cajaDeTexto = new Caja&lt;string&gt;("texto");</code></pre>
 </div>
 <div class="sect2">
 <h3 id="_interfaces_genéricas_y_restricciones_de_tipo">Interfaces genéricas y restricciones de tipo</h3>
-<div class="paragraph">
-<p>Las interfaces también pueden ser genéricas, lo que permite describir estructuras más versátiles. Además, es posible restringir el tipo genérico usando <code>extends</code>.</p>
-</div>
 <div class="listingblock">
+<div class="title">Las interfaces también pueden ser genéricas, lo que permite describir estructuras más versátiles. Además, es posible restringir el tipo genérico usando <code>extends</code>.</div>
 <div class="content">
 <pre class="highlight"><code class="language-typescript" data-lang="typescript">interface Par&lt;T&gt; {
     primero: T;
@@ -1152,30 +1058,18 @@ console.log(mostrarLongitud("cadena")); // Funciona porque `string` tiene `lengt
 </div>
 <div class="sect2">
 <h3 id="_tipos_condicionales_y_tipos_mapeados">Tipos condicionales y tipos mapeados</h3>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Tipos condicionales</strong>: Permiten crear tipos condicionales que se evalúan en tiempo de compilación. Se usa la sintaxis <code>T extends U ? X : Y</code>.</p>
-</li>
-</ul>
-</div>
 <div class="listingblock">
+<div class="title"><strong>Tipos condicionales</strong>: Permiten crear tipos condicionales que se evalúan en tiempo de compilación. Se usa la sintaxis <code>T extends U ? X : Y</code>.</div>
 <div class="content">
-<pre>type EsNumero&lt;T&gt; = T extends number ? "Es un número" : "No es un número";
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">type EsNumero&lt;T&gt; = T extends number ? "Es un número" : "No es un número";
 type Resultado1 = EsNumero&lt;number&gt;; // "Es un número"
-type Resultado2 = EsNumero&lt;string&gt;; // "No es un número"</pre>
+type Resultado2 = EsNumero&lt;string&gt;; // "No es un número"</code></pre>
 </div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Tipos mapeados</strong>: Permiten transformar propiedades de un tipo existente en otro tipo, aplicando modificadores de tipo.</p>
-</li>
-</ul>
 </div>
 <div class="listingblock">
+<div class="title"><strong>Tipos mapeados</strong>: Permiten transformar propiedades de un tipo existente en otro tipo, aplicando modificadores de tipo.</div>
 <div class="content">
-<pre>type SoloLectura&lt;T&gt; = {
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">type SoloLectura&lt;T&gt; = {
     readonly [P in keyof T]: T[P];
 };
 
@@ -1184,7 +1078,7 @@ interface Usuario {
     edad: number;
 }
 
-type UsuarioSoloLectura = SoloLectura&lt;Usuario&gt;;</pre>
+type UsuarioSoloLectura = SoloLectura&lt;Usuario&gt;;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1199,7 +1093,8 @@ type UsuarioSoloLectura = SoloLectura&lt;Usuario&gt;;</pre>
 <div class="sect2">
 <h3 id="_importación_y_exportación_de_módulos">Importación y exportación de módulos</h3>
 <div class="paragraph">
-<p>En TypeScript, los módulos ayudan a organizar el código en archivos separados y encapsulan funcionalidades. Para compartir y reutilizar código entre archivos, se usa <code>export</code> para declarar lo que se desea exponer y <code>import</code> para acceder a esos elementos en otros archivos.</p>
+<p>En TypeScript, los módulos ayudan a organizar el código en archivos separados y encapsulan funcionalidades. Para compartir y reutilizar código entre archivos, se usa <code>export</code> para declarar lo que se desea exponer y <code>import</code> para acceder a esos elementos en otros archivos.
+.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1214,10 +1109,8 @@ type UsuarioSoloLectura = SoloLectura&lt;Usuario&gt;;</pre>
 </div>
 <div class="sect2">
 <h3 id="_uso_de_import_y_export_en_typescript">Uso de <code>import</code> y <code>export</code> en TypeScript</h3>
-<div class="paragraph">
-<p>Para usar funciones, clases o variables de otros módulos, se usa <code>import</code>. El siguiente ejemplo muestra cómo importar <code>saludar</code> desde otro archivo:</p>
-</div>
 <div class="listingblock">
+<div class="title">Para usar funciones, clases o variables de otros módulos, se usa <code>import</code>. El siguiente ejemplo muestra cómo importar <code>saludar</code> desde otro archivo:</div>
 <div class="content">
 <pre class="highlight"><code class="language-typescript" data-lang="typescript">import { saludar } from './miModulo';
 
@@ -1225,7 +1118,8 @@ console.log(saludar("TypeScript"));</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>TypeScript soporta tanto la exportación por defecto (<code>export default</code>) como exportaciones nombradas (<code>export</code>). La exportación por defecto permite exportar un solo elemento principal en un módulo, que puede ser importado sin llaves <code>{ }</code> en el archivo receptor.</p>
+<p>TypeScript soporta tanto la exportación por defecto (<code>export default</code>) como exportaciones nombradas (<code>export</code>). La exportación por defecto permite exportar un solo elemento principal en un módulo, que puede ser importado sin llaves <code>{ }</code> en el archivo receptor.
+.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1247,10 +1141,8 @@ console.log(despedida("TypeScript"));</code></pre>
 - <code>"module": "esnext"</code>: para aprovechar los módulos nativos en ES6 y navegadores modernos.
 - <code>"outDir"</code>: define el directorio donde se guardarán los archivos compilados.</p>
 </div>
-<div class="paragraph">
-<p>Ejemplo básico de configuración de módulos en <code>tsconfig.json</code>:</p>
-</div>
 <div class="listingblock">
+<div class="title">Ejemplo básico de configuración de módulos en <code>tsconfig.json</code>:</div>
 <div class="content">
 <pre class="highlight"><code class="language-json" data-lang="json">{
     "compilerOptions": {
@@ -1264,9 +1156,10 @@ console.log(despedida("TypeScript"));</code></pre>
 <div class="sect2">
 <h3 id="_espacios_de_nombres_namespaces">Espacios de nombres (namespaces)</h3>
 <div class="paragraph">
-<p>Los espacios de nombres (namespaces) son una forma de agrupar código en TypeScript dentro de un mismo archivo o a través de varios archivos. A diferencia de los módulos, los namespaces están pensados para evitar conflictos de nombres en proyectos grandes. Se usan especialmente en aplicaciones que no se dividen en módulos y requieren agrupación lógica de código.</p>
+<p>Los espacios de nombres (namespaces) son una forma de agrupar código en TypeScript dentro de un mismo archivo o a través de varios archivos. A diferencia de los módulos, los namespaces están pensados para evitar conflictos de nombres en proyectos grandes.</p>
 </div>
 <div class="listingblock">
+<div class="title">Se usan especialmente en aplicaciones que no se dividen en módulos y requieren agrupación lógica de código.</div>
 <div class="content">
 <pre class="highlight"><code class="language-typescript" data-lang="typescript">namespace MiNamespace {
     export function saludar(nombre: string): string {
@@ -1283,14 +1176,42 @@ console.log(MiNamespace.saludar("TypeScript"));</code></pre>
 </div>
 <div class="sect2">
 <h3 id="_comparación_entre_módulos_y_espacios_de_nombres">Comparación entre módulos y espacios de nombres</h3>
-<div class="paragraph">
-<p>| Característica               | Módulos                              | Espacios de Nombres                   |
-|------------------------------|--------------------------------------|---------------------------------------|
-| División de código           | Se basa en archivos                  | Organización dentro de un mismo archivo o varios archivos |
-| Uso                          | Import/export entre archivos         | Agrupación lógica sin separación física |
-| Compilación                  | Se compilan a archivos separados     | Se mantienen en el mismo archivo en la mayoría de los casos |
-| Escenario ideal              | Proyectos modernos y basados en ECMAScript | Proyectos legacy o sin estructura de módulos |</p>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Característica</th>
+<th class="tableblock halign-left valign-top">Módulos</th>
+<th class="tableblock halign-left valign-top">Espacios de Nombres</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">División de código</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Se basa en archivos</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Organización dentro de un mismo archivo o varios archivos</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Uso</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Import/export entre archivos</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Agrupación lógica sin separación física</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Compilación</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Se compilan a archivos separados</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Se mantienen en el mismo archivo en la mayoría de los casos</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Escenario ideal</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Proyectos modernos y basados en ECMAScript</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Proyectos legacy o sin estructura de módulos</p></td>
+</tr>
+</tbody>
+</table>
 <div class="paragraph">
 <p>En TypeScript, los módulos son recomendados para la mayoría de los proyectos modernos, especialmente aquellos que utilizan bundlers (como Webpack o esbuild) y módulos ES6. Los namespaces se usan menos en entornos modernos, pero son útiles en ciertos contextos que no requieren la estructura de módulos.</p>
 </div>
@@ -1302,19 +1223,84 @@ console.log(MiNamespace.saludar("TypeScript"));</code></pre>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_tipado_de_errores_y_error_en_typescript">Tipado de errores y <code>Error</code> en TypeScript</h3>
-
+<div class="paragraph">
+<p>En TypeScript, los errores pueden ser tipados para proporcionar mayor seguridad y claridad en el manejo de excepciones. La clase base para los errores en JavaScript y TypeScript es <code>Error</code>. Podemos extender esta clase para crear errores personalizados.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">class CustomError extends Error {
+    constructor(message: string) {
+        super(message);
+        this.name = "CustomError";
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En el ejemplo anterior, hemos creado una clase <code>CustomError</code> que extiende de <code>Error</code>. Esto nos permite definir errores específicos para nuestras aplicaciones.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">function throwError(): never {
+    throw new CustomError("This is a custom error");
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>La función <code>throwError</code> lanza una instancia de <code>CustomError</code>. El tipo de retorno <code>never</code> indica que esta función nunca retorna un valor, ya que siempre lanza una excepción.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">try {
+    throwError();
+} catch (error) {
+    if (error instanceof CustomError) {
+        console.error(`Caught a custom error: ${error.message}`);
+    } else {
+        console.error(`Caught an unknown error: ${error}`);
+    }
+}</code></pre>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_try_catch_finally_y_su_uso_en_typescript"><code>try</code>, <code>catch</code>, <code>finally</code> y su uso en TypeScript</h3>
-
+<div class="paragraph">
+<p>El manejo de excepciones en TypeScript se realiza de manera similar a JavaScript, utilizando los bloques <code>try</code>, <code>catch</code> y <code>finally</code>. Estos bloques permiten manejar errores de manera controlada y ejecutar código de limpieza independientemente de si se produjo una excepción o no.</p>
 </div>
-<div class="sect2">
-<h3 id="_creación_de_tipos_personalizados_de_errores">Creación de tipos personalizados de errores</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">function riskyOperation() {
+    if (Math.random() &gt; 0.5) {
+        throw new Error("Something went wrong!");
+    }
+    return "Success!";
+}
 
+try {
+    const result = riskyOperation();
+    console.log(result);
+} catch (error) {
+    console.error(`Caught an error: ${error.message}`);
+} finally {
+    console.log("This will always run, regardless of an error.");
+}</code></pre>
 </div>
-<div class="sect2">
-<h3 id="_manejo_de_errores_en_funciones_asíncronas">Manejo de errores en funciones asíncronas</h3>
-
+</div>
+<div class="ulist">
+<div class="title">En el ejemplo anterior:</div>
+<ul>
+<li>
+<p>El bloque <code>try</code> contiene el código que puede lanzar una excepción.</p>
+</li>
+<li>
+<p>Si se lanza una excepción, el control pasa al bloque <code>catch</code>, donde se puede manejar el error.</p>
+</li>
+<li>
+<p>El bloque <code>finally</code> se ejecuta siempre, independientemente de si se lanzó una excepción o no. Es útil para realizar tareas de limpieza, como cerrar conexiones o liberar recursos.</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
@@ -1322,24 +1308,190 @@ console.log(MiNamespace.saludar("TypeScript"));</code></pre>
 <h2 id="_módulo_8_integración_con_javascript_y_node_js">Módulo 8: Integración con JavaScript y Node.js</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_uso_de_bibliotecas_de_javascript_en_typescript">Uso de bibliotecas de JavaScript en TypeScript</h3>
+<h3 id="_uso_de_librerías_de_javascript_en_typescript">Uso de librerías de JavaScript en TypeScript</h3>
+<div class="paragraph">
+<p>TypeScript es compatible con la mayoría de las bibliotecas de JavaScript. Para utilizar una biblioteca de JavaScript en un proyecto TypeScript, es importante contar con los archivos de declaración de tipos (<code>.d.ts</code>). Estos archivos proporcionan información de tipo que permite a TypeScript entender cómo interactuar con la biblioteca.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">import * as _ from "lodash";
 
+const numbers: number[] = [1, 2, 3, 4, 5];
+const doubledNumbers = _.map(numbers, (num) =&gt; num * 2);
+
+console.log(doubledNumbers); // [2, 4, 6, 8, 10]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En el ejemplo anterior, utilizamos la biblioteca <code>lodash</code> en un proyecto TypeScript. Para que TypeScript reconozca los tipos de <code>lodash</code>, necesitamos instalar los tipos correspondientes:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">npm install @types/lodash</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Esto instala los archivos de declaración de tipos para <code>lodash</code>, permitiendo que TypeScript proporcione autocompletado y verificación de tipos.</p>
+</div>
+<div class="paragraph">
+<p>Si una biblioteca no tiene archivos de declaración de tipos disponibles, podemos crear los nuestros o usar el tipo <code>any</code> para deshabilitar la verificación de tipos:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">declare module "some-js-library";
+
+import * as someJsLibrary from "some-js-library";
+
+someJsLibrary.doSomething();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En este caso, usamos <code>declare module</code> para informar a TypeScript que existe un módulo llamado <code>some-js-library</code>, aunque no tengamos información de tipos detallada.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_archivos_de_declaración_de_tipos_d_ts">Archivos de declaración de tipos (<code>.d.ts</code>)</h3>
+<div class="paragraph">
+<p>Los archivos de declaración de tipos (<code>.d.ts</code>) en TypeScript son utilizados para describir la forma de los módulos JavaScript que no están escritos en TypeScript. Estos archivos permiten a TypeScript conocer los tipos de las variables, funciones y clases que están disponibles en un módulo, proporcionando autocompletado y verificación de tipos.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">declare module "my-library" {
+    export function myFunction(param: string): number;
+    export const myVariable: boolean;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En el ejemplo anterior, se declara un módulo llamado <code>my-library</code> con una función <code>myFunction</code> y una variable <code>myVariable</code>. Esto permite que TypeScript entienda cómo interactuar con <code>my-library</code>.</p>
+</div>
+<div class="paragraph">
+<p>Para utilizar un archivo de declaración de tipos en un proyecto, simplemente colócalo en un archivo con la extensión <code>.d.ts</code> y asegúrate de que esté incluido en el proyecto.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">import { myFunction, myVariable } from "my-library";
 
+const result = myFunction("example");
+console.log(result); // Asume que retorna un número
+
+if (myVariable) {
+    console.log("myVariable is true");
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Si estás utilizando una biblioteca popular de JavaScript, es probable que ya existan archivos de declaración de tipos disponibles en el repositorio DefinitelyTyped. Puedes instalarlos usando npm:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">npm install @types/my-library</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Esto instalará los archivos de declaración de tipos para <code>my-library</code>, permitiendo que TypeScript proporcione autocompletado y verificación de tipos.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_configuración_de_typescript_en_proyectos_node_js">Configuración de TypeScript en proyectos Node.js</h3>
-
+<div class="paragraph">
+<p>Configurar TypeScript en un proyecto Node.js permite aprovechar las ventajas del tipado estático y las características avanzadas de TypeScript. A continuación se describen los pasos para configurar TypeScript en un proyecto Node.js.</p>
 </div>
-<div class="sect2">
-<h3 id="_integración_de_typescript_con_herramientas_como_babel_y_webpack">Integración de TypeScript con herramientas como Babel y Webpack</h3>
-
+<div class="sect3">
+<h4 id="_1_inicializar_el_proyecto">1. Inicializar el proyecto</h4>
+<div class="paragraph">
+<p>Primero, inicializa un nuevo proyecto Node.js si aún no lo has hecho:</p>
 </div>
-<div class="sect2">
-<h3 id="_ejemplo_de_proyecto_en_node_js_con_typescript">Ejemplo de proyecto en Node.js con TypeScript</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">npm init -y</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_instalar_typescript">2. Instalar TypeScript</h4>
+<div class="paragraph">
+<p>Instala TypeScript y los tipos para Node.js como dependencias de desarrollo:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">npm install typescript @types/node --save-dev</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_3_crear_el_archivo_de_configuración_de_typescript">3. Crear el archivo de configuración de TypeScript</h4>
+<div class="paragraph">
+<p>Crea un archivo <code>tsconfig.json</code> en la raíz del proyecto para configurar el compilador de TypeScript:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+    "compilerOptions": {
+        "target": "ES6",
+        "module": "commonjs",
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "strict": true,
+        "esModuleInterop": true
+    },
+    "include": ["src/**/*"]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Este archivo configura TypeScript para compilar el código en ES6, usar el sistema de módulos CommonJS, y colocar los archivos compilados en el directorio <code>dist</code>. También se especifica que los archivos fuente están en el directorio <code>src</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_4_escribir_código_typescript">4. Escribir código TypeScript</h4>
+<div class="paragraph">
+<p>Crea un directorio <code>src</code> y escribe tu código TypeScript. Por ejemplo, crea un archivo <code>src/index.ts</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">import * as http from "http";
 
+const server = http.createServer((req, res) =&gt; {
+    res.statusCode = 200;
+    res.setHeader("Content-Type", "text/plain");
+    res.end("Hello, TypeScript with Node.js!\n");
+});
+
+server.listen(3000, () =&gt; {
+    console.log("Server running at http://localhost:3000/");
+});</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_5_compilar_el_código_typescript">5. Compilar el código TypeScript</h4>
+<div class="paragraph">
+<p>Compila el código TypeScript ejecutando el comando <code>tsc</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">npx tsc</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Esto generará los archivos JavaScript compilados en el directorio <code>dist</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_6_ejecutar_el_código_compilado">6. Ejecutar el código compilado</h4>
+<div class="paragraph">
+<p>Finalmente, ejecuta el código compilado con Node.js:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">node dist/index.js</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Siguiendo estos pasos, habrás configurado TypeScript en tu proyecto Node.js, permitiéndote escribir código más seguro y mantenible.</p>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1348,23 +1500,475 @@ console.log(MiNamespace.saludar("TypeScript"));</code></pre>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_configuración_de_entornos_de_prueba_para_typescript">Configuración de entornos de prueba para TypeScript</h3>
+<div class="paragraph">
+<p>Configurar un entorno de pruebas para TypeScript es esencial para garantizar la calidad y fiabilidad del código. A continuación se describen los pasos para configurar un entorno de pruebas utilizando Jest, una popular biblioteca de pruebas en JavaScript.</p>
+</div>
+<div class="sect3">
+<h4 id="_1_inicializar_el_proyecto_2">1. Inicializar el proyecto</h4>
+<div class="paragraph">
+<p>Primero, inicializa un nuevo proyecto Node.js si aún no lo has hecho:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">npm init -y</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_instalar_jest_y_sus_tipos">2. Instalar Jest y sus tipos</h4>
+<div class="paragraph">
+<p>Instala Jest y los tipos para Jest como dependencias de desarrollo:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">npm install jest @types/jest ts-jest --save-dev</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_3_configurar_jest">3. Configurar Jest</h4>
+<div class="paragraph">
+<p>Crea un archivo de configuración para Jest llamado <code>jest.config.js</code> en la raíz del proyecto:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">module.exports = {
+    preset: 'ts-jest',
+    testEnvironment: 'node',
+    testMatch: ['**/__tests__/**/*.ts', '**/?(*.)+(spec|test).ts']
+};</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Este archivo configura Jest para usar <code>ts-jest</code> como preajuste, lo que permite ejecutar pruebas escritas en TypeScript. También especifica que las pruebas se encuentran en archivos con las extensiones <code>.spec.ts</code> o <code>.test.ts</code> dentro del directorio <code><em>tests</em></code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_4_escribir_pruebas_en_typescript">4. Escribir pruebas en TypeScript</h4>
+<div class="paragraph">
+<p>Crea un directorio <code><em>tests</em></code> y escribe tus pruebas en TypeScript. Por ejemplo, crea un archivo <code><em>tests</em>/sum.test.ts</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">function sum(a: number, b: number): number {
+    return a + b;
+}
 
+test('adds 1 + 2 to equal 3', () =&gt; {
+    expect(sum(1, 2)).toBe(3);
+});</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_5_ejecutar_las_pruebas">5. Ejecutar las pruebas</h4>
+<div class="paragraph">
+<p>Ejecuta las pruebas utilizando Jest:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">npx jest</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Jest buscará y ejecutará todas las pruebas definidas en los archivos de prueba.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_6_integrar_con_typescript">6. Integrar con TypeScript</h4>
+<div class="paragraph">
+<p>Asegúrate de que tu archivo <code>tsconfig.json</code> incluya las configuraciones necesarias para las pruebas. Por ejemplo:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+    "compilerOptions": {
+        "target": "ES6",
+        "module": "commonjs",
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "strict": true,
+        "esModuleInterop": true
+    },
+    "include": ["src/**/*", "__tests__/**/*"]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Esto asegura que TypeScript compile tanto el código fuente como los archivos de prueba.</p>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_pruebas_unitarias_con_jest_y_typescript">Pruebas unitarias con Jest y TypeScript</h3>
-
+<div class="paragraph">
+<p>Jest es una popular biblioteca de pruebas en JavaScript que se integra bien con TypeScript. A continuación se describen los pasos para escribir y ejecutar pruebas unitarias con Jest y TypeScript.</p>
 </div>
-<div class="sect2">
-<h3 id="_pruebas_de_integración_y_pruebas_e2e">Pruebas de integración y pruebas E2E</h3>
+<div class="sect3">
+<h4 id="_1_inicializar_el_proyecto_3">1. Inicializar el proyecto</h4>
+<div class="paragraph">
+<p>Primero, inicializa un nuevo proyecto Node.js si aún no lo has hecho:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">npm init -y</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_instalar_jest_y_sus_tipos_2">2. Instalar Jest y sus tipos</h4>
+<div class="paragraph">
+<p>Instala Jest, <code>ts-jest</code> y los tipos para Jest como dependencias de desarrollo:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">npm install jest @types/jest ts-jest --save-dev</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_3_configurar_jest_2">3. Configurar Jest</h4>
+<div class="paragraph">
+<p>Crea un archivo de configuración para Jest llamado <code>jest.config.js</code> en la raíz del proyecto:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">module.exports = {
+    preset: 'ts-jest',
+    testEnvironment: 'node',
+    testMatch: ['**/__tests__/**/*.ts', '**/?(*.)+(spec|test).ts']
+};</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Este archivo configura Jest para usar <code>ts-jest</code> como preajuste, lo que permite ejecutar pruebas escritas en TypeScript. También especifica que las pruebas se encuentran en archivos con las extensiones <code>.spec.ts</code> o <code>.test.ts</code> dentro del directorio <code><em>tests</em></code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_4_escribir_pruebas_unitarias_en_typescript">4. Escribir pruebas unitarias en TypeScript</h4>
+<div class="paragraph">
+<p>Crea un directorio <code><em>tests</em></code> y escribe tus pruebas unitarias en TypeScript. Por ejemplo, crea un archivo <code><em>tests</em>/sum.test.ts</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">function sum(a: number, b: number): number {
+    return a + b;
+}
 
+test('adds 1 + 2 to equal 3', () =&gt; {
+    expect(sum(1, 2)).toBe(3);
+});</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En este ejemplo, se define una función <code>sum</code> y se escribe una prueba unitaria para verificar que <code>sum(1, 2)</code> retorna <code>3</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_5_ejecutar_las_pruebas_2">5. Ejecutar las pruebas</h4>
+<div class="paragraph">
+<p>Ejecuta las pruebas utilizando Jest:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">npx jest</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Jest buscará y ejecutará todas las pruebas definidas en los archivos de prueba.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_6_integrar_con_typescript_2">6. Integrar con TypeScript</h4>
+<div class="paragraph">
+<p>Asegúrate de que tu archivo <code>tsconfig.json</code> incluya las configuraciones necesarias para las pruebas. Por ejemplo:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+    "compilerOptions": {
+        "target": "ES6",
+        "module": "commonjs",
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "strict": true,
+        "esModuleInterop": true
+    },
+    "include": ["src/**/*", "__tests__/**/*"]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Esto asegura que TypeScript compile tanto el código fuente como los archivos de prueba.</p>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_creación_de_un_proyecto_completo_en_typescript">Creación de un proyecto completo en TypeScript</h3>
+<div class="paragraph">
+<p>Crear un proyecto completo en TypeScript implica configurar el entorno de desarrollo, escribir el código, compilarlo y ejecutar las pruebas. A continuación se describen los pasos para crear un proyecto completo en TypeScript.</p>
+</div>
+<div class="sect3">
+<h4 id="_1_inicializar_el_proyecto_4">1. Inicializar el proyecto</h4>
+<div class="paragraph">
+<p>Primero, inicializa un nuevo proyecto Node.js:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">npm init -y</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_instalar_typescript_2">2. Instalar TypeScript</h4>
+<div class="paragraph">
+<p>Instala TypeScript como una dependencia de desarrollo:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">npm install typescript --save-dev</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_3_configurar_typescript">3. Configurar TypeScript</h4>
+<div class="paragraph">
+<p>Crea un archivo <code>tsconfig.json</code> en la raíz del proyecto para configurar el compilador de TypeScript:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+    "compilerOptions": {
+        "target": "ES6",
+        "module": "commonjs",
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "strict": true,
+        "esModuleInterop": true
+    },
+    "include": ["src/**/*"]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Este archivo configura TypeScript para compilar el código en ES6, usar el sistema de módulos CommonJS, y colocar los archivos compilados en el directorio <code>dist</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_4_escribir_el_código">4. Escribir el código</h4>
+<div class="paragraph">
+<p>Crea un directorio <code>src</code> y escribe tu código TypeScript. Por ejemplo, crea un archivo <code>src/index.ts</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">import * as http from "http";
 
+const server = http.createServer((req, res) =&gt; {
+    res.statusCode = 200;
+    res.setHeader("Content-Type", "text/plain");
+    res.end("Hello, TypeScript!\n");
+});
+
+server.listen(3000, () =&gt; {
+    console.log("Server running at http://localhost:3000/");
+});</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_5_compilar_el_código">5. Compilar el código</h4>
+<div class="paragraph">
+<p>Compila el código TypeScript ejecutando el comando <code>tsc</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">npx tsc</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Esto generará los archivos JavaScript compilados en el directorio <code>dist</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_6_ejecutar_el_código_compilado_2">6. Ejecutar el código compilado</h4>
+<div class="paragraph">
+<p>Ejecuta el código compilado con Node.js:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">node dist/index.js</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_7_configurar_pruebas_unitarias">7. Configurar pruebas unitarias</h4>
+<div class="paragraph">
+<p>Instala Jest y sus tipos como dependencias de desarrollo:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">npm install jest @types/jest ts-jest --save-dev</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Crea un archivo de configuración para Jest llamado <code>jest.config.js</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">module.exports = {
+    preset: 'ts-jest',
+    testEnvironment: 'node',
+    testMatch: ['**/__tests__/**/*.ts', '**/?(*.)+(spec|test).ts']
+};</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Escribe tus pruebas unitarias en el directorio <code><em>tests</em></code>. Por ejemplo, crea un archivo <code><em>tests</em>/sum.test.ts</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">function sum(a: number, b: number): number {
+    return a + b;
+}
+
+test('adds 1 + 2 to equal 3', () =&gt; {
+    expect(sum(1, 2)).toBe(3);
+});</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Ejecuta las pruebas utilizando Jest:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">npx jest</code></pre>
+</div>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_despliegue_y_configuración_para_producción">Despliegue y configuración para producción</h3>
+<div class="paragraph">
+<p>Desplegar un proyecto TypeScript en producción implica compilar el código, configurar el entorno de producción y asegurarse de que la aplicación esté optimizada para el rendimiento. A continuación se describen los pasos para desplegar un proyecto TypeScript en producción.</p>
+</div>
+<div class="sect3">
+<h4 id="_1_compilar_el_código_typescript">1. Compilar el código TypeScript</h4>
+<div class="paragraph">
+<p>Primero, compila el código TypeScript para generar los archivos JavaScript que se ejecutarán en producción:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">npx tsc</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Esto generará los archivos JavaScript compilados en el directorio especificado en <code>tsconfig.json</code> (por ejemplo, <code>dist</code>).</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_configurar_el_entorno_de_producción">2. Configurar el entorno de producción</h4>
+<div class="paragraph">
+<p>Asegúrate de que tu aplicación esté configurada para el entorno de producción. Esto puede incluir la configuración de variables de entorno, la optimización del código y la configuración de herramientas de monitoreo.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_3_optimizar_el_código">3. Optimizar el código</h4>
+<div class="paragraph">
+<p>Utiliza herramientas como Webpack para optimizar el código JavaScript para producción. Webpack puede minificar el código, eliminar código muerto y realizar otras optimizaciones.</p>
+</div>
+<div class="paragraph">
+<p>Instala Webpack y sus dependencias:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">npm install webpack webpack-cli ts-loader --save-dev</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Crea un archivo de configuración para Webpack llamado <code>webpack.config.js</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">const path = require('path');
 
+module.exports = {
+    mode: 'production',
+    entry: './src/index.ts',
+    module: {
+        rules: [
+            {
+                test: /\.ts$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
+            },
+        ],
+    },
+    resolve: {
+        extensions: ['.ts', '.js'],
+    },
+    output: {
+        filename: 'bundle.js',
+        path: path.resolve(__dirname, 'dist'),
+    },
+};</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Ejecuta Webpack para generar el archivo optimizado:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">npx webpack</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_4_configurar_el_servidor_para_producción">4. Configurar el servidor para producción</h4>
+<div class="paragraph">
+<p>Configura tu servidor para servir los archivos generados. Por ejemplo, si estás utilizando Node.js con Express, puedes configurar el servidor para servir el archivo <code>bundle.js</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">import * as express from 'express';
+import * as path from 'path';
+
+const app = express();
+const port = process.env.PORT || 3000;
+
+app.use(express.static(path.join(__dirname, 'dist')));
+
+app.get('*', (req, res) =&gt; {
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
+
+app.listen(port, () =&gt; {
+    console.log(`Server running at http://localhost:${port}/`);
+});</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_5_desplegar_la_aplicación">5. Desplegar la aplicación</h4>
+<div class="paragraph">
+<p>Despliega la aplicación en un servicio de alojamiento como Heroku, AWS, o cualquier otro proveedor de tu elección. Asegúrate de seguir las mejores prácticas de despliegue para tu proveedor específico.</p>
+</div>
+<div class="paragraph">
+<p>Por ejemplo, para desplegar en Heroku:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">heroku create
+git push heroku main</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1373,30 +1977,596 @@ console.log(MiNamespace.saludar("TypeScript"));</code></pre>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_decoradores_en_typescript">Decoradores en TypeScript</h3>
+<div class="paragraph">
+<p>Los decoradores en TypeScript son una característica experimental que permite modificar el comportamiento de clases, métodos, propiedades y parámetros. Los decoradores son funciones que se aplican a una declaración para modificarla de alguna manera.</p>
+</div>
+<div class="sect3">
+<h4 id="_1_habilitar_los_decoradores">1. Habilitar los decoradores</h4>
+<div class="paragraph">
+<p>Para usar decoradores en TypeScript, primero debes habilitarlos en el archivo <code>tsconfig.json</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+    "compilerOptions": {
+        "target": "ES6",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_decoradores_de_clase">2. Decoradores de clase</h4>
+<div class="paragraph">
+<p>Un decorador de clase se aplica a una clase y puede modificar su constructor o agregar propiedades y métodos adicionales.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">function sealed(constructor: Function) {
+    Object.seal(constructor);
+    Object.seal(constructor.prototype);
+}
 
+@sealed
+class Greeter {
+    greeting: string;
+    constructor(message: string) {
+        this.greeting = message;
+    }
+    greet() {
+        return `Hello, ${this.greeting}`;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En este ejemplo, el decorador <code>@sealed</code> sella la clase <code>Greeter</code>, evitando que se agreguen nuevas propiedades o métodos.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_3_decoradores_de_método">3. Decoradores de método</h4>
+<div class="paragraph">
+<p>Un decorador de método se aplica a un método de una clase y puede modificar su comportamiento.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">function enumerable(value: boolean) {
+    return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+        descriptor.enumerable = value;
+    };
+}
+
+class Greeter {
+    greeting: string;
+    constructor(message: string) {
+        this.greeting = message;
+    }
+
+    @enumerable(false)
+    greet() {
+        return `Hello, ${this.greeting}`;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En este ejemplo, el decorador <code>@enumerable(false)</code> establece que el método <code>greet</code> no es enumerable.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_4_decoradores_de_propiedad">4. Decoradores de propiedad</h4>
+<div class="paragraph">
+<p>Un decorador de propiedad se aplica a una propiedad de una clase y puede modificar su comportamiento.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">function format(formatString: string) {
+    return function (target: any, propertyKey: string) {
+        let value: string;
+
+        const getter = function () {
+            return value;
+        };
+
+        const setter = function (newVal: string) {
+            value = `${formatString} ${newVal}`;
+        };
+
+        Object.defineProperty(target, propertyKey, {
+            get: getter,
+            set: setter,
+            enumerable: true,
+            configurable: true
+        });
+    };
+}
+
+class Greeter {
+    @format("Hello")
+    greeting: string;
+
+    constructor(message: string) {
+        this.greeting = message;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En este ejemplo, el decorador <code>@format("Hello")</code> modifica la propiedad <code>greeting</code> para que siempre tenga el prefijo "Hello".</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_5_decoradores_de_parámetro">5. Decoradores de parámetro</h4>
+<div class="paragraph">
+<p>Un decorador de parámetro se aplica a un parámetro de un método y puede modificar su comportamiento.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">function logParameter(target: any, propertyKey: string, parameterIndex: number) {
+    const metadataKey = `__log_${propertyKey}_parameters`;
+
+    if (Array.isArray(target[metadataKey])) {
+        target[metadataKey].push(parameterIndex);
+    } else {
+        target[metadataKey] = [parameterIndex];
+    }
+}
+
+class Greeter {
+    greeting: string;
+    constructor(message: string) {
+        this.greeting = message;
+    }
+
+    greet(@logParameter name: string) {
+        return `Hello, ${name}`;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En este ejemplo, el decorador <code>@logParameter</code> registra el índice del parámetro decorado.</p>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_manejo_avanzado_de_tipos_infer_typeof_keyof_in">Manejo avanzado de tipos (<code>infer</code>, <code>typeof</code>, <code>keyof</code>, <code>in</code>)</h3>
+<div class="paragraph">
+<p>TypeScript proporciona varias herramientas avanzadas para el manejo de tipos, que permiten crear tipos más complejos y flexibles. A continuación se describen algunos de estos conceptos avanzados: <code>infer</code>, <code>typeof</code>, <code>keyof</code> y <code>in</code>.</p>
+</div>
+<div class="sect3">
+<h4 id="_infer"><code>infer</code></h4>
+<div class="paragraph">
+<p>La palabra clave <code>infer</code> se utiliza en los tipos condicionales para declarar un tipo dentro de la rama <code>true</code> de una condición. Es útil para extraer tipos dentro de los tipos condicionales.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">type ReturnType&lt;T&gt; = T extends (...args: any[]) =&gt; infer R ? R : any;
 
+function exampleFunction(): string {
+    return "Hello, TypeScript!";
+}
+
+type ExampleReturnType = ReturnType&lt;typeof exampleFunction&gt;; // string</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En este ejemplo, <code>ReturnType</code> utiliza <code>infer</code> para extraer el tipo de retorno de una función.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_typeof"><code>typeof</code></h4>
+<div class="paragraph">
+<p>La palabra clave <code>typeof</code> se utiliza para obtener el tipo de una variable o expresión en tiempo de compilación.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">let exampleVariable = "Hello, TypeScript!";
+type ExampleType = typeof exampleVariable; // string</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En este ejemplo, <code>ExampleType</code> será del tipo <code>string</code>, que es el tipo de <code>exampleVariable</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_keyof"><code>keyof</code></h4>
+<div class="paragraph">
+<p>La palabra clave <code>keyof</code> se utiliza para obtener un tipo que representa todas las claves de un objeto.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">interface Person {
+    name: string;
+    age: number;
+}
+
+type PersonKeys = keyof Person; // "name" | "age"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En este ejemplo, <code>PersonKeys</code> será un tipo que puede ser <code>"name"</code> o <code>"age"</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_in"><code>in</code></h4>
+<div class="paragraph">
+<p>La palabra clave <code>in</code> se utiliza en los tipos mapeados para iterar sobre las claves de un tipo.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">type Readonly&lt;T&gt; = {
+    readonly [P in keyof T]: T[P];
+};
+
+interface Person {
+    name: string;
+    age: number;
+}
+
+type ReadonlyPerson = Readonly&lt;Person&gt;;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En este ejemplo, <code>Readonly</code> es un tipo mapeado que convierte todas las propiedades de <code>T</code> en propiedades de solo lectura.</p>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_operadores_de_tipo_as">Operadores de tipo (<code>as</code>, <code>!</code>, <code>?</code>)</h3>
+<div class="paragraph">
+<p>TypeScript proporciona varios operadores de tipo que permiten a los desarrolladores trabajar con tipos de manera más flexible y precisa. A continuación se describen los operadores <code>as</code>, <code>!</code> y <code>?</code>.</p>
+</div>
+<div class="sect3">
+<h4 id="_as"><code>as</code></h4>
+<div class="paragraph">
+<p>El operador <code>as</code> se utiliza para realizar una aserción de tipo, indicando al compilador que trate una expresión como un tipo específico.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">let someValue: any = "this is a string";
+let strLength: number = (someValue as string).length;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En este ejemplo, <code>someValue</code> es de tipo <code>any</code>, pero se le dice al compilador que lo trate como un <code>string</code> usando <code>as string</code>, permitiendo acceder a la propiedad <code>length</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id=""><code>!</code></h4>
+<div class="paragraph">
+<p>El operador <code>!</code> se utiliza para indicar al compilador que una expresión no es <code>null</code> ni <code>undefined</code>. Esto es útil cuando el desarrollador sabe que una variable tiene un valor, pero el compilador no puede inferirlo.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">let someValue: string | null = "this is a string";
+let strLength: number = someValue!.length;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En este ejemplo, <code>someValue</code> puede ser <code>string</code> o <code>null</code>, pero el operador <code>!</code> indica al compilador que <code>someValue</code> no es <code>null</code> en este contexto.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2"><code>?</code></h4>
+<div class="paragraph">
+<p>El operador <code>?</code> se utiliza en dos contextos: para indicar propiedades opcionales en interfaces y tipos, y para la encadenación opcional.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">// Propiedades opcionales
+interface Person {
+    name: string;
+    age?: number;
+}
 
+let person: Person = { name: "John" };
+
+// Encadenación opcional
+let someValue: any = { name: "John" };
+let nameLength: number | undefined = someValue?.name?.length;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En el primer ejemplo, la propiedad <code>age</code> es opcional en la interfaz <code>Person</code>, lo que significa que un objeto de tipo <code>Person</code> puede o no tener la propiedad <code>age</code>.</p>
+</div>
+<div class="paragraph">
+<p>En el segundo ejemplo, la encadenación opcional <code>?.</code> se utiliza para acceder a propiedades de un objeto que pueden no existir, evitando errores si alguna propiedad en la cadena es <code>null</code> o <code>undefined</code>.</p>
+</div>
+</div>
 </div>
 <div class="sect2">
-<h3 id="_creación_de_bibliotecas_y_herramientas_en_typescript">Creación de bibliotecas y herramientas en TypeScript</h3>
+<h3 id="_creación_de_librerías_y_herramientas_en_typescript">Creación de librerías y herramientas en TypeScript</h3>
+<div class="paragraph">
+<p>Crear librerías y herramientas en TypeScript permite aprovechar las ventajas del tipado estático y las características avanzadas del lenguaje. A continuación se describen los pasos para crear una librería o herramienta en TypeScript.</p>
+</div>
+<div class="sect3">
+<h4 id="_1_inicializar_el_proyecto_5">1. Inicializar el proyecto</h4>
+<div class="paragraph">
+<p>Primero, inicializa un nuevo proyecto Node.js:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">npm init -y</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_instalar_typescript_3">2. Instalar TypeScript</h4>
+<div class="paragraph">
+<p>Instala TypeScript como una dependencia de desarrollo:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">npm install typescript --save-dev</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_3_configurar_typescript_2">3. Configurar TypeScript</h4>
+<div class="paragraph">
+<p>Crea un archivo <code>tsconfig.json</code> en la raíz del proyecto para configurar el compilador de TypeScript:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+    "compilerOptions": {
+        "target": "ES6",
+        "module": "commonjs",
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "declaration": true,
+        "strict": true,
+        "esModuleInterop": true
+    },
+    "include": ["src/**/*"]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Este archivo configura TypeScript para compilar el código en ES6, usar el sistema de módulos CommonJS, generar archivos de declaración (<code>.d.ts</code>), y colocar los archivos compilados en el directorio <code>dist</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_4_escribir_el_código_de_la_librería">4. Escribir el código de la librería</h4>
+<div class="paragraph">
+<p>Crea un directorio <code>src</code> y escribe el código de tu librería. Por ejemplo, crea un archivo <code>src/index.ts</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">export function add(a: number, b: number): number {
+    return a + b;
+}
 
+export function subtract(a: number, b: number): number {
+    return a - b;
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_5_compilar_el_código_2">5. Compilar el código</h4>
+<div class="paragraph">
+<p>Compila el código TypeScript ejecutando el comando <code>tsc</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">npx tsc</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Esto generará los archivos JavaScript compilados y los archivos de declaración de tipos en el directorio <code>dist</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_6_configurar_el_paquete_para_distribución">6. Configurar el paquete para distribución</h4>
+<div class="paragraph">
+<p>Asegúrate de que el archivo <code>package.json</code> esté configurado correctamente para la distribución de la librería. Por ejemplo:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+    "name": "mi-libreria",
+    "version": "1.0.0",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "build": "tsc"
+    },
+    "devDependencies": {
+        "typescript": "^4.0.0"
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Esto asegura que el archivo principal de la librería y los tipos estén correctamente referenciados.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_7_publicar_la_librería">7. Publicar la librería</h4>
+<div class="paragraph">
+<p>Publica la librería en npm para que otros desarrolladores puedan usarla:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">npm publish</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_8_usar_la_librería_en_un_proyecto">8. Usar la librería en un proyecto</h4>
+<div class="paragraph">
+<p>Para usar la librería en un proyecto TypeScript, instálala desde npm:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">npm install mi-libreria</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Luego, importa y usa las funciones de la librería en tu código:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">import { add, subtract } from "mi-libreria";
+
+console.log(add(2, 3)); // 5
+console.log(subtract(5, 2)); // 3</code></pre>
+</div>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_buenas_prácticas_y_patrones_comunes_en_typescript">Buenas prácticas y patrones comunes en TypeScript</h3>
+<div class="paragraph">
+<p>Adoptar buenas prácticas y patrones comunes en TypeScript ayuda a mantener el código limpio, legible y fácil de mantener. A continuación se presentan algunas de las mejores prácticas y patrones comunes en TypeScript.</p>
+</div>
+<div class="sect3">
+<h4 id="_1_usar_tipos_explícitos">1. Usar tipos explícitos</h4>
+<div class="paragraph">
+<p>Siempre que sea posible, define tipos explícitos para variables, parámetros de funciones y valores de retorno. Esto mejora la legibilidad y ayuda a evitar errores.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">function add(a: number, b: number): number {
+    return a + b;
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_evitar_el_uso_de_any">2. Evitar el uso de <code>any</code></h4>
+<div class="paragraph">
+<p>El tipo <code>any</code> desactiva la verificación de tipos y debe evitarse siempre que sea posible. Usa tipos más específicos o <code>unknown</code> si no conoces el tipo exacto.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">let value: unknown = "Hello, TypeScript!";
+if (typeof value === "string") {
+    console.log(value.toUpperCase());
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_3_usar_interfaces_y_tipos">3. Usar interfaces y tipos</h4>
+<div class="paragraph">
+<p>Utiliza interfaces y tipos para definir la forma de los objetos y las estructuras de datos. Esto mejora la claridad y facilita el mantenimiento del código.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">interface Person {
+    name: string;
+    age: number;
+}
 
+const person: Person = {
+    name: "John",
+    age: 30
+};</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_4_aprovechar_las_características_de_es6">4. Aprovechar las características de ES6+</h4>
+<div class="paragraph">
+<p>TypeScript es compatible con muchas características de ES6 y versiones posteriores. Usa estas características para escribir código más limpio y conciso.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">const numbers: number[] = [1, 2, 3, 4, 5];
+const doubled = numbers.map(n =&gt; n * 2);
+console.log(doubled); // [2, 4, 6, 8, 10]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_5_usar_readonly_y_const">5. Usar <code>readonly</code> y <code>const</code></h4>
+<div class="paragraph">
+<p>Utiliza <code>readonly</code> para propiedades que no deben cambiar y <code>const</code> para variables que no deben reasignarse. Esto ayuda a prevenir errores y hace que el código sea más predecible.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">class Person {
+    readonly name: string;
+    constructor(name: string) {
+        this.name = name;
+    }
+}
+
+const person = new Person("John");
+// person.name = "Doe"; // Error: Cannot assign to 'name' because it is a read-only property.</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_6_manejar_errores_adecuadamente">6. Manejar errores adecuadamente</h4>
+<div class="paragraph">
+<p>Utiliza <code>try&#8230;&#8203;catch</code> para manejar errores y proporciona mensajes de error claros. Considera la creación de errores personalizados para casos específicos.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">class CustomError extends Error {
+    constructor(message: string) {
+        super(message);
+        this.name = "CustomError";
+    }
+}
+
+try {
+    throw new CustomError("Something went wrong!");
+} catch (error) {
+    console.error(error.message);
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_7_escribir_pruebas_unitarias">7. Escribir pruebas unitarias</h4>
+<div class="paragraph">
+<p>Escribe pruebas unitarias para tu código utilizando herramientas como Jest. Las pruebas ayudan a asegurar que el código funcione correctamente y facilitan el mantenimiento.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">function sum(a: number, b: number): number {
+    return a + b;
+}
+
+test('adds 1 + 2 to equal 3', () =&gt; {
+    expect(sum(1, 2)).toBe(3);
+});</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_8_documentar_el_código">8. Documentar el código</h4>
+<div class="paragraph">
+<p>Utiliza comentarios y JSDoc para documentar el código. La documentación ayuda a otros desarrolladores (y a ti mismo) a entender el propósito y el uso del código.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">/**
+ * Suma dos números.
+ * @param a - El primer número.
+ * @param b - El segundo número.
+ * @returns La suma de los dos números.
+ */
+function add(a: number, b: number): number {
+    return a + b;
+}</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-10-28 15:22:53 +0100
+Last updated 2024-10-31 21:52:18 +0100
 </div>
 </div>
 </body>

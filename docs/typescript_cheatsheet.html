@@ -490,15 +490,147 @@ notSure = false; // ok</code></pre>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_cadenas_de_texto">Cadenas de Texto</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">// Declaración de cadenas de texto
+let singleQuote: string = 'Hola';
+let doubleQuote: string = "Mundo";
+let templateString: string = `Hola Mundo`;
+
+// Concatenación de cadenas
+let concatenated: string = singleQuote + " " + doubleQuote;
+
+// Uso de plantillas de cadena
+let name: string = "John";
+let greeting: string = `Hola, ${name}!`;
+
+// Métodos comunes de cadenas
+let text: string = "TypeScript";
+
+let length: number = text.length; // Obtener la longitud de una cadena: 10
+
+let upperCase: string = text.toUpperCase(); // Convertir a mayúsculas: "TYPESCRIPT"
+
+let lowerCase: string = text.toLowerCase(); // Convertir a minúsculas: "typescript"
+
+let subStr: string = text.substring(0, 4); // Subcadena: "Type"
+
+let replaced: string = text.replace("Type", "Java"); // Reemplazar parte de una cadena: "JavaScript"
+
+let splitted: string[] = text.split("S"); // Dividir una cadena en un array: ["Type", "cript"]</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_funciones">Funciones</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-typescript" data-lang="typescript">function add(x: number, y: number): number {
-  return x + y;
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">// Función con parámetros opcionales
+function buildName(firstName: string, lastName?: string): string {
+  if (lastName) {
+    return firstName + " " + lastName;
+  } else {
+    return firstName;
+  }
 }
 
-let result: number = add(5, 3);</code></pre>
+// Función lambda con parámetros opcionales
+let buildNameLambda = (firstName: string, lastName?: string): string =&gt; {
+  return lastName ? firstName + " " + lastName : firstName;
+};
+
+// Función con parámetros por defecto
+function buildNameDefault(firstName: string, lastName: string = "Smith"): string {
+  return firstName + " " + lastName;
+}
+
+// Función lambda con parámetros por defecto
+let buildNameDefaultLambda = (firstName: string, lastName: string = "Smith"): string =&gt; {
+  return firstName + " " + lastName;
+};
+
+// Función lambda
+let add = (x: number, y: number): number =&gt; x + y;
+
+// Función con rest parameters
+function buildNameRest(firstName: string, ...restOfName: string[]): string {
+  return firstName + " " + restOfName.join(" ");
+}
+
+// Función lambda con rest parameters
+let buildNameRestLambda = (firstName: string, ...restOfName: string[]): string =&gt; {
+  return firstName + " " + restOfName.join(" ");
+};</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_arrays">Arrays</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">// Declaración de un array de números
+let list: number[] = [1, 2, 3];
+
+// Declaración de un array de strings
+let listStr: string[] = ["one", "two", "three"];
+
+// Uso de la interfaz Array
+let listGeneric: Array&lt;number&gt; = [1, 2, 3];</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Los arrays en TypeScript heredan todos los métodos de los arrays en JavaScript. Algunos de los métodos más utilizados son:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>push()</code>: Añade uno o más elementos al final de un array y devuelve la nueva longitud del array.</p>
+</li>
+<li>
+<p><code>pop()</code>: Elimina el último elemento de un array y lo devuelve.</p>
+</li>
+<li>
+<p><code>shift()</code>: Elimina el primer elemento de un array y lo devuelve.</p>
+</li>
+<li>
+<p><code>unshift()</code>: Añade uno o más elementos al inicio de un array y devuelve la nueva longitud del array.</p>
+</li>
+<li>
+<p><code>map()</code>: Crea un nuevo array con los resultados de llamar a una función proporcionada en cada elemento de este array.</p>
+</li>
+<li>
+<p><code>filter()</code>: Crea un nuevo array con todos los elementos que pasen la prueba implementada por la función proporcionada.</p>
+</li>
+<li>
+<p><code>reduce()</code>: Aplica una función a un acumulador y a cada valor de un array (de izquierda a derecha) para reducirlo a un solo valor.</p>
+</li>
+<li>
+<p><code>forEach()</code>: Ejecuta una función proporcionada una vez por cada elemento del array.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">// Ejemplo de uso de métodos de arrays
+let numbers: number[] = [1, 2, 3, 4, 5];
+
+// Uso de map() para crear un nuevo array con cada número multiplicado por 2
+let doubled = numbers.map(n =&gt; n * 2);
+
+// Uso de filter() para crear un nuevo array con números mayores que 2
+let filtered = numbers.filter(n =&gt; n &gt; 2);
+
+// Uso de reduce() para sumar todos los números del array
+let sum = numbers.reduce((acc, curr) =&gt; acc + curr, 0);
+
+// Uso de forEach() para imprimir cada número del array
+numbers.forEach(n =&gt; console.log(n));</code></pre>
 </div>
 </div>
 </div>
@@ -541,13 +673,69 @@ let employee: Worker = {
 <h2 id="_interfaces">Interfaces</h2>
 <div class="sectionbody">
 <div class="listingblock">
+<div class="title">Definición de una interfaz para funciones</div>
 <div class="content">
-<pre class="highlight"><code class="language-typescript" data-lang="typescript">interface Point {
-  x: number;
-  y: number;
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">interface SearchFunc {
+  (source: string, subString: string): boolean;
 }
 
-let point: Point = { x: 10, y: 20 };</code></pre>
+let mySearch: SearchFunc;
+mySearch = function(source: string, subString: string) {
+  return source.search(subString) !== -1;
+};</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Definición de una interfaz</div>
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">interface Person {
+  firstName: string;
+  lastName: string;
+  age?: number; // Propiedad opcional
+  greet(message: string): string; // Método
+  walk?(): void; // Método opcional
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Extensión de interfaz</div>
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">// Definición de una interfaz base
+interface Animal {
+  name: string;
+}
+
+// Extensión de la interfaz Animal
+interface Dog extends Animal {
+  breed: string;
+}
+
+// Uso de la interfaz extendida
+let myDog: Dog = {
+  name: "Buddy",
+  breed: "Golden Retriever"
+};</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Implementación de Interfaces en Clases</div>
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">interface ClockInterface {
+  currentTime: Date;
+  setTime(d: Date): void;
+}
+
+class Clock implements ClockInterface {
+  currentTime: Date;
+
+  constructor(h: number, m: number) {
+    this.currentTime = new Date();
+  }
+
+  setTime(d: Date) {
+    this.currentTime = d;
+  }
+}</code></pre>
 </div>
 </div>
 </div>
@@ -780,7 +968,7 @@ console.log(user.timestamp); // fecha actual</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-10-28 15:22:53 +0100
+Last updated 2024-10-31 22:22:33 +0100
 </div>
 </div>
 </body>

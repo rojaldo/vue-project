@@ -1786,10 +1786,8 @@ const handleCountUpdate = (value: number) =&gt; {
 <div class="paragraph">
 <p>Las <code>props</code> permiten que el componente padre pase datos al componente hijo. Para recibirlas, se definen en el hijo usando <code>defineProps</code>.</p>
 </div>
-<div class="paragraph">
-<p>Ejemplo de un componente hijo <code>DisplayMessage.vue</code> que recibe un mensaje como prop:</p>
-</div>
 <div class="listingblock">
+<div class="title">Ejemplo de un componente hijo <code>DisplayMessage.vue</code> que recibe un mensaje como prop:</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
   &lt;div&gt;
@@ -2085,11 +2083,19 @@ export default defineComponent({
 &lt;/script&gt;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>En este componente:
-- La función <code>h</code> (hyperscript) se usa para crear el elemento <code>button</code>.
-- Se establecen las propiedades y eventos directamente en la función <code>h</code>, incluyendo un evento <code>onClick</code> que llama a <code>props.onClick</code> cuando se hace clic en el botón.
-- <code>props.label</code> se usa como texto del botón.</p>
+<div class="ulist">
+<div class="title">En este componente:</div>
+<ul>
+<li>
+<p>La función <code>h</code> (hyperscript) se usa para crear el elemento <code>button</code>.</p>
+</li>
+<li>
+<p>Se establecen las propiedades y eventos directamente en la función <code>h</code>, incluyendo un evento <code>onClick</code> que llama a <code>props.onClick</code> cuando se hace clic en el botón.</p>
+</li>
+<li>
+<p><code>props.label</code> se usa como texto del botón.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>En el componente padre, se puede usar <code>DynamicButton</code> y pasarle propiedades:</p>
@@ -2692,7 +2698,7 @@ app.mount('#app');</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { defineStore } from 'pinia';
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
 export const useCounterStore = defineStore('counter', () =&gt; {
@@ -4093,29 +4099,25 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { defineComponent, reactive, provide } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
+  &lt;div&gt;
+    &lt;h2&gt;Componente Padre Reactivo&lt;/h2&gt;
+    &lt;button @click="increment"&gt;Incrementar&lt;/button&gt;
+    &lt;ChildComponentReactive /&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
 
-export default defineComponent({
-  name: 'ReactiveParent',
-  setup() {
-    const sharedState = reactive({ count: 0 });
+&lt;script lang="ts" setup&gt;
+import { reactive, provide } from 'vue';
 
-    provide('sharedState', sharedState);
+const sharedState = reactive({ count: 0 });
 
-    const increment = () =&gt; {
-      sharedState.count++;
-    };
+provide('sharedState', sharedState);
 
-    return { increment };
-  },
-  template: `
-    &lt;div&gt;
-      &lt;h2&gt;Componente Padre Reactivo&lt;/h2&gt;
-      &lt;button @click="increment"&gt;Incrementar&lt;/button&gt;
-      &lt;ChildComponentReactive /&gt;
-    &lt;/div&gt;
-  `,
-});</code></pre>
+function increment() {
+  sharedState.count++;
+}
+&lt;/script&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4123,22 +4125,18 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { defineComponent, inject } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
+  &lt;div&gt;
+    &lt;h3&gt;Componente Hijo Reactivo&lt;/h3&gt;
+    &lt;p&gt;Contador compartido: {{ sharedState?.count }}&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
 
-export default defineComponent({
-  name: 'ChildComponentReactive',
-  setup() {
-    const sharedState = inject('sharedState');
+&lt;script lang="ts" setup&gt;
+import { inject } from 'vue';
 
-    return { sharedState };
-  },
-  template: `
-    &lt;div&gt;
-      &lt;h3&gt;Componente Hijo Reactivo&lt;/h3&gt;
-      &lt;p&gt;Contador compartido: {{ sharedState?.count }}&lt;/p&gt;
-    &lt;/div&gt;
-  `,
-});</code></pre>
+const sharedState = inject('sharedState');
+&lt;/script&gt;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -4183,27 +4181,24 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { ref, watch } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
+  &lt;div&gt;
+    &lt;p&gt;Count: {{ count }}&lt;/p&gt;
+    &lt;button @click="increment"&gt;Incrementar&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
 
-export default {
-  setup() {
-    const count = ref(0);
+&lt;script lang="ts" setup&gt;
+import { ref, watch } from 'vue';
 
-    watch(count, (newValue, oldValue) =&gt; {
-      console.log(`El valor de count cambió de ${oldValue} a ${newValue}`);
-    });
+const count = ref(0);
 
-    const increment = () =&gt; count.value++;
+watch(count, (newValue, oldValue) =&gt; {
+  console.log(`El valor de count cambió de ${oldValue} a ${newValue}`);
+});
 
-    return { count, increment };
-  },
-  template: `
-    &lt;div&gt;
-      &lt;p&gt;Count: {{ count }}&lt;/p&gt;
-      &lt;button @click="increment"&gt;Incrementar&lt;/button&gt;
-    &lt;/div&gt;
-  `,
-};</code></pre>
+const increment = () =&gt; count.value++;
+&lt;/script&gt;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -4228,33 +4223,30 @@ export default {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { reactive, watch } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
+  &lt;div&gt;
+    &lt;p&gt;Edad: {{ user.age }}&lt;/p&gt;
+    &lt;button @click="incrementAge"&gt;Incrementar Edad&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
 
-export default {
-  setup() {
-    const user = reactive({
-      name: 'Ana',
-      age: 30,
-    });
+&lt;script lang="ts" setup&gt;
+import { reactive, watch } from 'vue';
 
-    watch(
-      () =&gt; user.age,
-      (newAge, oldAge) =&gt; {
-        console.log(`La edad cambió de ${oldAge} a ${newAge}`);
-      }
-    );
+const user = reactive({
+  name: 'Ana',
+  age: 30,
+});
 
-    const incrementAge = () =&gt; user.age++;
+watch(
+  () =&gt; user.age,
+  (newAge, oldAge) =&gt; {
+    console.log(`La edad cambió de ${oldAge} a ${newAge}`);
+  }
+);
 
-    return { user, incrementAge };
-  },
-  template: `
-    &lt;div&gt;
-      &lt;p&gt;Edad: {{ user.age }}&lt;/p&gt;
-      &lt;button @click="incrementAge"&gt;Incrementar Edad&lt;/button&gt;
-    &lt;/div&gt;
-  `,
-};</code></pre>
+const incrementAge = () =&gt; user.age++;
+&lt;/script&gt;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -4276,30 +4268,27 @@ export default {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { ref, watchEffect } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
+  &lt;div&gt;
+    &lt;p&gt;Count: {{ count }}&lt;/p&gt;
+    &lt;p&gt;doubleCount: {{ doubleCount }}&lt;/p&gt;
+    &lt;button @click="increment"&gt;Incrementar&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
 
-export default {
-  setup() {
-    const count = ref(0);
-    const doubleCount = ref(0);
+&lt;script lang="ts" setup&gt;
+import { ref, watchEffect } from 'vue';
 
-    watchEffect(() =&gt; {
-      doubleCount.value = count.value * 2;
-      console.log(`doubleCount ahora es ${doubleCount.value}`);
-    });
+const count = ref(0);
+const doubleCount = ref(0);
 
-    const increment = () =&gt; count.value++;
+watchEffect(() =&gt; {
+  doubleCount.value = count.value * 2;
+  console.log(`doubleCount ahora es ${doubleCount.value}`);
+});
 
-    return { count, doubleCount, increment };
-  },
-  template: `
-    &lt;div&gt;
-      &lt;p&gt;Count: {{ count }}&lt;/p&gt;
-      &lt;p&gt;doubleCount: {{ doubleCount }}&lt;/p&gt;
-      &lt;button @click="increment"&gt;Incrementar&lt;/button&gt;
-    &lt;/div&gt;
-  `,
-};</code></pre>
+const increment = () =&gt; count.value++;
+&lt;/script&gt;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -4334,42 +4323,39 @@ export default {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { ref, reactive, watch, watchEffect } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
+  &lt;div&gt;
+    &lt;p&gt;Nombre: {{ user.name }}&lt;/p&gt;
+    &lt;p&gt;Edad: {{ user.age }}&lt;/p&gt;
+    &lt;p&gt;Estado: {{ status }}&lt;/p&gt;
+    &lt;button @click="incrementAge"&gt;Incrementar Edad&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
 
-export default {
-  setup() {
-    const user = reactive({
-      name: 'Carlos',
-      age: 25,
-    });
-    const status = ref('inactivo');
+&lt;script lang="ts" setup&gt;
+import { ref, reactive, watch, watchEffect } from 'vue';
 
-    // Observa cambios en la edad del usuario
-    watch(
-      () =&gt; user.age,
-      (newAge) =&gt; {
-        status.value = newAge &gt;= 18 ? 'adulto' : 'menor';
-      }
-    );
+const user = reactive({
+  name: 'Carlos',
+  age: 25,
+});
+const status = ref('inactivo');
 
-    // Calcula mensaje reactivo basado en el estado
-    watchEffect(() =&gt; {
-      console.log(`Usuario: ${user.name}, Estado: ${status.value}`);
-    });
+// Observa cambios en la edad del usuario
+watch(
+  () =&gt; user.age,
+  (newAge) =&gt; {
+    status.value = newAge &gt;= 18 ? 'adulto' : 'menor';
+  }
+);
 
-    const incrementAge = () =&gt; user.age++;
+// Calcula mensaje reactivo basado en el estado
+watchEffect(() =&gt; {
+  console.log(`Usuario: ${user.name}, Estado: ${status.value}`);
+});
 
-    return { user, status, incrementAge };
-  },
-  template: `
-    &lt;div&gt;
-      &lt;p&gt;Nombre: {{ user.name }}&lt;/p&gt;
-      &lt;p&gt;Edad: {{ user.age }}&lt;/p&gt;
-      &lt;p&gt;Estado: {{ status }}&lt;/p&gt;
-      &lt;button @click="incrementAge"&gt;Incrementar Edad&lt;/button&gt;
-    &lt;/div&gt;
-  `,
-};</code></pre>
+const incrementAge = () =&gt; user.age++;
+&lt;/script&gt;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -4489,23 +4475,19 @@ export function useCounter() {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { defineComponent } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
+  &lt;div&gt;
+    &lt;p&gt;Contador: {{ count }}&lt;/p&gt;
+    &lt;button @click="increment"&gt;Incrementar&lt;/button&gt;
+    &lt;button @click="decrement"&gt;Decrementar&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script lang="ts" setup&gt;
 import { useCounter } from './composables/useCounter';
 
-export default defineComponent({
-  setup() {
-    const { count, increment, decrement } = useCounter();
-
-    return { count, increment, decrement };
-  },
-  template: `
-    &lt;div&gt;
-      &lt;p&gt;Contador: {{ count }}&lt;/p&gt;
-      &lt;button @click="increment"&gt;Incrementar&lt;/button&gt;
-      &lt;button @click="decrement"&gt;Decrementar&lt;/button&gt;
-    &lt;/div&gt;
-  `,
-});</code></pre>
+const { count, increment, decrement } = useCounter();
+&lt;/script&gt;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -4530,7 +4512,7 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { reactive, ref, watch } from 'vue';
+<pre class="highlightjs highlight"><code class="language-tyescript hljs" data-lang="tyescript">import { reactive, ref, watch } from 'vue';
 
 export function useForm() {
   const form = reactive({
@@ -4586,7 +4568,7 @@ export function useForm() {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { ref } from 'vue';
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { ref } from 'vue';
 
 export function useCounter(step = 1) {
   const count = ref(0);
@@ -4606,23 +4588,19 @@ export function useCounter(step = 1) {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { defineComponent } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
+  &lt;div&gt;
+    &lt;p&gt;Contador: {{ count }}&lt;/p&gt;
+    &lt;button @click="increment"&gt;Incrementar por 5&lt;/button&gt;
+    &lt;button @click="decrement"&gt;Decrementar por 5&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script lang="ts" setup&gt;
 import { useCounter } from './composables/useCounter';
 
-export default defineComponent({
-  setup() {
-    const { count, increment, decrement } = useCounter(5); // Paso personalizado de 5
-
-    return { count, increment, decrement };
-  },
-  template: `
-    &lt;div&gt;
-      &lt;p&gt;Contador: {{ count }}&lt;/p&gt;
-      &lt;button @click="increment"&gt;Incrementar por 5&lt;/button&gt;
-      &lt;button @click="decrement"&gt;Decrementar por 5&lt;/button&gt;
-    &lt;/div&gt;
-  `,
-});</code></pre>
+const { count, increment, decrement } = useCounter(5); // Paso personalizado de 5
+&lt;/script&gt;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -4647,7 +4625,7 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { ref, provide, inject } from 'vue';
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { ref, provide, inject } from 'vue';
 
 const ThemeSymbol = Symbol('theme');
 
@@ -4720,38 +4698,35 @@ export function useTheme() {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { defineComponent, ref } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
+  &lt;div&gt;
+    &lt;h2&gt;Posts&lt;/h2&gt;
+    &lt;p v-if="errorMessage"&gt;{{ errorMessage }}&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li v-for="post in posts" :key="post.id"&gt;{{ post.title }}&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script lang="ts" setup&gt;
+import { ref } from 'vue';
 import axios from 'axios';
 
-export default defineComponent({
-  setup() {
-    const posts = ref([]);
-    const errorMessage = ref('');
+const posts = ref([]);
+const errorMessage = ref('');
 
-    const fetchPosts = async () =&gt; {
-      try {
-        const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
-        posts.value = response.data;
-      } catch (error) {
-        errorMessage.value = 'Error al cargar los posts';
-        console.error(error);
-      }
-    };
+const fetchPosts = async () =&gt; {
+  try {
+    const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
+    posts.value = response.data;
+  } catch (error) {
+    errorMessage.value = 'Error al cargar los posts';
+    console.error(error);
+  }
+};
 
-    fetchPosts();
-
-    return { posts, errorMessage };
-  },
-  template: `
-    &lt;div&gt;
-      &lt;h2&gt;Posts&lt;/h2&gt;
-      &lt;p v-if="errorMessage"&gt;{{ errorMessage }}&lt;/p&gt;
-      &lt;ul&gt;
-        &lt;li v-for="post in posts" :key="post.id"&gt;{{ post.title }}&lt;/li&gt;
-      &lt;/ul&gt;
-    &lt;/div&gt;
-  `,
-});</code></pre>
+fetchPosts();
+&lt;/script&gt;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -4776,36 +4751,34 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { defineComponent, ref } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
+  &lt;div&gt;
+    &lt;h2&gt;Crear un nuevo Post&lt;/h2&gt;
+    &lt;input v-model="newPost.title" placeholder="Título" /&gt;
+    &lt;textarea v-model="newPost.body" placeholder="Contenido"&gt;&lt;/textarea&gt;
+    &lt;button @click="createPost"&gt;Enviar&lt;/button&gt;
+    &lt;p&gt;{{ responseMessage }}&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script lang="ts" setup&gt;
+import { ref } from 'vue';
 import axios from 'axios';
 
-export default defineComponent({
-  setup() {
-    const newPost = ref({ title: '', body: '' });
-    const responseMessage = ref('');
+const newPost = ref({ title: '', body: '' });
+const responseMessage = ref('');
 
-    const createPost = async () =&gt; {
-      try {
-        const response = await axios.post('https://jsonplaceholder.typicode.com/posts', newPost.value);
-        responseMessage.value = `Post creado con ID: ${response.data.id}`;
-      } catch (error) {
-        responseMessage.value = 'Error al crear el post';
-        console.error(error);
-      }
-    };
+const createPost = async () =&gt; {
+  try {
+    const response = await axios.post('https://jsonplaceholder.typicode.com/posts', newPost.value);
+    responseMessage.value = `Post creado con ID: ${response.data.id}`;
+  } catch (error) {
+    responseMessage.value = 'Error al crear el post';
+    console.error(error);
+  }
+};
 
-    return { newPost, responseMessage, createPost };
-  },
-  template: `
-    &lt;div&gt;
-      &lt;h2&gt;Crear un nuevo Post&lt;/h2&gt;
-      &lt;input v-model="newPost.title" placeholder="Título" /&gt;
-      &lt;textarea v-model="newPost.body" placeholder="Contenido"&gt;&lt;/textarea&gt;
-      &lt;button @click="createPost"&gt;Enviar&lt;/button&gt;
-      &lt;p&gt;{{ responseMessage }}&lt;/p&gt;
-    &lt;/div&gt;
-  `,
-});</code></pre>
+&lt;/script&gt;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -4830,40 +4803,37 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { defineComponent, ref } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
+  &lt;div&gt;
+    &lt;h2&gt;Posts&lt;/h2&gt;
+    &lt;p v-if="errorMessage"&gt;{{ errorMessage }}&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li v-for="post in posts" :key="post.id"&gt;{{ post.title }}&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
 
-export default defineComponent({
-  setup() {
-    const posts = ref([]);
-    const errorMessage = ref('');
+&lt;script lang="ts" setup&gt;
+import { ref } from 'vue';
 
-    const fetchPosts = async () =&gt; {
-      try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/posts');
-        if (!response.ok) {
-          throw new Error('Error en la respuesta de la red');
-        }
-        posts.value = await response.json();
-      } catch (error) {
-        errorMessage.value = 'Error al cargar los posts';
-        console.error(error);
-      }
-    };
+const posts = ref([]);
+const errorMessage = ref('');
 
-    fetchPosts();
+const fetchPosts = async () =&gt; {
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+    if (!response.ok) {
+      throw new Error('Error en la respuesta de la red');
+    }
+    posts.value = await response.json();
+  } catch (error) {
+    errorMessage.value = 'Error al cargar los posts';
+    console.error(error);
+  }
+};
 
-    return { posts, errorMessage };
-  },
-  template: `
-    &lt;div&gt;
-      &lt;h2&gt;Posts&lt;/h2&gt;
-      &lt;p v-if="errorMessage"&gt;{{ errorMessage }}&lt;/p&gt;
-      &lt;ul&gt;
-        &lt;li v-for="post in posts" :key="post.id"&gt;{{ post.title }}&lt;/li&gt;
-      &lt;/ul&gt;
-    &lt;/div&gt;
-  `,
-});</code></pre>
+fetchPosts();
+&lt;/script&gt;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -4888,47 +4858,44 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { defineComponent, ref } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
+  &lt;div&gt;
+    &lt;h2&gt;Crear un nuevo Post&lt;/h2&gt;
+    &lt;input v-model="newPost.title" placeholder="Título" /&gt;
+    &lt;textarea v-model="newPost.body" placeholder="Contenido"&gt;&lt;/textarea&gt;
+    &lt;button @click="createPost"&gt;Enviar&lt;/button&gt;
+    &lt;p&gt;{{ responseMessage }}&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
 
-export default defineComponent({
-  setup() {
-    const newPost = ref({ title: '', body: '' });
-    const responseMessage = ref('');
+&lt;script lang="ts" setup&gt;
+import { ref } from 'vue';
 
-    const createPost = async () =&gt; {
-      try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(newPost.value),
-        });
+const newPost = ref({ title: '', body: '' });
+const responseMessage = ref('');
 
-        if (!response.ok) {
-          throw new Error('Error en la respuesta de la red');
-        }
+const createPost = async () =&gt; {
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newPost.value),
+    });
 
-        const data = await response.json();
-        responseMessage.value = `Post creado con ID: ${data.id}`;
-      } catch (error) {
-        responseMessage.value = 'Error al crear el post';
-        console.error(error);
-      }
-    };
+    if (!response.ok) {
+      throw new Error('Error en la respuesta de la red');
+    }
 
-    return { newPost, responseMessage, createPost };
-  },
-  template: `
-    &lt;div&gt;
-      &lt;h2&gt;Crear un nuevo Post&lt;/h2&gt;
-      &lt;input v-model="newPost.title" placeholder="Título" /&gt;
-      &lt;textarea v-model="newPost.body" placeholder="Contenido"&gt;&lt;/textarea&gt;
-      &lt;button @click="createPost"&gt;Enviar&lt;/button&gt;
-      &lt;p&gt;{{ responseMessage }}&lt;/p&gt;
-    &lt;/div&gt;
-  `,
-});</code></pre>
+    const data = await response.json();
+    responseMessage.value = `Post creado con ID: ${data.id}`;
+  } catch (error) {
+    responseMessage.value = 'Error al crear el post';
+    console.error(error);
+  }
+};
+&lt;/script&gt;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -4975,40 +4942,37 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { defineComponent, ref } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
+  &lt;div&gt;
+    &lt;h2&gt;Posts&lt;/h2&gt;
+    &lt;p v-if="errorMessage"&gt;{{ errorMessage }}&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li v-for="post in posts" :key="post.id"&gt;{{ post.title }}&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
 
-export default defineComponent({
-  setup() {
-    const posts = ref([]);
-    const errorMessage = ref('');
+&lt;script lang="ts" setup&gt;
+import { ref } from 'vue';
 
-    const fetchPosts = async () =&gt; {
-      try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/posts');
-        if (!response.ok) {
-          throw new Error('Error en la respuesta de la red');
-        }
-        posts.value = await response.json();
-      } catch (error) {
-        errorMessage.value = 'Error al cargar los posts';
-        console.error(error);
-      }
-    };
+const posts = ref([]);
+const errorMessage = ref('');
 
-    fetchPosts();
+const fetchPosts = async () =&gt; {
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+    if (!response.ok) {
+      throw new Error('Error en la respuesta de la red');
+    }
+    posts.value = await response.json();
+  } catch (error) {
+    errorMessage.value = 'Error al cargar los posts';
+    console.error(error);
+  }
+};
 
-    return { posts, errorMessage };
-  },
-  template: `
-    &lt;div&gt;
-      &lt;h2&gt;Posts&lt;/h2&gt;
-      &lt;p v-if="errorMessage"&gt;{{ errorMessage }}&lt;/p&gt;
-      &lt;ul&gt;
-        &lt;li v-for="post in posts" :key="post.id"&gt;{{ post.title }}&lt;/li&gt;
-      &lt;/ul&gt;
-    &lt;/div&gt;
-  `,
-});</code></pre>
+fetchPosts();
+&lt;/script&gt;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -5033,38 +4997,35 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { defineComponent, ref } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
+  &lt;div&gt;
+    &lt;h2&gt;Posts&lt;/h2&gt;
+    &lt;p v-if="errorMessage"&gt;{{ errorMessage }}&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li v-for="post in posts" :key="post.id"&gt;{{ post.title }}&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script lang="ts" setup&gt;
+import { ref } from 'vue';
 import axios from 'axios';
 
-export default defineComponent({
-  setup() {
-    const posts = ref([]);
-    const errorMessage = ref('');
+const posts = ref([]);
+const errorMessage = ref('');
 
-    const fetchPosts = async () =&gt; {
-      try {
-        const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
-        posts.value = response.data;
-      } catch (error) {
-        errorMessage.value = 'Error al cargar los posts';
-        console.error(error);
-      }
-    };
+const fetchPosts = async () =&gt; {
+  try {
+    const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
+    posts.value = response.data;
+  } catch (error) {
+    errorMessage.value = 'Error al cargar los posts';
+    console.error(error);
+  }
+};
 
-    fetchPosts();
-
-    return { posts, errorMessage };
-  },
-  template: `
-    &lt;div&gt;
-      &lt;h2&gt;Posts&lt;/h2&gt;
-      &lt;p v-if="errorMessage"&gt;{{ errorMessage }}&lt;/p&gt;
-      &lt;ul&gt;
-        &lt;li v-for="post in posts" :key="post.id"&gt;{{ post.title }}&lt;/li&gt;
-      &lt;/ul&gt;
-    &lt;/div&gt;
-  `,
-});</code></pre>
+fetchPosts();
+&lt;/script&gt;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -5086,47 +5047,44 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { defineComponent, ref } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
+  &lt;div&gt;
+    &lt;h2&gt;Posts&lt;/h2&gt;
+    &lt;p v-if="errorMessage"&gt;{{ errorMessage }}&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li v-for="post in posts" :key="post.id"&gt;{{ post.title }}&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;h2&gt;Comentarios&lt;/h2&gt;
+    &lt;ul&gt;
+      &lt;li v-for="comment in comments" :key="comment.id"&gt;{{ comment.body }}&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script lang="ts" setup&gt;
+import { ref } from 'vue';
 import axios from 'axios';
 
-export default defineComponent({
-  setup() {
-    const posts = ref([]);
-    const comments = ref([]);
-    const errorMessage = ref('');
+const posts = ref([]);
+const comments = ref([]);
+const errorMessage = ref('');
 
-    const fetchData = async () =&gt; {
-      try {
-        const [postsResponse, commentsResponse] = await Promise.all([
-          axios.get('https://jsonplaceholder.typicode.com/posts'),
-          axios.get('https://jsonplaceholder.typicode.com/comments'),
-        ]);
-        posts.value = postsResponse.data;
-        comments.value = commentsResponse.data;
-      } catch (error) {
-        errorMessage.value = 'Error al cargar los datos';
-        console.error(error);
-      }
-    };
+const fetchData = async () =&gt; {
+  try {
+    const [postsResponse, commentsResponse] = await Promise.all([
+      axios.get('https://jsonplaceholder.typicode.com/posts'),
+      axios.get('https://jsonplaceholder.typicode.com/comments'),
+    ]);
+    posts.value = postsResponse.data;
+    comments.value = commentsResponse.data;
+  } catch (error) {
+    errorMessage.value = 'Error al cargar los datos';
+    console.error(error);
+  }
+};
 
-    fetchData();
-
-    return { posts, comments, errorMessage };
-  },
-  template: `
-    &lt;div&gt;
-      &lt;h2&gt;Posts&lt;/h2&gt;
-      &lt;p v-if="errorMessage"&gt;{{ errorMessage }}&lt;/p&gt;
-      &lt;ul&gt;
-        &lt;li v-for="post in posts" :key="post.id"&gt;{{ post.title }}&lt;/li&gt;
-      &lt;/ul&gt;
-      &lt;h2&gt;Comentarios&lt;/h2&gt;
-      &lt;ul&gt;
-        &lt;li v-for="comment in comments" :key="comment.id"&gt;{{ comment.body }}&lt;/li&gt;
-      &lt;/ul&gt;
-    &lt;/div&gt;
-  `,
-});</code></pre>
+fetchData();
+&lt;/script&gt;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -5151,42 +5109,39 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { defineComponent, ref, watch } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
+  &lt;div&gt;
+    &lt;select v-model="selectedPostId"&gt;
+      &lt;option v-for="post in posts" :key="post.id" :value="post.id"&gt;{{ post.title }}&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;div v-if="postDetails.title"&gt;
+      &lt;h2&gt;{{ postDetails.title }}&lt;/h2&gt;
+      &lt;p&gt;{{ postDetails.body }}&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;p v-if="errorMessage"&gt;{{ errorMessage }}&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script lang="ts" setup&gt;
+import { ref, watch } from 'vue';
 import axios from 'axios';
 
-export default defineComponent({
-  setup() {
-    const selectedPostId = ref(null);
-    const postDetails = ref({});
-    const errorMessage = ref('');
+const selectedPostId = ref(null);
+const postDetails = ref({});
+const errorMessage = ref('');
 
-    watch(selectedPostId, async (newId) =&gt; {
-      if (newId) {
-        try {
-          const response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${newId}`);
-          postDetails.value = response.data;
-        } catch (error) {
-          errorMessage.value = 'Error al cargar los detalles del post';
-          console.error(error);
-        }
-      }
-    });
-
-    return { selectedPostId, postDetails, errorMessage };
-  },
-  template: `
-    &lt;div&gt;
-      &lt;select v-model="selectedPostId"&gt;
-        &lt;option v-for="post in posts" :key="post.id" :value="post.id"&gt;{{ post.title }}&lt;/option&gt;
-      &lt;/select&gt;
-      &lt;div v-if="postDetails.title"&gt;
-        &lt;h2&gt;{{ postDetails.title }}&lt;/h2&gt;
-        &lt;p&gt;{{ postDetails.body }}&lt;/p&gt;
-      &lt;/div&gt;
-      &lt;p v-if="errorMessage"&gt;{{ errorMessage }}&lt;/p&gt;
-    &lt;/div&gt;
-  `,
-});</code></pre>
+watch(selectedPostId, async (newId) =&gt; {
+  if (newId) {
+    try {
+      const response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${newId}`);
+      postDetails.value = response.data;
+    } catch (error) {
+      errorMessage.value = 'Error al cargar los detalles del post';
+      console.error(error);
+    }
+  }
+});
+&lt;/script&gt;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -5236,40 +5191,37 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { defineComponent, ref, onMounted } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
+  &lt;div&gt;
+    &lt;h2&gt;Posts&lt;/h2&gt;
+    &lt;p v-if="errorMessage"&gt;{{ errorMessage }}&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li v-for="post in posts" :key="post.id"&gt;{{ post.title }}&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
 
-export default defineComponent({
-  setup() {
-    const posts = ref([]);
-    const errorMessage = ref('');
+&lt;script lang="ts" setup&gt;
+import { ref, onMounted } from 'vue';
 
-    const fetchPosts = async () =&gt; {
-      try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/posts');
-        if (!response.ok) {
-          throw new Error('Error en la respuesta de la red');
-        }
-        posts.value = await response.json();
-      } catch (error) {
-        errorMessage.value = 'Error al cargar los posts';
-        console.error(error);
-      }
-    };
+const posts = ref([]);
+const errorMessage = ref('');
 
-    onMounted(fetchPosts); // Cargar datos cuando el componente esté montado
+const fetchPosts = async () =&gt; {
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+    if (!response.ok) {
+      throw new Error('Error en la respuesta de la red');
+    }
+    posts.value = await response.json();
+  } catch (error) {
+    errorMessage.value = 'Error al cargar los posts';
+    console.error(error);
+  }
+};
 
-    return { posts, errorMessage };
-  },
-  template: `
-    &lt;div&gt;
-      &lt;h2&gt;Posts&lt;/h2&gt;
-      &lt;p v-if="errorMessage"&gt;{{ errorMessage }}&lt;/p&gt;
-      &lt;ul&gt;
-        &lt;li v-for="post in posts" :key="post.id"&gt;{{ post.title }}&lt;/li&gt;
-      &lt;/ul&gt;
-    &lt;/div&gt;
-  `,
-});</code></pre>
+onMounted(fetchPosts); // Cargar datos cuando el componente esté montado
+&lt;/script&gt;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -5294,38 +5246,35 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { defineComponent, ref, onMounted } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
+  &lt;div&gt;
+    &lt;h2&gt;Posts&lt;/h2&gt;
+    &lt;p v-if="errorMessage"&gt;{{ errorMessage }}&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li v-for="post in posts" :key="post.id"&gt;{{ post.title }}&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script lang="ts" setup&gt;
+import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
-export default defineComponent({
-  setup() {
-    const posts = ref([]);
-    const errorMessage = ref('');
+const posts = ref([]);
+const errorMessage = ref('');
 
-    const fetchPosts = async () =&gt; {
-      try {
-        const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
-        posts.value = response.data;
-      } catch (error) {
-        errorMessage.value = 'Error al cargar los posts';
-        console.error(error);
-      }
-    };
+const fetchPosts = async () =&gt; {
+  try {
+    const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
+    posts.value = response.data;
+  } catch (error) {
+    errorMessage.value = 'Error al cargar los posts';
+    console.error(error);
+  }
+};
 
-    onMounted(fetchPosts); // Cargar datos cuando el componente esté montado
-
-    return { posts, errorMessage };
-  },
-  template: `
-    &lt;div&gt;
-      &lt;h2&gt;Posts&lt;/h2&gt;
-      &lt;p v-if="errorMessage"&gt;{{ errorMessage }}&lt;/p&gt;
-      &lt;ul&gt;
-        &lt;li v-for="post in posts" :key="post.id"&gt;{{ post.title }}&lt;/li&gt;
-      &lt;/ul&gt;
-    &lt;/div&gt;
-  `,
-});</code></pre>
+onMounted(fetchPosts); // Cargar datos cuando el componente esté montado
+&lt;/script&gt;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -5350,38 +5299,35 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { defineComponent, ref, onMounted } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
+  &lt;div&gt;
+    &lt;h2&gt;Usuarios&lt;/h2&gt;
+    &lt;p v-if="errorMessage"&gt;{{ errorMessage }}&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li v-for="user in users" :key="user.id"&gt;{{ user.name }} - {{ user.email }}&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script lang="ts" setup&gt;
+import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
-export default defineComponent({
-  setup() {
-    const users = ref([]);
-    const errorMessage = ref('');
+const users = ref([]);
+const errorMessage = ref('');
 
-    const fetchUsers = async () =&gt; {
-      try {
-        const response = await axios.get('https://jsonplaceholder.typicode.com/users');
-        users.value = response.data;
-      } catch (error) {
-        errorMessage.value = 'Error al cargar los usuarios';
-        console.error(error);
-      }
-    };
+const fetchUsers = async () =&gt; {
+  try {
+    const response = await axios.get('https://jsonplaceholder.typicode.com/users');
+    users.value = response.data;
+  } catch (error) {
+    errorMessage.value = 'Error al cargar los usuarios';
+    console.error(error);
+  }
+};
 
-    onMounted(fetchUsers); // Cargar datos cuando el componente esté montado
-
-    return { users, errorMessage };
-  },
-  template: `
-    &lt;div&gt;
-      &lt;h2&gt;Usuarios&lt;/h2&gt;
-      &lt;p v-if="errorMessage"&gt;{{ errorMessage }}&lt;/p&gt;
-      &lt;ul&gt;
-        &lt;li v-for="user in users" :key="user.id"&gt;{{ user.name }} - {{ user.email }}&lt;/li&gt;
-      &lt;/ul&gt;
-    &lt;/div&gt;
-  `,
-});</code></pre>
+onMounted(fetchUsers); // Cargar datos cuando el componente esté montado
+&lt;/script&gt;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -5406,42 +5352,39 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { defineComponent, ref, onMounted } from 'vue';
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
+  &lt;div&gt;
+    &lt;h2&gt;Posts&lt;/h2&gt;
+    &lt;p v-if="isLoading"&gt;Cargando...&lt;/p&gt;
+    &lt;p v-if="errorMessage"&gt;{{ errorMessage }}&lt;/p&gt;
+    &lt;ul v-if="!isLoading &amp;&amp; !errorMessage"&gt;
+      &lt;li v-for="post in posts" :key="post.id"&gt;{{ post.title }}&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script lang="ts" setup&gt;
+import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
-export default defineComponent({
-  setup() {
-    const posts = ref([]);
-    const errorMessage = ref('');
-    const isLoading = ref(true); // Estado de carga
+const posts = ref([]);
+const errorMessage = ref('');
+const isLoading = ref(true); // Estado de carga
 
-    const fetchPosts = async () =&gt; {
-      try {
-        const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
-        posts.value = response.data;
-      } catch (error) {
-        errorMessage.value = 'Error al cargar los posts';
-        console.error(error);
-      } finally {
-        isLoading.value = false; // Finalizar el estado de carga
-      }
-    };
+const fetchPosts = async () =&gt; {
+  try {
+    const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
+    posts.value = response.data;
+  } catch (error) {
+    errorMessage.value = 'Error al cargar los posts';
+    console.error(error);
+  } finally {
+    isLoading.value = false; // Finalizar el estado de carga
+  }
+};
 
-    onMounted(fetchPosts); // Cargar datos cuando el componente esté montado
-
-    return { posts, errorMessage, isLoading };
-  },
-  template: `
-    &lt;div&gt;
-      &lt;h2&gt;Posts&lt;/h2&gt;
-      &lt;p v-if="isLoading"&gt;Cargando...&lt;/p&gt;
-      &lt;p v-if="errorMessage"&gt;{{ errorMessage }}&lt;/p&gt;
-      &lt;ul v-if="!isLoading"&gt;
-        &lt;li v-for="post in posts" :key="post.id"&gt;{{ post.title }}&lt;/li&gt;
-      &lt;/ul&gt;
-    &lt;/div&gt;
-  `,
-});</code></pre>
+onMounted(fetchPosts); // Cargar datos cuando el componente esté montado
+&lt;/script&gt;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -5487,7 +5430,7 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">  try {
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">  try {
       const response = await axios.get('https://api.example.com/data');
   } catch (error) {
       console.error('Error al cargar los datos:', error);
@@ -5503,7 +5446,7 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">  if (response &amp;&amp; response.data) {
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">  if (response &amp;&amp; response.data) {
       // Procesar los datos
   }</code></pre>
 </div>
@@ -5535,7 +5478,7 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">  import { io } from 'socket.io-client';
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">  import { io } from 'socket.io-client';
 
   const socket = io('https://socket.example.com');
 
@@ -5557,19 +5500,35 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">  setup() {
-      const messages = ref([]);
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;template&gt;
+  &lt;div&gt;
+    &lt;ul&gt;
+      &lt;li v-for="message in messages" :key="message"&gt;{{ message }}&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;input v-model="newMessage" placeholder="Escribe un mensaje" /&gt;
+    &lt;button @click="sendMessage(newMessage)"&gt;Enviar&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
 
-      socket.on('message', (message) =&gt; {
-          messages.value.push(message);
-      });
+&lt;script lang="ts" setup&gt;
+import { ref } from 'vue';
+import { io } from 'socket.io-client';
 
-      const sendMessage = (message) =&gt; {
-          socket.emit('message', message);
-      };
+const socket = io('http://localhost:3000'); // Reemplaza con la URL de tu servidor de socket
 
-      return { messages, sendMessage };
-  }</code></pre>
+const messages = ref([]);
+const newMessage = ref('');
+
+socket.on('message', (message) =&gt; {
+  messages.value.push(message);
+});
+
+const sendMessage = (message) =&gt; {
+  socket.emit('message', message);
+  newMessage.value = ''; // Limpiar el campo de entrada después de enviar el mensaje
+};
+
+&lt;/script&gt;</code></pre>
 </div>
 </div>
 </div>
@@ -5601,7 +5560,7 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { defineConfig } from 'vitest/config';
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   test: {
@@ -5652,7 +5611,7 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { mount } from '@vue/test-utils';
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { mount } from '@vue/test-utils';
 import HelloWorld from '@/components/HelloWorld.vue';
 
 describe('HelloWorld.vue', () =&gt; {
@@ -5730,7 +5689,7 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { mount } from '@vue/test-utils';
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { mount } from '@vue/test-utils';
 import Greeting from '@/components/Greeting.vue';
 
 describe('Greeting.vue', () =&gt; {
@@ -5790,7 +5749,7 @@ export default defineComponent({
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">import { mount } from '@vue/test-utils';
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { mount } from '@vue/test-utils';
 import Counter from '@/components/Counter.vue';
 
 describe('Counter.vue', () =&gt; {
@@ -5847,7 +5806,7 @@ describe('Counter.vue', () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">  it('emits an event when button is clicked', async () =&gt; {
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">  it('emits an event when button is clicked', async () =&gt; {
       const wrapper = mount(MyComponent);
       await wrapper.find('button').trigger('click');
       expect(wrapper.emitted()).toHaveProperty('my-event');
@@ -5863,7 +5822,7 @@ describe('Counter.vue', () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">  it('updates the data when input changes', async () =&gt; {
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">  it('updates the data when input changes', async () =&gt; {
       const wrapper = mount(MyComponent);
       await wrapper.find('input').setValue('Nuevo Valor');
       expect(wrapper.vm.inputValue).toBe('Nuevo Valor');
@@ -5908,7 +5867,7 @@ describe('Counter.vue', () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">  import { createPinia } from 'pinia';
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">  import { createPinia } from 'pinia';
   import { mount } from '@vue/test-utils';
   import MyComponent from '@/components/MyComponent.vue';
 
@@ -5929,7 +5888,7 @@ describe('Counter.vue', () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">  import { defineStore } from 'pinia';
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">  import { defineStore } from 'pinia';
 
   const useMyStore = defineStore('myStore', {
       state: () =&gt; ({ count: 0 }),
@@ -5959,7 +5918,7 @@ describe('Counter.vue', () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">  import { createRouter, createWebHistory } from 'vue-router';
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">  import { createRouter, createWebHistory } from 'vue-router';
 
   const router = createRouter({
       history: createWebHistory(),
@@ -5985,7 +5944,7 @@ describe('Counter.vue', () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">  test('navigates to about page', async () =&gt; {
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">  test('navigates to about page', async () =&gt; {
       const wrapper = mount(MyComponent, {
           global: {
               plugins: [router]
@@ -6008,7 +5967,7 @@ describe('Counter.vue', () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">  import { createPinia } from 'pinia';
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">  import { createPinia } from 'pinia';
 
   const pinia = createPinia();
   const wrapper = mount(MyComponent, {
@@ -6085,7 +6044,7 @@ describe('Counter.vue', () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">  test('should interact with child component', async () =&gt; {
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">  test('should interact with child component', async () =&gt; {
       const wrapper = mount(ParentComponent);
       await wrapper.find('button').trigger('click');
       expect(wrapper.findComponent(ChildComponent).text()).toContain('Texto actualizado');
@@ -6101,7 +6060,7 @@ describe('Counter.vue', () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">  test('full flow test', async () =&gt; {
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">  test('full flow test', async () =&gt; {
       const wrapper = mount(MyForm);
       await wrapper.find('input').setValue('Nuevo valor');
       await wrapper.find('form').trigger('submit');
@@ -6129,7 +6088,7 @@ describe('Counter.vue', () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">  const AsyncComponent = () =&gt; import('./components/AsyncComponent.vue');
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">  const AsyncComponent = () =&gt; import('./components/AsyncComponent.vue');
 
   export default {
       components: {
@@ -6183,7 +6142,7 @@ describe('Counter.vue', () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">  const routes = [
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">  const routes = [
       {
           path: '/about',
           component: () =&gt; import('./views/About.vue')
@@ -6200,7 +6159,7 @@ describe('Counter.vue', () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">  const LazyComponent = () =&gt; import('./components/LazyComponent.vue');</code></pre>
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">  const LazyComponent = () =&gt; import('./components/LazyComponent.vue');</code></pre>
 </div>
 </div>
 </div>
@@ -6451,7 +6410,7 @@ describe('Counter.vue', () =&gt; {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-10-31 17:16:57 +0100
+Last updated 2024-11-11 13:22:44 +0100
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

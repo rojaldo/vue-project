@@ -792,8 +792,7 @@ En Vue 3, la comunicación entre componentes padre e hijo se realiza principalme
 
 Las `props` permiten que el componente padre pase datos al componente hijo. Para recibirlas, se definen en el hijo usando `defineProps`.
 
-Ejemplo de un componente hijo `DisplayMessage.vue` que recibe un mensaje como prop:
-
+.Ejemplo de un componente hijo `DisplayMessage.vue` que recibe un mensaje como prop:
 [source, html]
 ----
 <template>
@@ -1048,7 +1047,7 @@ export default defineComponent({
 </script>
 ----
 
-En este componente:
+.En este componente:
 - La función `h` (hyperscript) se usa para crear el elemento `button`.
 - Se establecen las propiedades y eventos directamente en la función `h`, incluyendo un evento `onClick` que llama a `props.onClick` cuando se hace clic en el botón.
 - `props.label` se usa como texto del botón.
@@ -1543,7 +1542,7 @@ app.mount('#app');
 
 Las stores en Pinia se definen mediante funciones que retornan el estado y métodos para modificarlo. A continuación, se muestra un ejemplo de una store de contador (`useCounterStore`) utilizando `defineStore`.
 
-[source, html]
+[source, typescript]
 ----
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
@@ -2630,53 +2629,45 @@ const userName = inject('userName', 'Usuario Anónimo');
 
 Cuando se usa `provide` para datos reactivos, los componentes hijos reciben automáticamente actualizaciones al cambiar el valor proporcionado.
 
-[source, typescript]
+[source, html]
 ----
-import { defineComponent, reactive, provide } from 'vue';
+<template>
+  <div>
+    <h2>Componente Padre Reactivo</h2>
+    <button @click="increment">Incrementar</button>
+    <ChildComponentReactive />
+  </div>
+</template>
 
-export default defineComponent({
-  name: 'ReactiveParent',
-  setup() {
-    const sharedState = reactive({ count: 0 });
+<script lang="ts" setup>
+import { reactive, provide } from 'vue';
 
-    provide('sharedState', sharedState);
+const sharedState = reactive({ count: 0 });
 
-    const increment = () => {
-      sharedState.count++;
-    };
+provide('sharedState', sharedState);
 
-    return { increment };
-  },
-  template: `
-    <div>
-      <h2>Componente Padre Reactivo</h2>
-      <button @click="increment">Incrementar</button>
-      <ChildComponentReactive />
-    </div>
-  `,
-});
+function increment() {
+  sharedState.count++;
+}
+</script>
 ----
 
 En el componente hijo:
 
 [source, html]
 ----
-import { defineComponent, inject } from 'vue';
+<template>
+  <div>
+    <h3>Componente Hijo Reactivo</h3>
+    <p>Contador compartido: {{ sharedState?.count }}</p>
+  </div>
+</template>
 
-export default defineComponent({
-  name: 'ChildComponentReactive',
-  setup() {
-    const sharedState = inject('sharedState');
+<script lang="ts" setup>
+import { inject } from 'vue';
 
-    return { sharedState };
-  },
-  template: `
-    <div>
-      <h3>Componente Hijo Reactivo</h3>
-      <p>Contador compartido: {{ sharedState?.count }}</p>
-    </div>
-  `,
-});
+const sharedState = inject('sharedState');
+</script>
 ----
 
 .En este ejemplo:
@@ -2701,27 +2692,24 @@ Vue 3 ofrece `watch` y `watchEffect` para observar y reaccionar a los cambios en
 
 [source, html]
 ----
+<template>
+  <div>
+    <p>Count: {{ count }}</p>
+    <button @click="increment">Incrementar</button>
+  </div>
+</template>
+
+<script lang="ts" setup>
 import { ref, watch } from 'vue';
 
-export default {
-  setup() {
-    const count = ref(0);
+const count = ref(0);
 
-    watch(count, (newValue, oldValue) => {
-      console.log(`El valor de count cambió de ${oldValue} a ${newValue}`);
-    });
+watch(count, (newValue, oldValue) => {
+  console.log(`El valor de count cambió de ${oldValue} a ${newValue}`);
+});
 
-    const increment = () => count.value++;
-
-    return { count, increment };
-  },
-  template: `
-    <div>
-      <p>Count: {{ count }}</p>
-      <button @click="increment">Incrementar</button>
-    </div>
-  `,
-};
+const increment = () => count.value++;
+</script>
 ----
 
 .En este ejemplo:
@@ -2736,33 +2724,30 @@ Cuando se observan propiedades dentro de un objeto reactivo, se debe proporciona
 
 [source, html]
 ----
+<template>
+  <div>
+    <p>Edad: {{ user.age }}</p>
+    <button @click="incrementAge">Incrementar Edad</button>
+  </div>
+</template>
+
+<script lang="ts" setup>
 import { reactive, watch } from 'vue';
 
-export default {
-  setup() {
-    const user = reactive({
-      name: 'Ana',
-      age: 30,
-    });
+const user = reactive({
+  name: 'Ana',
+  age: 30,
+});
 
-    watch(
-      () => user.age,
-      (newAge, oldAge) => {
-        console.log(`La edad cambió de ${oldAge} a ${newAge}`);
-      }
-    );
+watch(
+  () => user.age,
+  (newAge, oldAge) => {
+    console.log(`La edad cambió de ${oldAge} a ${newAge}`);
+  }
+);
 
-    const incrementAge = () => user.age++;
-
-    return { user, incrementAge };
-  },
-  template: `
-    <div>
-      <p>Edad: {{ user.age }}</p>
-      <button @click="incrementAge">Incrementar Edad</button>
-    </div>
-  `,
-};
+const incrementAge = () => user.age++;
+</script>
 ----
 
 .En este ejemplo:
@@ -2776,30 +2761,27 @@ export default {
 
 [source, html]
 ----
+<template>
+  <div>
+    <p>Count: {{ count }}</p>
+    <p>doubleCount: {{ doubleCount }}</p>
+    <button @click="increment">Incrementar</button>
+  </div>
+</template>
+
+<script lang="ts" setup>
 import { ref, watchEffect } from 'vue';
 
-export default {
-  setup() {
-    const count = ref(0);
-    const doubleCount = ref(0);
+const count = ref(0);
+const doubleCount = ref(0);
 
-    watchEffect(() => {
-      doubleCount.value = count.value * 2;
-      console.log(`doubleCount ahora es ${doubleCount.value}`);
-    });
+watchEffect(() => {
+  doubleCount.value = count.value * 2;
+  console.log(`doubleCount ahora es ${doubleCount.value}`);
+});
 
-    const increment = () => count.value++;
-
-    return { count, doubleCount, increment };
-  },
-  template: `
-    <div>
-      <p>Count: {{ count }}</p>
-      <p>doubleCount: {{ doubleCount }}</p>
-      <button @click="increment">Incrementar</button>
-    </div>
-  `,
-};
+const increment = () => count.value++;
+</script>
 ----
 
 .En este ejemplo:
@@ -2817,42 +2799,39 @@ Un caso común es usar ambos cuando se requiere observar propiedades específica
 
 [source, html]
 ----
+<template>
+  <div>
+    <p>Nombre: {{ user.name }}</p>
+    <p>Edad: {{ user.age }}</p>
+    <p>Estado: {{ status }}</p>
+    <button @click="incrementAge">Incrementar Edad</button>
+  </div>
+</template>
+
+<script lang="ts" setup>
 import { ref, reactive, watch, watchEffect } from 'vue';
 
-export default {
-  setup() {
-    const user = reactive({
-      name: 'Carlos',
-      age: 25,
-    });
-    const status = ref('inactivo');
+const user = reactive({
+  name: 'Carlos',
+  age: 25,
+});
+const status = ref('inactivo');
 
-    // Observa cambios en la edad del usuario
-    watch(
-      () => user.age,
-      (newAge) => {
-        status.value = newAge >= 18 ? 'adulto' : 'menor';
-      }
-    );
+// Observa cambios en la edad del usuario
+watch(
+  () => user.age,
+  (newAge) => {
+    status.value = newAge >= 18 ? 'adulto' : 'menor';
+  }
+);
 
-    // Calcula mensaje reactivo basado en el estado
-    watchEffect(() => {
-      console.log(`Usuario: ${user.name}, Estado: ${status.value}`);
-    });
+// Calcula mensaje reactivo basado en el estado
+watchEffect(() => {
+  console.log(`Usuario: ${user.name}, Estado: ${status.value}`);
+});
 
-    const incrementAge = () => user.age++;
-
-    return { user, status, incrementAge };
-  },
-  template: `
-    <div>
-      <p>Nombre: {{ user.name }}</p>
-      <p>Edad: {{ user.age }}</p>
-      <p>Estado: {{ status }}</p>
-      <button @click="incrementAge">Incrementar Edad</button>
-    </div>
-  `,
-};
+const incrementAge = () => user.age++;
+</script>
 ----
 
 .En este ejemplo:
@@ -2928,23 +2907,19 @@ Para utilizar el composable, importa la función y llámala dentro del `setup()`
 
 [source, html]
 ----
-import { defineComponent } from 'vue';
+<template>
+  <div>
+    <p>Contador: {{ count }}</p>
+    <button @click="increment">Incrementar</button>
+    <button @click="decrement">Decrementar</button>
+  </div>
+</template>
+
+<script lang="ts" setup>
 import { useCounter } from './composables/useCounter';
 
-export default defineComponent({
-  setup() {
-    const { count, increment, decrement } = useCounter();
-
-    return { count, increment, decrement };
-  },
-  template: `
-    <div>
-      <p>Contador: {{ count }}</p>
-      <button @click="increment">Incrementar</button>
-      <button @click="decrement">Decrementar</button>
-    </div>
-  `,
-});
+const { count, increment, decrement } = useCounter();
+</script>
 ----
 
 .En este componente:
@@ -2957,7 +2932,7 @@ Un composable puede contener datos reactivos complejos y lógica de observación
 
 **Ejemplo de un composable de formulario con validación:**
 
-[source, html]
+[source, tyescript]
 ----
 import { reactive, ref, watch } from 'vue';
 
@@ -3001,7 +2976,7 @@ Los composables pueden aceptar parámetros para personalizar su funcionalidad, p
 
 **Ejemplo: Composable de contador con paso de incremento personalizado:**
 
-[source, html]
+[source, typescript]
 ----
 import { ref } from 'vue';
 
@@ -3021,23 +2996,19 @@ Este composable permite definir un valor de incremento o decremento personalizad
 
 [source, html]
 ----
-import { defineComponent } from 'vue';
+<template>
+  <div>
+    <p>Contador: {{ count }}</p>
+    <button @click="increment">Incrementar por 5</button>
+    <button @click="decrement">Decrementar por 5</button>
+  </div>
+</template>
+
+<script lang="ts" setup>
 import { useCounter } from './composables/useCounter';
 
-export default defineComponent({
-  setup() {
-    const { count, increment, decrement } = useCounter(5); // Paso personalizado de 5
-
-    return { count, increment, decrement };
-  },
-  template: `
-    <div>
-      <p>Contador: {{ count }}</p>
-      <button @click="increment">Incrementar por 5</button>
-      <button @click="decrement">Decrementar por 5</button>
-    </div>
-  `,
-});
+const { count, increment, decrement } = useCounter(5); // Paso personalizado de 5
+</script>
 ----
 
 .En este ejemplo:
@@ -3050,7 +3021,7 @@ Los composables también pueden usar `provide` e `inject` para compartir lógica
 
 **Ejemplo de un composable para un tema global:**
 
-[source, html]
+[source, typescript]
 ----
 import { ref, provide, inject } from 'vue';
 
@@ -3106,38 +3077,35 @@ npm install axios
 
 [source, html]
 ----
-import { defineComponent, ref } from 'vue';
+<template>
+  <div>
+    <h2>Posts</h2>
+    <p v-if="errorMessage">{{ errorMessage }}</p>
+    <ul>
+      <li v-for="post in posts" :key="post.id">{{ post.title }}</li>
+    </ul>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue';
 import axios from 'axios';
 
-export default defineComponent({
-  setup() {
-    const posts = ref([]);
-    const errorMessage = ref('');
+const posts = ref([]);
+const errorMessage = ref('');
 
-    const fetchPosts = async () => {
-      try {
-        const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
-        posts.value = response.data;
-      } catch (error) {
-        errorMessage.value = 'Error al cargar los posts';
-        console.error(error);
-      }
-    };
+const fetchPosts = async () => {
+  try {
+    const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
+    posts.value = response.data;
+  } catch (error) {
+    errorMessage.value = 'Error al cargar los posts';
+    console.error(error);
+  }
+};
 
-    fetchPosts();
-
-    return { posts, errorMessage };
-  },
-  template: `
-    <div>
-      <h2>Posts</h2>
-      <p v-if="errorMessage">{{ errorMessage }}</p>
-      <ul>
-        <li v-for="post in posts" :key="post.id">{{ post.title }}</li>
-      </ul>
-    </div>
-  `,
-});
+fetchPosts();
+</script>
 ----
 
 .En este ejemplo:
@@ -3152,36 +3120,34 @@ export default defineComponent({
 
 [source, html]
 ----
-import { defineComponent, ref } from 'vue';
+<template>
+  <div>
+    <h2>Crear un nuevo Post</h2>
+    <input v-model="newPost.title" placeholder="Título" />
+    <textarea v-model="newPost.body" placeholder="Contenido"></textarea>
+    <button @click="createPost">Enviar</button>
+    <p>{{ responseMessage }}</p>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue';
 import axios from 'axios';
 
-export default defineComponent({
-  setup() {
-    const newPost = ref({ title: '', body: '' });
-    const responseMessage = ref('');
+const newPost = ref({ title: '', body: '' });
+const responseMessage = ref('');
 
-    const createPost = async () => {
-      try {
-        const response = await axios.post('https://jsonplaceholder.typicode.com/posts', newPost.value);
-        responseMessage.value = `Post creado con ID: ${response.data.id}`;
-      } catch (error) {
-        responseMessage.value = 'Error al crear el post';
-        console.error(error);
-      }
-    };
+const createPost = async () => {
+  try {
+    const response = await axios.post('https://jsonplaceholder.typicode.com/posts', newPost.value);
+    responseMessage.value = `Post creado con ID: ${response.data.id}`;
+  } catch (error) {
+    responseMessage.value = 'Error al crear el post';
+    console.error(error);
+  }
+};
 
-    return { newPost, responseMessage, createPost };
-  },
-  template: `
-    <div>
-      <h2>Crear un nuevo Post</h2>
-      <input v-model="newPost.title" placeholder="Título" />
-      <textarea v-model="newPost.body" placeholder="Contenido"></textarea>
-      <button @click="createPost">Enviar</button>
-      <p>{{ responseMessage }}</p>
-    </div>
-  `,
-});
+</script>
 ----
 
 .En este ejemplo:
@@ -3196,40 +3162,37 @@ La API `fetch` es una alternativa nativa a `axios` que permite realizar solicitu
 
 [source, html]
 ----
-import { defineComponent, ref } from 'vue';
+<template>
+  <div>
+    <h2>Posts</h2>
+    <p v-if="errorMessage">{{ errorMessage }}</p>
+    <ul>
+      <li v-for="post in posts" :key="post.id">{{ post.title }}</li>
+    </ul>
+  </div>
+</template>
 
-export default defineComponent({
-  setup() {
-    const posts = ref([]);
-    const errorMessage = ref('');
+<script lang="ts" setup>
+import { ref } from 'vue';
 
-    const fetchPosts = async () => {
-      try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/posts');
-        if (!response.ok) {
-          throw new Error('Error en la respuesta de la red');
-        }
-        posts.value = await response.json();
-      } catch (error) {
-        errorMessage.value = 'Error al cargar los posts';
-        console.error(error);
-      }
-    };
+const posts = ref([]);
+const errorMessage = ref('');
 
-    fetchPosts();
+const fetchPosts = async () => {
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+    if (!response.ok) {
+      throw new Error('Error en la respuesta de la red');
+    }
+    posts.value = await response.json();
+  } catch (error) {
+    errorMessage.value = 'Error al cargar los posts';
+    console.error(error);
+  }
+};
 
-    return { posts, errorMessage };
-  },
-  template: `
-    <div>
-      <h2>Posts</h2>
-      <p v-if="errorMessage">{{ errorMessage }}</p>
-      <ul>
-        <li v-for="post in posts" :key="post.id">{{ post.title }}</li>
-      </ul>
-    </div>
-  `,
-});
+fetchPosts();
+</script>
 ----
 
 .En este ejemplo:
@@ -3244,47 +3207,44 @@ Al igual que con `axios`, `fetch` puede usarse para enviar datos a un servidor.
 
 [source, html]
 ----
-import { defineComponent, ref } from 'vue';
+<template>
+  <div>
+    <h2>Crear un nuevo Post</h2>
+    <input v-model="newPost.title" placeholder="Título" />
+    <textarea v-model="newPost.body" placeholder="Contenido"></textarea>
+    <button @click="createPost">Enviar</button>
+    <p>{{ responseMessage }}</p>
+  </div>
+</template>
 
-export default defineComponent({
-  setup() {
-    const newPost = ref({ title: '', body: '' });
-    const responseMessage = ref('');
+<script lang="ts" setup>
+import { ref } from 'vue';
 
-    const createPost = async () => {
-      try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(newPost.value),
-        });
+const newPost = ref({ title: '', body: '' });
+const responseMessage = ref('');
 
-        if (!response.ok) {
-          throw new Error('Error en la respuesta de la red');
-        }
+const createPost = async () => {
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newPost.value),
+    });
 
-        const data = await response.json();
-        responseMessage.value = `Post creado con ID: ${data.id}`;
-      } catch (error) {
-        responseMessage.value = 'Error al crear el post';
-        console.error(error);
-      }
-    };
+    if (!response.ok) {
+      throw new Error('Error en la respuesta de la red');
+    }
 
-    return { newPost, responseMessage, createPost };
-  },
-  template: `
-    <div>
-      <h2>Crear un nuevo Post</h2>
-      <input v-model="newPost.title" placeholder="Título" />
-      <textarea v-model="newPost.body" placeholder="Contenido"></textarea>
-      <button @click="createPost">Enviar</button>
-      <p>{{ responseMessage }}</p>
-    </div>
-  `,
-});
+    const data = await response.json();
+    responseMessage.value = `Post creado con ID: ${data.id}`;
+  } catch (error) {
+    responseMessage.value = 'Error al crear el post';
+    console.error(error);
+  }
+};
+</script>
 ----
 
 .En este ejemplo:
@@ -3310,40 +3270,37 @@ Las promesas son un mecanismo para manejar operaciones asíncronas. La API `fetc
 
 [source, html]
 ----
-import { defineComponent, ref } from 'vue';
+<template>
+  <div>
+    <h2>Posts</h2>
+    <p v-if="errorMessage">{{ errorMessage }}</p>
+    <ul>
+      <li v-for="post in posts" :key="post.id">{{ post.title }}</li>
+    </ul>
+  </div>
+</template>
 
-export default defineComponent({
-  setup() {
-    const posts = ref([]);
-    const errorMessage = ref('');
-    
-    const fetchPosts = async () => {
-      try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/posts');
-        if (!response.ok) {
-          throw new Error('Error en la respuesta de la red');
-        }
-        posts.value = await response.json();
-      } catch (error) {
-        errorMessage.value = 'Error al cargar los posts';
-        console.error(error);
-      }
-    };
+<script lang="ts" setup>
+import { ref } from 'vue';
 
-    fetchPosts();
+const posts = ref([]);
+const errorMessage = ref('');
 
-    return { posts, errorMessage };
-  },
-  template: `
-    <div>
-      <h2>Posts</h2>
-      <p v-if="errorMessage">{{ errorMessage }}</p>
-      <ul>
-        <li v-for="post in posts" :key="post.id">{{ post.title }}</li>
-      </ul>
-    </div>
-  `,
-});
+const fetchPosts = async () => {
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+    if (!response.ok) {
+      throw new Error('Error en la respuesta de la red');
+    }
+    posts.value = await response.json();
+  } catch (error) {
+    errorMessage.value = 'Error al cargar los posts';
+    console.error(error);
+  }
+};
+
+fetchPosts();
+</script>
 ----
 
 .En este ejemplo:
@@ -3358,38 +3315,35 @@ export default defineComponent({
 
 [source, html]
 ----
-import { defineComponent, ref } from 'vue';
+<template>
+  <div>
+    <h2>Posts</h2>
+    <p v-if="errorMessage">{{ errorMessage }}</p>
+    <ul>
+      <li v-for="post in posts" :key="post.id">{{ post.title }}</li>
+    </ul>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue';
 import axios from 'axios';
 
-export default defineComponent({
-  setup() {
-    const posts = ref([]);
-    const errorMessage = ref('');
+const posts = ref([]);
+const errorMessage = ref('');
 
-    const fetchPosts = async () => {
-      try {
-        const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
-        posts.value = response.data;
-      } catch (error) {
-        errorMessage.value = 'Error al cargar los posts';
-        console.error(error);
-      }
-    };
+const fetchPosts = async () => {
+  try {
+    const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
+    posts.value = response.data;
+  } catch (error) {
+    errorMessage.value = 'Error al cargar los posts';
+    console.error(error);
+  }
+};
 
-    fetchPosts();
-
-    return { posts, errorMessage };
-  },
-  template: `
-    <div>
-      <h2>Posts</h2>
-      <p v-if="errorMessage">{{ errorMessage }}</p>
-      <ul>
-        <li v-for="post in posts" :key="post.id">{{ post.title }}</li>
-      </ul>
-    </div>
-  `,
-});
+fetchPosts();
+</script>
 ----
 
 .En este caso:
@@ -3403,47 +3357,44 @@ En situaciones donde necesitas hacer múltiples solicitudes asíncronas, puedes 
 
 [source, html]
 ----
-import { defineComponent, ref } from 'vue';
+<template>
+  <div>
+    <h2>Posts</h2>
+    <p v-if="errorMessage">{{ errorMessage }}</p>
+    <ul>
+      <li v-for="post in posts" :key="post.id">{{ post.title }}</li>
+    </ul>
+    <h2>Comentarios</h2>
+    <ul>
+      <li v-for="comment in comments" :key="comment.id">{{ comment.body }}</li>
+    </ul>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue';
 import axios from 'axios';
 
-export default defineComponent({
-  setup() {
-    const posts = ref([]);
-    const comments = ref([]);
-    const errorMessage = ref('');
+const posts = ref([]);
+const comments = ref([]);
+const errorMessage = ref('');
 
-    const fetchData = async () => {
-      try {
-        const [postsResponse, commentsResponse] = await Promise.all([
-          axios.get('https://jsonplaceholder.typicode.com/posts'),
-          axios.get('https://jsonplaceholder.typicode.com/comments'),
-        ]);
-        posts.value = postsResponse.data;
-        comments.value = commentsResponse.data;
-      } catch (error) {
-        errorMessage.value = 'Error al cargar los datos';
-        console.error(error);
-      }
-    };
+const fetchData = async () => {
+  try {
+    const [postsResponse, commentsResponse] = await Promise.all([
+      axios.get('https://jsonplaceholder.typicode.com/posts'),
+      axios.get('https://jsonplaceholder.typicode.com/comments'),
+    ]);
+    posts.value = postsResponse.data;
+    comments.value = commentsResponse.data;
+  } catch (error) {
+    errorMessage.value = 'Error al cargar los datos';
+    console.error(error);
+  }
+};
 
-    fetchData();
-
-    return { posts, comments, errorMessage };
-  },
-  template: `
-    <div>
-      <h2>Posts</h2>
-      <p v-if="errorMessage">{{ errorMessage }}</p>
-      <ul>
-        <li v-for="post in posts" :key="post.id">{{ post.title }}</li>
-      </ul>
-      <h2>Comentarios</h2>
-      <ul>
-        <li v-for="comment in comments" :key="comment.id">{{ comment.body }}</li>
-      </ul>
-    </div>
-  `,
-});
+fetchData();
+</script>
 ----
 
 .En este ejemplo:
@@ -3458,42 +3409,39 @@ En algunos casos, puede que necesites actualizar datos reactivos basados en even
 
 [source, html]
 ----
-import { defineComponent, ref, watch } from 'vue';
+<template>
+  <div>
+    <select v-model="selectedPostId">
+      <option v-for="post in posts" :key="post.id" :value="post.id">{{ post.title }}</option>
+    </select>
+    <div v-if="postDetails.title">
+      <h2>{{ postDetails.title }}</h2>
+      <p>{{ postDetails.body }}</p>
+    </div>
+    <p v-if="errorMessage">{{ errorMessage }}</p>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { ref, watch } from 'vue';
 import axios from 'axios';
 
-export default defineComponent({
-  setup() {
-    const selectedPostId = ref(null);
-    const postDetails = ref({});
-    const errorMessage = ref('');
+const selectedPostId = ref(null);
+const postDetails = ref({});
+const errorMessage = ref('');
 
-    watch(selectedPostId, async (newId) => {
-      if (newId) {
-        try {
-          const response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${newId}`);
-          postDetails.value = response.data;
-        } catch (error) {
-          errorMessage.value = 'Error al cargar los detalles del post';
-          console.error(error);
-        }
-      }
-    });
-
-    return { selectedPostId, postDetails, errorMessage };
-  },
-  template: `
-    <div>
-      <select v-model="selectedPostId">
-        <option v-for="post in posts" :key="post.id" :value="post.id">{{ post.title }}</option>
-      </select>
-      <div v-if="postDetails.title">
-        <h2>{{ postDetails.title }}</h2>
-        <p>{{ postDetails.body }}</p>
-      </div>
-      <p v-if="errorMessage">{{ errorMessage }}</p>
-    </div>
-  `,
+watch(selectedPostId, async (newId) => {
+  if (newId) {
+    try {
+      const response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${newId}`);
+      postDetails.value = response.data;
+    } catch (error) {
+      errorMessage.value = 'Error al cargar los detalles del post';
+      console.error(error);
+    }
+  }
 });
+</script>
 ----
 
 .En este ejemplo:
@@ -3519,40 +3467,37 @@ La API `fetch` permite realizar solicitudes a un servidor y obtener datos de for
 
 [source, html]
 ----
-import { defineComponent, ref, onMounted } from 'vue';
+<template>
+  <div>
+    <h2>Posts</h2>
+    <p v-if="errorMessage">{{ errorMessage }}</p>
+    <ul>
+      <li v-for="post in posts" :key="post.id">{{ post.title }}</li>
+    </ul>
+  </div>
+</template>
 
-export default defineComponent({
-  setup() {
-    const posts = ref([]);
-    const errorMessage = ref('');
+<script lang="ts" setup>
+import { ref, onMounted } from 'vue';
 
-    const fetchPosts = async () => {
-      try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/posts');
-        if (!response.ok) {
-          throw new Error('Error en la respuesta de la red');
-        }
-        posts.value = await response.json();
-      } catch (error) {
-        errorMessage.value = 'Error al cargar los posts';
-        console.error(error);
-      }
-    };
+const posts = ref([]);
+const errorMessage = ref('');
 
-    onMounted(fetchPosts); // Cargar datos cuando el componente esté montado
+const fetchPosts = async () => {
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+    if (!response.ok) {
+      throw new Error('Error en la respuesta de la red');
+    }
+    posts.value = await response.json();
+  } catch (error) {
+    errorMessage.value = 'Error al cargar los posts';
+    console.error(error);
+  }
+};
 
-    return { posts, errorMessage };
-  },
-  template: `
-    <div>
-      <h2>Posts</h2>
-      <p v-if="errorMessage">{{ errorMessage }}</p>
-      <ul>
-        <li v-for="post in posts" :key="post.id">{{ post.title }}</li>
-      </ul>
-    </div>
-  `,
-});
+onMounted(fetchPosts); // Cargar datos cuando el componente esté montado
+</script>
 ----
 
 .En este ejemplo:
@@ -3567,38 +3512,35 @@ export default defineComponent({
 
 [source, html]
 ----
-import { defineComponent, ref, onMounted } from 'vue';
+<template>
+  <div>
+    <h2>Posts</h2>
+    <p v-if="errorMessage">{{ errorMessage }}</p>
+    <ul>
+      <li v-for="post in posts" :key="post.id">{{ post.title }}</li>
+    </ul>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
-export default defineComponent({
-  setup() {
-    const posts = ref([]);
-    const errorMessage = ref('');
+const posts = ref([]);
+const errorMessage = ref('');
 
-    const fetchPosts = async () => {
-      try {
-        const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
-        posts.value = response.data;
-      } catch (error) {
-        errorMessage.value = 'Error al cargar los posts';
-        console.error(error);
-      }
-    };
+const fetchPosts = async () => {
+  try {
+    const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
+    posts.value = response.data;
+  } catch (error) {
+    errorMessage.value = 'Error al cargar los posts';
+    console.error(error);
+  }
+};
 
-    onMounted(fetchPosts); // Cargar datos cuando el componente esté montado
-
-    return { posts, errorMessage };
-  },
-  template: `
-    <div>
-      <h2>Posts</h2>
-      <p v-if="errorMessage">{{ errorMessage }}</p>
-      <ul>
-        <li v-for="post in posts" :key="post.id">{{ post.title }}</li>
-      </ul>
-    </div>
-  `,
-});
+onMounted(fetchPosts); // Cargar datos cuando el componente esté montado
+</script>
 ----
 
 .En este caso:
@@ -3613,38 +3555,35 @@ Los datos cargados se pueden mostrar en el DOM utilizando la interpolación de V
 
 [source, html]
 ----
-import { defineComponent, ref, onMounted } from 'vue';
+<template>
+  <div>
+    <h2>Usuarios</h2>
+    <p v-if="errorMessage">{{ errorMessage }}</p>
+    <ul>
+      <li v-for="user in users" :key="user.id">{{ user.name }} - {{ user.email }}</li>
+    </ul>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
-export default defineComponent({
-  setup() {
-    const users = ref([]);
-    const errorMessage = ref('');
+const users = ref([]);
+const errorMessage = ref('');
 
-    const fetchUsers = async () => {
-      try {
-        const response = await axios.get('https://jsonplaceholder.typicode.com/users');
-        users.value = response.data;
-      } catch (error) {
-        errorMessage.value = 'Error al cargar los usuarios';
-        console.error(error);
-      }
-    };
+const fetchUsers = async () => {
+  try {
+    const response = await axios.get('https://jsonplaceholder.typicode.com/users');
+    users.value = response.data;
+  } catch (error) {
+    errorMessage.value = 'Error al cargar los usuarios';
+    console.error(error);
+  }
+};
 
-    onMounted(fetchUsers); // Cargar datos cuando el componente esté montado
-
-    return { users, errorMessage };
-  },
-  template: `
-    <div>
-      <h2>Usuarios</h2>
-      <p v-if="errorMessage">{{ errorMessage }}</p>
-      <ul>
-        <li v-for="user in users" :key="user.id">{{ user.name }} - {{ user.email }}</li>
-      </ul>
-    </div>
-  `,
-});
+onMounted(fetchUsers); // Cargar datos cuando el componente esté montado
+</script>
 ----
 
 .En este ejemplo:
@@ -3659,42 +3598,39 @@ Es útil manejar estados de carga para mejorar la experiencia del usuario. Puede
 
 [source, html]
 ----
-import { defineComponent, ref, onMounted } from 'vue';
+<template>
+  <div>
+    <h2>Posts</h2>
+    <p v-if="isLoading">Cargando...</p>
+    <p v-if="errorMessage">{{ errorMessage }}</p>
+    <ul v-if="!isLoading && !errorMessage">
+      <li v-for="post in posts" :key="post.id">{{ post.title }}</li>
+    </ul>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
-export default defineComponent({
-  setup() {
-    const posts = ref([]);
-    const errorMessage = ref('');
-    const isLoading = ref(true); // Estado de carga
+const posts = ref([]);
+const errorMessage = ref('');
+const isLoading = ref(true); // Estado de carga
 
-    const fetchPosts = async () => {
-      try {
-        const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
-        posts.value = response.data;
-      } catch (error) {
-        errorMessage.value = 'Error al cargar los posts';
-        console.error(error);
-      } finally {
-        isLoading.value = false; // Finalizar el estado de carga
-      }
-    };
+const fetchPosts = async () => {
+  try {
+    const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
+    posts.value = response.data;
+  } catch (error) {
+    errorMessage.value = 'Error al cargar los posts';
+    console.error(error);
+  } finally {
+    isLoading.value = false; // Finalizar el estado de carga
+  }
+};
 
-    onMounted(fetchPosts); // Cargar datos cuando el componente esté montado
-
-    return { posts, errorMessage, isLoading };
-  },
-  template: `
-    <div>
-      <h2>Posts</h2>
-      <p v-if="isLoading">Cargando...</p>
-      <p v-if="errorMessage">{{ errorMessage }}</p>
-      <ul v-if="!isLoading">
-        <li v-for="post in posts" :key="post.id">{{ post.title }}</li>
-      </ul>
-    </div>
-  `,
-});
+onMounted(fetchPosts); // Cargar datos cuando el componente esté montado
+</script>
 ----
 
 .En este caso:
@@ -3712,7 +3648,7 @@ export default defineComponent({
 === Tratamiento de errores y validaciones de API
 * **Manejo de errores:** Es importante capturar errores en las solicitudes de API y proporcionar un manejo adecuado.
 
-[source, html]
+[source, typescript]
 ----
   try {
       const response = await axios.get('https://api.example.com/data');
@@ -3722,7 +3658,7 @@ export default defineComponent({
 ----
 * **Validaciones de API:** Validar la respuesta de la API antes de usar los datos, asegurando que contenga las propiedades esperadas.
 
-[source, html]
+[source, typescript]
 ----
   if (response && response.data) {
       // Procesar los datos
@@ -3739,7 +3675,7 @@ export default defineComponent({
 ----
 * **Conexión a un servidor WebSocket:**
 
-[source, html]
+[source, typescript]
 ----
   import { io } from 'socket.io-client';
 
@@ -3757,19 +3693,35 @@ export default defineComponent({
 
 [source, html]
 ----
-  setup() {
-      const messages = ref([]);
+<template>
+  <div>
+    <ul>
+      <li v-for="message in messages" :key="message">{{ message }}</li>
+    </ul>
+    <input v-model="newMessage" placeholder="Escribe un mensaje" />
+    <button @click="sendMessage(newMessage)">Enviar</button>
+  </div>
+</template>
 
-      socket.on('message', (message) => {
-          messages.value.push(message);
-      });
+<script lang="ts" setup>
+import { ref } from 'vue';
+import { io } from 'socket.io-client';
 
-      const sendMessage = (message) => {
-          socket.emit('message', message);
-      };
+const socket = io('http://localhost:3000'); // Reemplaza con la URL de tu servidor de socket
 
-      return { messages, sendMessage };
-  }
+const messages = ref([]);
+const newMessage = ref('');
+
+socket.on('message', (message) => {
+  messages.value.push(message);
+});
+
+const sendMessage = (message) => {
+  socket.emit('message', message);
+  newMessage.value = ''; // Limpiar el campo de entrada después de enviar el mensaje
+};
+
+</script>
 ----
 
 == Módulo 8: Pruebas en Vue 3
@@ -3791,7 +3743,7 @@ Luego, puedes crear un archivo de configuración para Vitest en la raíz de tu p
 
 **Ejemplo de archivo de configuración `vitest.config.ts`:**
 
-[source, html]
+[source, typescript]
 ----
 import { defineConfig } from 'vitest/config';
 
@@ -3837,7 +3789,7 @@ export default defineComponent({
 
 **Prueba unitaria para `HelloWorld.vue`:**
 
-[source, html]
+[source, typescript]
 ----
 import { mount } from '@vue/test-utils';
 import HelloWorld from '@/components/HelloWorld.vue';
@@ -3901,7 +3853,7 @@ export default defineComponent({
 
 **Prueba unitaria para `Greeting.vue`:**
 
-[source, html]
+[source, typescript]
 ----
 import { mount } from '@vue/test-utils';
 import Greeting from '@/components/Greeting.vue';
@@ -3952,7 +3904,7 @@ export default defineComponent({
 
 **Prueba unitaria para `Counter.vue`:**
 
-[source, html]
+[source, typescript]
 ----
 import { mount } from '@vue/test-utils';
 import Counter from '@/components/Counter.vue';
@@ -3986,7 +3938,7 @@ describe('Counter.vue', () => {
 === Simulación de eventos y cambios de estado
 * **Simulación de eventos:** Utiliza el método `trigger` para simular eventos como clics o entradas de texto.
 
-[source, html]
+[source, typescript]
 ----
   it('emits an event when button is clicked', async () => {
       const wrapper = mount(MyComponent);
@@ -3996,7 +3948,7 @@ describe('Counter.vue', () => {
 ----
 * **Cambios de estado:** Asegúrate de que los métodos de cambio de estado se comporten como se espera.
 
-[source, html]
+[source, typescript]
 ----
   it('updates the data when input changes', async () => {
       const wrapper = mount(MyComponent);
@@ -4019,7 +3971,7 @@ describe('Counter.vue', () => {
 === Pruebas de Pinia
 * **Configuración de Pinia en pruebas:** Para probar componentes que utilizan Pinia, primero debes crear una store de prueba.
 
-[source, html]
+[source, typescript]
 ----
   import { createPinia } from 'pinia';
   import { mount } from '@vue/test-utils';
@@ -4034,7 +3986,7 @@ describe('Counter.vue', () => {
 ----
 * **Ejemplo de prueba de una acción de Pinia:** Verifica que una acción en tu store cambie el estado correctamente.
 
-[source, html]
+[source, typescript]
 ----
   import { defineStore } from 'pinia';
 
@@ -4057,7 +4009,7 @@ describe('Counter.vue', () => {
 === Pruebas de Vue Router
 * **Configuración de Vue Router en pruebas:** Al probar componentes que dependen de Vue Router, debes configurar un router de prueba.
 
-[source, html]
+[source, typescript]
 ----
   import { createRouter, createWebHistory } from 'vue-router';
 
@@ -4077,7 +4029,7 @@ describe('Counter.vue', () => {
 ----
 * **Ejemplo de prueba de navegación:** Verifica que la navegación entre rutas funcione correctamente.
 
-[source, html]
+[source, typescript]
 ----
   test('navigates to about page', async () => {
       const wrapper = mount(MyComponent, {
@@ -4093,7 +4045,7 @@ describe('Counter.vue', () => {
 === Combinando Pinia y Vue Router
 * **Prueba de un componente que utiliza tanto Pinia como Vue Router:** Asegúrate de que ambos funcionan juntos en una prueba.
 
-[source, html]
+[source, typescript]
 ----
   import { createPinia } from 'pinia';
 
@@ -4133,7 +4085,7 @@ describe('Counter.vue', () => {
 * **Definición de pruebas de integración:** Aseguran que diferentes partes de la aplicación funcionen correctamente juntas.
 * **Ejemplo de prueba de integración:** Monta varios componentes y prueba la interacción entre ellos.
 
-[source, html]
+[source, typescript]
 ----
   test('should interact with child component', async () => {
       const wrapper = mount(ParentComponent);
@@ -4143,7 +4095,7 @@ describe('Counter.vue', () => {
 ----
 * **Pruebas de flujo completo:** Asegúrate de que la funcionalidad completa se prueba, desde la entrada del usuario hasta la visualización de datos.
 
-[source, html]
+[source, typescript]
 ----
   test('full flow test', async () => {
       const wrapper = mount(MyForm);
@@ -4160,7 +4112,7 @@ describe('Counter.vue', () => {
 * **Implementación de code splitting en Vue:** Usa funciones de importación dinámica para dividir el código.
 
 
-[source, html]
+[source, typescript]
 ----
   const AsyncComponent = () => import('./components/AsyncComponent.vue');
 
@@ -4195,7 +4147,7 @@ describe('Counter.vue', () => {
 === Lazy loading en rutas y componentes
 * **Lazy loading en rutas:** Implementar lazy loaging en Vue Router para cargar solo las rutas necesarias.
 
-[source, html]
+[source, typescript]
 ----
   const routes = [
       {
@@ -4206,7 +4158,7 @@ describe('Counter.vue', () => {
 ----
 * **Lazy loading en componentes:** Similar al code splitting, permite cargar componentes solo cuando son necesarios.
 
-[source, html]
+[source, typescript]
 ----
   const LazyComponent = () => import('./components/LazyComponent.vue');
 ----

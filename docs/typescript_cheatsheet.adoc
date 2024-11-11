@@ -36,15 +36,123 @@ notSure = "maybe a string instead";
 notSure = false; // ok
 ----
 
+== Cadenas de Texto
+
+[source, typescript]
+----
+// Declaración de cadenas de texto
+let singleQuote: string = 'Hola';
+let doubleQuote: string = "Mundo";
+let templateString: string = `Hola Mundo`;
+
+// Concatenación de cadenas
+let concatenated: string = singleQuote + " " + doubleQuote;
+
+// Uso de plantillas de cadena
+let name: string = "John";
+let greeting: string = `Hola, ${name}!`;
+
+// Métodos comunes de cadenas
+let text: string = "TypeScript";
+
+let length: number = text.length; // Obtener la longitud de una cadena: 10
+
+let upperCase: string = text.toUpperCase(); // Convertir a mayúsculas: "TYPESCRIPT"
+
+let lowerCase: string = text.toLowerCase(); // Convertir a minúsculas: "typescript"
+
+let subStr: string = text.substring(0, 4); // Subcadena: "Type"
+
+let replaced: string = text.replace("Type", "Java"); // Reemplazar parte de una cadena: "JavaScript"
+
+let splitted: string[] = text.split("S"); // Dividir una cadena en un array: ["Type", "cript"]
+----
+
 == Funciones
 
 [source, typescript]
 ----
-function add(x: number, y: number): number {
-  return x + y;
+// Función con parámetros opcionales
+function buildName(firstName: string, lastName?: string): string {
+  if (lastName) {
+    return firstName + " " + lastName;
+  } else {
+    return firstName;
+  }
 }
 
-let result: number = add(5, 3);
+// Función lambda con parámetros opcionales
+let buildNameLambda = (firstName: string, lastName?: string): string => {
+  return lastName ? firstName + " " + lastName : firstName;
+};
+
+// Función con parámetros por defecto
+function buildNameDefault(firstName: string, lastName: string = "Smith"): string {
+  return firstName + " " + lastName;
+}
+
+// Función lambda con parámetros por defecto
+let buildNameDefaultLambda = (firstName: string, lastName: string = "Smith"): string => {
+  return firstName + " " + lastName;
+};
+
+// Función lambda
+let add = (x: number, y: number): number => x + y;
+
+// Función con rest parameters
+function buildNameRest(firstName: string, ...restOfName: string[]): string {
+  return firstName + " " + restOfName.join(" ");
+}
+
+// Función lambda con rest parameters
+let buildNameRestLambda = (firstName: string, ...restOfName: string[]): string => {
+  return firstName + " " + restOfName.join(" ");
+};
+----
+
+== Arrays
+
+[source, typescript]
+----
+// Declaración de un array de números
+let list: number[] = [1, 2, 3];
+
+// Declaración de un array de strings
+let listStr: string[] = ["one", "two", "three"];
+
+// Uso de la interfaz Array
+let listGeneric: Array<number> = [1, 2, 3];
+
+----
+
+// Métodos más utilizados en Arrays
+Los arrays en TypeScript heredan todos los métodos de los arrays en JavaScript. Algunos de los métodos más utilizados son:
+
+* `push()`: Añade uno o más elementos al final de un array y devuelve la nueva longitud del array.
+* `pop()`: Elimina el último elemento de un array y lo devuelve.
+* `shift()`: Elimina el primer elemento de un array y lo devuelve.
+* `unshift()`: Añade uno o más elementos al inicio de un array y devuelve la nueva longitud del array.
+* `map()`: Crea un nuevo array con los resultados de llamar a una función proporcionada en cada elemento de este array.
+* `filter()`: Crea un nuevo array con todos los elementos que pasen la prueba implementada por la función proporcionada.
+* `reduce()`: Aplica una función a un acumulador y a cada valor de un array (de izquierda a derecha) para reducirlo a un solo valor.
+* `forEach()`: Ejecuta una función proporcionada una vez por cada elemento del array.
+
+[source, typescript]
+----
+// Ejemplo de uso de métodos de arrays
+let numbers: number[] = [1, 2, 3, 4, 5];
+
+// Uso de map() para crear un nuevo array con cada número multiplicado por 2
+let doubled = numbers.map(n => n * 2);
+
+// Uso de filter() para crear un nuevo array con números mayores que 2
+let filtered = numbers.filter(n => n > 2);
+
+// Uso de reduce() para sumar todos los números del array
+let sum = numbers.reduce((acc, curr) => acc + curr, 0);
+
+// Uso de forEach() para imprimir cada número del array
+numbers.forEach(n => console.log(n));
 ----
 
 == Tipos Literales y Unión
@@ -77,14 +185,70 @@ let employee: Worker = {
 
 == Interfaces
 
+.Definición de una interfaz para funciones
 [source, typescript]
 ----
-interface Point {
-  x: number;
-  y: number;
+interface SearchFunc {
+  (source: string, subString: string): boolean;
 }
 
-let point: Point = { x: 10, y: 20 };
+let mySearch: SearchFunc;
+mySearch = function(source: string, subString: string) {
+  return source.search(subString) !== -1;
+};
+----
+
+.Definición de una interfaz
+[source, typescript]
+----
+interface Person {
+  firstName: string;
+  lastName: string;
+  age?: number; // Propiedad opcional
+  greet(message: string): string; // Método
+  walk?(): void; // Método opcional
+}
+----
+
+.Extensión de interfaz
+[source, typescript]
+----
+// Definición de una interfaz base
+interface Animal {
+  name: string;
+}
+
+// Extensión de la interfaz Animal
+interface Dog extends Animal {
+  breed: string;
+}
+
+// Uso de la interfaz extendida
+let myDog: Dog = {
+  name: "Buddy",
+  breed: "Golden Retriever"
+};
+----
+
+.Implementación de Interfaces en Clases
+[source, typescript]
+----
+interface ClockInterface {
+  currentTime: Date;
+  setTime(d: Date): void;
+}
+
+class Clock implements ClockInterface {
+  currentTime: Date;
+
+  constructor(h: number, m: number) {
+    this.currentTime = new Date();
+  }
+
+  setTime(d: Date) {
+    this.currentTime = d;
+  }
+}
 ----
 
 == Clases
