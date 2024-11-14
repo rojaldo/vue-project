@@ -8,7 +8,6 @@
                     <VanDatePicker
 
                         placeholder="Select Date"
-                        @change="printData"
                         v-model="currentDate"
                     />
                     <div
@@ -50,11 +49,22 @@
 
 <script setup lang="ts">
 // get info from apod api
-import { ref, type Ref } from 'vue';
+import { ref, watch, type Ref } from 'vue';
 // import { Apod } from '@/models/apod';
 
 let apod: any = ref(null);
-const currentDate = ref(['2024', '11', '11']);
+
+// define an array of date strings of today date
+const today = new Date();
+const dateArray = [today.getFullYear().toString(), (today.getMonth() + 1).toString(), (today.getDate()).toString()];
+
+const currentDate = ref(dateArray);
+
+watch(currentDate, (newVal, oldVal) => {
+    if (newVal === undefined || newVal === null || newVal.length !== 3) return;
+    const dateString = `${newVal[0]}-${newVal[1]}-${newVal[2]}`;
+    getApod(dateString);
+});
 
 const getApod = async (dateStr?: string) => {
 
@@ -72,13 +82,7 @@ const getApod = async (dateStr?: string) => {
     apod.value = data;
 }
 
-const printData = (date: any) => {
-    console.log(date);
-    console.log(JSON.stringify(date));
-    let tmp = date;
-    let dateStr = `${tmp.selectedValues[0]}-${tmp.selectedValues[1]}-${tmp.selectedValues[2]}`;
-    getApod(dateStr);
-}
+
 
 getApod();
 </script>
