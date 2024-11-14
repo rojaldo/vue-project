@@ -16,17 +16,26 @@
                         <h2>{{apod.title}}</h2>
                         <h5>{{ apod.date }}</h5>
                         <img
+                            v-if="apod.isImage"
                             :src="apod.url"
                             :alt="apod.title"
                             class="img-fluid"
                         />
+                        <iframe
+                            v-else-if="apod.isVideo"
+                            :src="apod.url"
+                            width="560"
+                            height="315"
+                            frameborder="0"
+                            allowfullscreen
+                        ></iframe>
                         <p>
                             {{apod.explanation}}
                         </p>
                         <button
                             class="btn btn-outline-primary"
                             type="button"
-                            :href="apod.hdurl"
+                            :href="apod.hdUrl"
                         >
                             HD Image
                         </button>
@@ -49,10 +58,11 @@
 
 <script setup lang="ts">
 // get info from apod api
+import { Apod } from '@/models/apod';
 import { ref, watch, type Ref } from 'vue';
 // import { Apod } from '@/models/apod';
 
-let apod: any = ref(null);
+let apod: Ref<Apod | null> = ref(null);
 
 // define an array of date strings of today date
 const today = new Date();
@@ -79,7 +89,7 @@ const getApod = async (dateStr?: string) => {
 
     const response = await fetch(url);
     const data = await response.json();
-    apod.value = data;
+    apod.value = new Apod(data);
 }
 
 
