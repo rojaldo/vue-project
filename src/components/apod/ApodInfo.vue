@@ -54,7 +54,7 @@ onBeforeUpdate(() => {
 const apod: Ref<Apod | null> = ref(null);
 
 const getApod = async (dateStr?: string) => {
-    if (apod.value?.date === dateStr) return;
+    if (apod.value?.date === dateStr && dateStr !== undefined) return;
     let url = '';
     const baseUrl = 'https://api.nasa.gov/planetary/apod';
     const apiKey  = 'DEMO_KEY';
@@ -68,12 +68,11 @@ const getApod = async (dateStr?: string) => {
     const data = await response.json();
     // check if date from api is different from the apod.date
     console.log('data', data);
-    
-    
     apod.value = new Apod(data);
 }
 
 getApod();
+
 
 </script>
 
