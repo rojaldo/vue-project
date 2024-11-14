@@ -1,0 +1,792 @@
+= RxJS
+:toc:
+:toclevels: 3
+:source-highlighter: highlight.js
+
+== Introducción a RxJS
+
+=== ¿Qué es RxJS?
+==== Historia y evolución
+RxJS (Reactive Extensions for JavaScript) es una biblioteca para componer programas asincrónicos y basados en eventos usando secuencias observables. Fue creada por Microsoft y ha evolucionado para ser una herramienta esencial en el desarrollo de aplicaciones modernas. RxJS se basa en el patrón de diseño Observer y ha sido adoptada por muchos frameworks y bibliotecas, incluyendo Angular.
+
+==== Ventajas de usar RxJS
+- **Manejo de asincronía**: Facilita el manejo de operaciones asincrónicas como eventos de usuario, temporizadores y llamadas a APIs.
+- **Composición de flujos de datos**: Permite componer flujos de datos complejos de manera declarativa usando operadores.
+- **Mantenibilidad**: Mejora la legibilidad y mantenibilidad del código al proporcionar una forma clara y concisa de manejar flujos de datos.
+- **Operadores poderosos**: Ofrece una gran cantidad de operadores para transformar, filtrar y combinar flujos de datos.
+
+==== Casos de uso comunes
+- **Manejo de eventos de usuario**: Captura y maneja eventos de usuario como clics, movimientos del ratón y entradas de teclado.
+- **Llamadas a APIs**: Realiza llamadas a APIs y maneja sus respuestas de manera eficiente.
+- **Sistemas de notificaciones**: Implementa sistemas de notificaciones en tiempo real.
+- **Procesamiento de flujos de datos**: Procesa flujos de datos en aplicaciones de IoT y otras aplicaciones basadas en datos.
+
+=== Instalación y configuración
+==== Instalación de RxJS
+Para instalar RxJS en tu proyecto, puedes usar npm (Node Package Manager). Ejecuta el siguiente comando en tu terminal:
+
+[source, bash]
+----
+npm install rxjs
+----
+
+Esto instalará RxJS y lo añadirá a las dependencias de tu proyecto.
+
+==== Configuración del entorno de desarrollo
+Para empezar a usar RxJS en tu proyecto TypeScript, necesitas importar los módulos necesarios. Aquí tienes un ejemplo básico de cómo configurar tu entorno de desarrollo:
+
+[source, typescript]
+----
+import { Observable } from 'rxjs';
+
+// Crear un observable simple
+const observable = new Observable(subscriber => {
+  subscriber.next('Hello');
+  subscriber.next('World');
+  subscriber.complete();
+});
+
+// Suscribirse al observable
+observable.subscribe({
+  next(x) { console.log(x); },
+  error(err) { console.error('Error: ' + err); },
+  complete() { console.log('Completed'); }
+});
+----
+
+Este código crea un observable que emite dos valores ('Hello' y 'World') y luego se completa. La suscripción al observable permite manejar los valores emitidos, errores y la finalización del observable.
+
+== Conceptos Básicos
+
+=== Observables
+==== Creación de observables
+Un observable es una secuencia de valores que puede ser emitida de forma asíncrona. Puede emitir múltiples valores, un valor o un error, y luego completarse.
+Se suele representar un observable con un signo de dólar ($) al final del nombre de la variable.
+Un observable se puede crear utilizando el constructor `Observable`. Aquí tienes un ejemplo básico de cómo crear un observable:
+
+[source, typescript]
+----
+import { Observable } from 'rxjs';
+
+const observable$ = new Observable(subscriber => {
+  subscriber.next('Hello');
+  subscriber.next('World');
+  subscriber.complete();
+});
+----
+
+En este ejemplo, el observable emite dos valores ('Hello' y 'World') y luego se completa.
+
+==== Suscripción a observables
+
+Cuando algún elemento se suscribe a un observable, se convierte en un observador. Los observadores pueden manejar los valores emitidos por el observable, los errores y la finalización del observable.
+
+.Estas acciones se definen mediante tres funciones:
+- `next`: Maneja los valores emitidos por el observable.
+- `error`: Maneja los errores emitidos por el observable.
+- `complete`: Maneja la finalización del observable.
+
+.Para recibir los valores emitidos por un observable, necesitas suscribirte a él. Aquí tienes un ejemplo de cómo hacerlo:
+[source, typescript]
+----
+observable$.subscribe({
+  next(x) { console.log(x); },
+  error(err) { console.error('Error: ' + err); },
+  complete() { console.log('Completed'); }
+});
+----
+
+En este ejemplo, la suscripción maneja los valores emitidos, los errores y la finalización del observable.
+
+==== Tipos de observables
+- **Unicast**: Cada suscriptor recibe una instancia separada del observable.
+- **Multicast**: Todos los suscriptores comparten la misma instancia del observable.
+
+Un ejemplo de un observable multicast es un `Subject`:
+
+[source, typescript]
+----
+import { Subject } from 'rxjs';
+
+const subject$ = new Subject<number>();
+
+subject$.subscribe({
+  next: (v) => console.log(`observerA: ${v}`)
+});
+subject$.subscribe({
+  next: (v) => console.log(`observerB: ${v}`)
+});
+
+subject$.next(1);
+subject$.next(2);
+----
+
+En este ejemplo, ambos suscriptores (`observerA` y `observerB`) reciben los mismos valores emitidos por el `Subject`.
+
+=== Operadores
+
+==== Pipes
+
+Los operadores de RxJS se utilizan para transformar, filtrar y combinar observables. Los operadores se encadenan utilizando el método `pipe`. Un `pipe` sólo se ejecuta cuando se suscribe un observador y sólo puede transformar los valores emitidos por el observable. 
+
+A menudo se necesita crear observables a partir de fuentes de datos, transformar los valores emitidos por los observables, filtrar los valores emitidos, combinar múltiples observables, y realizar acciones auxiliares en los valores emitidos.
+
+==== Operadores de creación
+Los operadores de creación permiten crear observables a partir de diferentes fuentes de datos. 
+
+.Algunos ejemplos comunes son:
+- `of`: Crea un observable a partir de una lista de valores.
+- `from`: Crea un observable a partir de un array, un objeto iterable, una promesa, o un observable.
+
+La diferencia entre `of` y `from` es que `of` emite los valores en secuencia, mientras que `from` emite los valores de la fuente de datos.
+
+[source, typescript]
+----
+import { of, from } from 'rxjs';
+
+const observable1$ = of(1, 2, 3);
+const observable2$ = from([10, 20, 30]);
+
+observable1$.subscribe(value => console.log(value));
+observable2$.subscribe(value => console.log(value));
+----
+
+==== Operadores de transformación
+Los operadores de transformación permiten modificar los valores emitidos por un observable. Un ejemplo común es `map`.
+
+[source, typescript]
+----
+import { map } from 'rxjs/operators';
+
+observable1$.pipe(
+  map(x => x * 2)
+).subscribe(value => console.log(value));
+----
+
+En este ejemplo, cada valor emitido por `observable1` se multiplica por 2 antes de ser emitido al suscriptor.
+
+.Los operadores de transformación más comunes son:
+- `map`: Transforma los valores emitidos por un observable.
+- `pluck`: Extrae una propiedad específica de los valores emitidos por un observable.
+- `scan`: Acumula los valores emitidos por un observable.
+- `switchMap`: Mapea cada valor a un nuevo observable, cancelando las suscripciones anteriores.
+
+Los operadores de transformación más comunes son:
+
+* `scan`: Aplica una función acumulativa a los valores emitidos por el observable.
+[source, javascript]
+----
+import { of } from 'rxjs';
+import { scan } from 'rxjs/operators';
+
+const numbers$ = of(1, 2, 3, 4);
+const sum$ = numbers$.pipe(
+  scan((acc, curr) => acc + curr, 0)
+);
+
+sum$.subscribe(value => console.log(value));
+// Output: 1, 3, 6, 10
+----
+
+* `switchMap`: Mapea cada valor a un nuevo observable, cancelando las suscripciones anteriores.
+[source, javascript]
+----
+import { of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+
+const letters$ = of('a', 'b', 'c');
+const result$ = letters$.pipe(
+  switchMap(letter => of(letter.toUpperCase()))
+);
+
+result$.subscribe(value => console.log(value));
+// Output: A, B, C
+----
+
+* `pluck`: Extrae una propiedad específica de los valores emitidos por un observable.
+[source, javascript]
+----
+import { of } from 'rxjs';
+import { pluck } from 'rxjs/operators';
+
+const person$ = of({ name: 'Alice', age: 30 });
+const name$ = person$.pipe(
+  pluck('name')
+);
+
+name$.subscribe(value => console.log(value));
+
+// Output: Alice
+----
+
+==== Operadores de filtrado
+
+Los operadores de filtrado en RxJS permiten emitir solo aquellos valores que cumplen con ciertas condiciones.
+
+.Algunos de los operadores de filtrado más comunes:
+- `filter`: Emite solo los valores que cumplen con la condición especificada.
+- `first`: Emite solo el primer valor que cumple con la condición especificada.
+- `last`: Emite solo el último valor que cumple con la condición especificada.
+- `take`: Emite solo los primeros N valores emitidos por el observable.
+- `skip`: Omite los primeros N valores emitidos por el observable.
+
+
+* `filter`: Emite solo aquellos valores que cumplen con la condición especificada.
+[source, javascript]
+----
+import { of } from 'rxjs';
+import { filter } from 'rxjs/operators';
+
+const numbers$ = of(1, 2, 3, 4, 5);
+const evenNumbers$ = numbers$.pipe(
+  filter(x => x % 2 === 0)
+);
+
+evenNumbers$.subscribe(value => console.log(value));
+// Output: 2, 4
+----
+
+* `first`: Emite solo el primer valor que cumple con la condición especificada.
+[source, javascript]
+----
+import { of } from 'rxjs';
+import { first } from 'rxjs/operators';
+
+const numbers$ = of(1, 2, 3, 4, 5);
+const firstEvenNumber$ = numbers$.pipe(
+  first(x => x % 2 === 0)
+);
+
+firstEvenNumber$.subscribe(value => console.log(value));
+// Output: 2
+----
+
+* `last`: Emite solo el último valor que cumple con la condición especificada.
+[source, javascript]
+----
+import { of } from 'rxjs';
+import { last } from 'rxjs/operators';
+
+const numbers$ = of(1, 2, 3, 4, 5);
+const lastEvenNumber$ = numbers$.pipe(
+  last(x => x % 2 === 0)
+);
+
+lastEvenNumber$.subscribe(value => console.log(value));
+// Output: 4
+----
+
+* `take`: Emite solo los primeros N valores emitidos por el observable.
+[source, javascript]
+----
+import { of } from 'rxjs';
+import { take } from 'rxjs/operators';
+
+const numbers$ = of(1, 2, 3, 4, 5);
+const firstThreeNumbers$ = numbers$.pipe(
+  take(3)
+);
+
+firstThreeNumbers$.subscribe(value => console.log(value));
+// Output: 1, 2, 3
+----
+
+* `skip`: Omite los primeros N valores emitidos por el observable.
+[source, javascript]
+----
+import { of } from 'rxjs';
+import { skip } from 'rxjs/operators';
+
+const numbers$ = of(1, 2, 3, 4, 5);
+const skippedNumbers$ = numbers$.pipe(
+  skip(3)
+);
+
+skippedNumbers$.subscribe(value => console.log(value));
+// Output: 4, 5
+----
+
+==== Operadores de combinación
+
+Los operadores de combinación en RxJS permiten combinar múltiples observables de diversas maneras. 
+.Algunos de los operadores de combinación más comunes:
+- `merge`: Combina múltiples observables en uno solo, emitiendo los valores a medida que se producen.
+- `concat`: Combina múltiples observables en secuencia, esperando a que cada uno complete antes de emitir los valores del siguiente.
+- `combineLatest`: Combina los últimos valores emitidos por múltiples observables, emitiendo un array con los valores combinados cada vez que uno de los observables emite un valor.
+- `zip`: Combina los valores emitidos por múltiples observables en un array, emitiendo solo cuando todos los observables han emitido un valor.
+- `withLatestFrom`: Combina el valor más reciente de un observable con el valor más reciente de otro observable cuando el primer observable emite un valor.
+
+* `merge`: Combina múltiples observables en uno solo, emitiendo los valores a medida que se producen.
+[source, javascript]
+----
+import { of, merge } from 'rxjs';
+
+const observable1$ = of(1, 2, 3);
+const observable2$ = of(4, 5, 6);
+
+const merged$ = merge(observable1$, observable2$);
+
+merged$.subscribe(value => console.log(value));
+// Output: 1, 2, 3, 4, 5, 6
+----
+
+* `concat`: Combina múltiples observables en secuencia, esperando a que cada uno complete antes de emitir los valores del siguiente.
+[source, javascript]
+----
+import { of, concat } from 'rxjs';
+
+const observable1$ = of(1, 2, 3);
+const observable2$ = of(4, 5, 6);
+
+const concatenated$ = concat(observable1$, observable2$);
+
+concatenated$.subscribe(value => console.log(value));
+// Output: 1, 2, 3, 4, 5, 6
+----
+
+* `combineLatest`: Combina los últimos valores emitidos por múltiples observables, emitiendo un array con los valores combinados cada vez que uno de los observables emite un valor.
+[source, javascript]
+----
+import { of, combineLatest } from 'rxjs';
+
+const observable1$ = of(1, 2, 3);
+const observable2$ = of('a', 'b', 'c');
+
+const combined$ = combineLatest([observable1$, observable2$]);
+
+combined$.subscribe(value => console.log(value));
+// Output: [3, 'c']
+----
+
+* `zip`: Combina los valores emitidos por múltiples observables en un array, emitiendo solo cuando todos los observables han emitido un valor.
+[source, javascript]
+----
+import { of, zip } from 'rxjs';
+
+const observable1$ = of(1, 2, 3);
+const observable2$ = of('a', 'b', 'c');
+
+const zipped$ = zip(observable1$, observable2$);
+
+zipped$.subscribe(value => console.log(value));
+// Output: [1, 'a'], [2, 'b'], [3, 'c']
+----
+
+* `withLatestFrom`: Combina el valor más reciente de un observable con el valor más reciente de otro observable cuando el primer observable emite un valor.
+[source, javascript]
+----
+import { of, interval } from 'rxjs';
+import { withLatestFrom } from 'rxjs/operators';
+
+const source$ = interval(1000);
+const other$ = of('a', 'b', 'c');
+
+const combined$ = source$.pipe(
+  withLatestFrom(other$)
+);
+
+combined$.subscribe(value => console.log(value));
+// Output: [0, 'c'], [1, 'c'], [2, 'c'], ...
+----
+
+==== Operadores de utilidades
+
+Los operadores de utilidades en RxJS proporcionan funciones adicionales que pueden ser útiles en diversas situaciones. 
+
+.Algunos de los operadores de utilidades más comunes:
+- `tap`: Permite realizar efectos secundarios para cada valor emitido por el observable sin modificar los valores.
+- `delay`: Retrasa la emisión de cada valor por un período de tiempo especificado.
+- `timeout`: Emite un error si el observable no emite un valor dentro de un período de tiempo especificado.
+
+* `tap`: Permite realizar efectos secundarios para cada valor emitido por el observable sin modificar los valores.
+[source, javascript]
+----
+import { of } from 'rxjs';
+import { tap } from 'rxjs/operators';
+
+const numbers$ = of(1, 2, 3);
+
+numbers$.pipe(
+  tap(value => console.log(`Valor emitido: ${value}`))
+).subscribe();
+// Output: Valor emitido: 1
+// Output: Valor emitido: 2
+// Output: Valor emitido: 3
+----
+
+* `delay`: Retrasa la emisión de cada valor por un período de tiempo especificado.
+[source, javascript]
+----
+import { of } from 'rxjs';
+import { delay } from 'rxjs/operators';
+
+const numbers$ = of(1, 2, 3);
+
+numbers$.pipe(
+  delay(1000)
+).subscribe(value => console.log(value));
+// Output (después de 1 segundo): 1
+// Output (después de 1 segundo): 2
+// Output (después de 1 segundo): 3
+----
+
+* `timeout`: Emite un error si el observable no emite un valor dentro de un período de tiempo especificado.
+[source, javascript]
+----
+import { of } from 'rxjs';
+import { timeout } from 'rxjs/operators';
+
+const numbers$ = of(1, 2, 3);
+
+numbers$.pipe(
+  timeout(500)
+).subscribe(
+  value => console.log(value),
+  error => console.error('Timeout error:', error)
+);
+// Output: 1, 2, 3 (si se emiten dentro de 500ms)
+// Output: Timeout error: (si no se emiten dentro de 500ms)
+----
+
+
+=== Subject
+==== ¿Qué es un Subject?
+Un `Subject` es un tipo especial de Observable que permite la multicasting a múltiples observadores. Actúa tanto como un Observable como un Observer, lo que significa que puede emitir valores y también puede ser suscrito.
+
+[source, typescript]
+----
+import { Subject } from 'rxjs';
+
+const subject = new Subject<number>();
+
+subject.subscribe({
+  next: (v) => console.log(`observerA: ${v}`)
+});
+subject.subscribe({
+  next: (v) => console.log(`observerB: ${v}`)
+});
+
+subject.next(1);
+subject.next(2);
+----
+
+En este ejemplo, ambos suscriptores (`observerA` y `observerB`) reciben los mismos valores emitidos por el `Subject`.
+
+==== Tipos de Subjects: Subject, BehaviorSubject, ReplaySubject, AsyncSubject
+- **Subject**: Un `Subject` simple que permite la multicasting a múltiples observadores.
+
+[source, typescript]
+----
+import { Subject } from 'rxjs';
+
+const subject = new Subject<number>();
+
+subject.subscribe({
+  next: (v) => console.log(`observerA: ${v}`)
+});
+subject.subscribe({
+  next: (v) => console.log(`observerB: ${v}`)
+});
+
+subject.next(1);
+subject.next(2);
+----
+
+- **BehaviorSubject**: Un `BehaviorSubject` requiere un valor inicial y emite su valor actual a los suscriptores. Cualquier nuevo suscriptor recibirá el último valor emitido por el `BehaviorSubject`.
+
+[source, typescript]
+----
+import { BehaviorSubject } from 'rxjs';
+
+const behaviorSubject = new BehaviorSubject<number>(0);
+
+behaviorSubject.subscribe({
+  next: (v) => console.log(`observerA: ${v}`)
+});
+
+behaviorSubject.next(1);
+behaviorSubject.next(2);
+
+behaviorSubject.subscribe({
+  next: (v) => console.log(`observerB: ${v}`)
+});
+
+behaviorSubject.next(3);
+----
+
+- **ReplaySubject**: Un `ReplaySubject` emite un número especificado de valores anteriores (buffer) a nuevos suscriptores.
+
+[source, typescript]
+----
+import { ReplaySubject } from 'rxjs';
+
+const replaySubject = new ReplaySubject<number>(2);
+
+replaySubject.subscribe({
+  next: (v) => console.log(`observerA: ${v}`)
+});
+
+replaySubject.next(1);
+replaySubject.next(2);
+replaySubject.next(3);
+
+replaySubject.subscribe({
+  next: (v) => console.log(`observerB: ${v}`)
+});
+
+replaySubject.next(4);
+----
+
+- **AsyncSubject**: Un `AsyncSubject` emite el último valor emitido por el observable cuando éste se completa (se invoca complete()). Es útil cuando sólo se necesita el último valor emitido.
+
+[source, typescript]
+----
+import { AsyncSubject } from 'rxjs';
+
+const asyncSubject = new AsyncSubject<number>();
+
+asyncSubject.subscribe({
+  next: (v) => console.log(`observerA: ${v}`)
+});
+
+asyncSubject.next(1);
+asyncSubject.next(2);
+asyncSubject.next(3);
+
+asyncSubject.subscribe({
+  next: (v) => console.log(`observerB: ${v}`)
+});
+
+asyncSubject.next(4);
+asyncSubject.complete();
+----
+
+== Manejo de Errores
+
+=== Estrategias de manejo de errores
+==== catchError
+El operador `catchError` permite interceptar un error que ocurre en un observable y devolver un nuevo observable o lanzar un error. Es útil para manejar errores y proporcionar una recuperación adecuada.
+
+[source, typescript]
+----
+import { of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+
+const observable = of(1, 2, 3, 4, 5).pipe(
+  map(x => {
+    if (x === 3) {
+      throw new Error('Error en el valor 3');
+    }
+    return x;
+  }),
+  catchError(err => {
+    console.error('Caught error: ', err);
+    return of('Error handled');
+  })
+);
+
+observable.subscribe({
+  next: x => console.log(x),
+  error: err => console.error('Error: ', err),
+  complete: () => console.log('Completed')
+});
+----
+
+En este ejemplo, cuando el valor es 3, se lanza un error. `catchError` intercepta el error y devuelve un nuevo observable que emite 'Error handled'.
+
+==== retry y retryWhen
+El operador `retry` permite reintentar la suscripción a un observable un número específico de veces cuando ocurre un error. `retryWhen` permite definir una lógica personalizada para reintentar la suscripción.
+
+[source, typescript]
+----
+import { of, throwError } from 'rxjs';
+import { retry, retryWhen, delay, take } from 'rxjs/operators';
+
+const observable = throwError('Error!').pipe(
+  retry(3)
+);
+
+observable.subscribe({
+  next: x => console.log(x),
+  error: err => console.error('Error: ', err),
+  complete: () => console.log('Completed')
+});
+----
+
+En este ejemplo, el observable reintenta la suscripción 3 veces antes de emitir el error.
+
+[source, typescript]
+----
+const observableWithRetryWhen = throwError('Error!').pipe(
+  retryWhen(errors => errors.pipe(
+    delay(1000),
+    take(3)
+  ))
+);
+
+observableWithRetryWhen.subscribe({
+  next: x => console.log(x),
+  error: err => console.error('Error: ', err),
+  complete: () => console.log('Completed')
+});
+----
+
+En este ejemplo, `retryWhen` reintenta la suscripción después de un retraso de 1 segundo, hasta un máximo de 3 veces.
+
+== Programación Reactiva Avanzada
+=== Patrones de diseño reactivo
+==== Backpressure
+Backpressure es una estrategia para manejar la presión de datos cuando un productor de datos emite más rápido de lo que un consumidor puede procesar. En RxJS, esto se puede manejar utilizando operadores como `throttleTime`, `debounceTime`, y `buffer`.
+
+[source, typescript]
+----
+import { interval } from 'rxjs';
+import { throttleTime } from 'rxjs/operators';
+
+const source = interval(100); // Emite valores cada 100ms
+const example = source.pipe(throttleTime(1000)); // Emite un valor cada 1000ms
+
+example.subscribe(value => console.log(value));
+----
+
+En este ejemplo, `throttleTime` se utiliza para limitar la frecuencia de emisión de valores, emitiendo solo un valor cada 1000ms.
+
+==== Multicasting
+Multicasting permite que múltiples suscriptores compartan la misma fuente de datos. En RxJS, esto se puede lograr utilizando `Subject`, `BehaviorSubject`, `ReplaySubject`, o `AsyncSubject`.
+
+[source, typescript]
+----
+import { Subject } from 'rxjs';
+
+const subject = new Subject<number>();
+
+subject.subscribe({
+  next: (v) => console.log(`observerA: ${v}`)
+});
+subject.subscribe({
+  next: (v) => console.log(`observerB: ${v}`)
+});
+
+subject.next(1);
+subject.next(2);
+----
+
+En este ejemplo, ambos suscriptores (`observerA` y `observerB`) reciben los mismos valores emitidos por el `Subject`.
+
+Otro ejemplo utilizando `multicast` y `refCount`:
+
+[source, typescript]
+----
+import { interval, Subject } from 'rxjs';
+import { multicast, refCount } from 'rxjs/operators';
+
+const source = interval(500);
+const subject = new Subject();
+const multicasted = source.pipe(multicast(subject), refCount());
+
+multicasted.subscribe({
+  next: (v) => console.log(`observerA: ${v}`)
+});
+multicasted.subscribe({
+  next: (v) => console.log(`observerB: ${v}`)
+});
+----
+
+En este ejemplo, `multicast` y `refCount` se utilizan para compartir la misma fuente de datos entre múltiples suscriptores.
+
+== Casos Prácticos
+
+=== Ejemplos prácticos
+==== Autocompletado con RxJS
+El autocompletado es una funcionalidad común en aplicaciones web. Con RxJS, puedes manejar eventos de entrada y realizar solicitudes a una API para obtener sugerencias.
+
+[source, typescript]
+----
+import { fromEvent } from 'rxjs';
+import { map, debounceTime, switchMap } from 'rxjs/operators';
+import { ajax } from 'rxjs/ajax';
+
+const input = document.getElementById('search');
+
+fromEvent(input, 'input').pipe(
+  map(event => event.target.value),
+  debounceTime(300),
+  switchMap(query => ajax.getJSON(`https://api.example.com/search?q=${query}`))
+).subscribe(results => {
+  console.log(results);
+});
+----
+
+En este ejemplo, `fromEvent` se utiliza para capturar eventos de entrada, `debounceTime` para limitar la frecuencia de las solicitudes, y `switchMap` para realizar la solicitud a la API.
+
+==== Manejo de WebSockets
+RxJS facilita el manejo de WebSockets, permitiendo la comunicación en tiempo real entre el cliente y el servidor.
+
+[source, typescript]
+----
+import { webSocket } from 'rxjs/webSocket';
+
+const socket$ = webSocket('ws://localhost:8080');
+
+socket$.subscribe(
+  msg => console.log('message received: ', msg),
+  err => console.error(err),
+  () => console.log('complete')
+);
+
+socket$.next({ message: 'Hello' });
+----
+
+En este ejemplo, `webSocket` se utiliza para conectarse a un servidor WebSocket, suscribirse a los mensajes entrantes y enviar mensajes al servidor.
+
+==== Implementación de un sistema de notificaciones
+Un sistema de notificaciones en tiempo real puede ser implementado utilizando RxJS para emitir notificaciones a intervalos regulares.
+
+[source, typescript]
+----
+import { interval } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+const notifications$ = interval(1000).pipe(
+  map(i => `Notification ${i}`)
+);
+
+notifications$.subscribe(notification => {
+  console.log(notification);
+});
+----
+
+En este ejemplo, `interval` se utiliza para emitir una notificación cada segundo, y `map` para formatear el mensaje de la notificación.
+
+== Recursos Adicionales
+
+=== Documentación y comunidad
+==== Documentación oficial de RxJS
+La documentación oficial de RxJS es el mejor lugar para comenzar a aprender y profundizar en el uso de la biblioteca. Puedes encontrarla en el siguiente enlace:
+https://rxjs.dev/
+
+==== Recursos en línea y libros recomendados
+- **Learning RxJS** de Ben Lesh y otros: Un libro completo que cubre los conceptos básicos y avanzados de RxJS.
+  https://www.amazon.com/Learning-RxJS-Ben-Lesh/dp/1786469940
+- **RxJS in Action** de Paul P. Daniels y Luis Atencio: Un libro práctico que ofrece ejemplos y casos de uso reales.
+  https://www.manning.com/books/rxjs-in-action
+- **RxJS Documentation**: La documentación oficial de RxJS es una excelente fuente de información y ejemplos.
+  https://rxjs.dev/
+- **Egghead.io**: Cursos en línea sobre RxJS y programación reactiva.
+  https://egghead.io/courses/rxjs-beyond-the-basics-creating-observables-from-scratch
+- **YouTube**: Canales como "Academind" y "Fireship" ofrecen tutoriales y explicaciones sobre RxJS.
+  - Academind: https://www.youtube.com/c/Academind
+  - Fireship: https://www.youtube.com/c/Fireship
+
+==== Comunidades y foros de discusión
+- **Stack Overflow**: Un lugar para hacer preguntas y encontrar respuestas sobre problemas específicos de RxJS.
+  https://stackoverflow.com/questions/tagged/rxjs
+- **Reddit**: Subreddits como r/reactjs y r/angular tienen discusiones y preguntas sobre RxJS.
+  - r/reactjs: https://www.reddit.com/r/reactjs/
+  - r/angular: https://www.reddit.com/r/angular/
+- **GitHub Discussions**: Muchos repositorios de proyectos de código abierto que utilizan RxJS tienen secciones de discusión en GitHub.
+  https://github.com/ReactiveX/rxjs/discussions
+- **Gitter**: Un chat comunitario para desarrolladores que utilizan RxJS.
+  https://gitter.im/Reactive-Extensions/RxJS
+- **Twitter**: Sigue a los desarrolladores principales de RxJS y a la comunidad para obtener actualizaciones y consejos.
+  https://twitter.com/RxJS

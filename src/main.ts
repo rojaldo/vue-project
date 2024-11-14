@@ -1,13 +1,18 @@
 import './assets/main.css'
 
+// bootstrap
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap"
 
-import { DatePicker } from 'vant';
-// 2. Import the components style
+// vant
 import 'vant/lib/index.css';
+import './vant-locale'; 
+import { DatePicker } from 'vant';
 
+// vue
 import { createApp } from 'vue'
+
+// pinia
 import { createPinia } from 'pinia'
 
 import App from './App.vue'
