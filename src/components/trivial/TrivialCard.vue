@@ -17,7 +17,7 @@ import type { PropType } from 'vue';
 
 const props = defineProps({
     card: {
-        type: Object,
+        type: Object as PropType<Card>,
         required: true
     }
 });

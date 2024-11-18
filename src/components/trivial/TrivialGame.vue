@@ -21,7 +21,7 @@ import { reactive, type Reactive } from 'vue';
 import TrivialCard from './TrivialCard.vue';
 
 
-const trivialCards: Reactive<Array<Card>> = reactive ([]);
+const trivialCards: Array<Card> = reactive ([]);
     
 
 const getCards = async () => {
