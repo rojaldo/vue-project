@@ -3,7 +3,7 @@
         <div class="card-body">
             <h4 class="card-title">{{card.question}}</h4>
             <div class="d-grid gap-2">
-                <button class="btn btn-primary" type="button" v-for="(answer,index) in card.answers" :key="index">{{answer}}</button>
+                <button :class="buttonClasses[index]" type="button" v-for="(answer,index) in card.answers" :key="index" @click="handleAnswer(answer, index)" :disabled="card.answered">{{answer}}</button>
             </div>
         </div>
     </div>
@@ -21,6 +21,36 @@ const props = defineProps({
         required: true
     }
 });
+
+let buttonClasses: string[] = [];
+props.card.type === 'multiple' ? buttonClasses = ['btn btn-primary', 'btn btn-primary', 'btn btn-primary', 'btn btn-primary'] : buttonClasses = ['btn btn-primary', 'btn btn-primary'];
+
+const handleAnswer = (answer: string, index: number) => {
+    console.log(answer);
+    props.card.answered = true;
+    props.card.checkRightAnswer(answer);
+
+    buttonClasses.forEach((buttonClass, i) => {
+        buttonClasses[i] = getButtonClass(props.card.answers[i], i);
+    });
+}
+
+const getButtonClass = (answer: string, index: number) => {
+    console.log("getButtonClass()");
+    
+    if(!props.card.answered){
+        return 'btn btn-primary';
+    } else {
+        if (props.card.correctAnswer === answer) {
+            return 'btn btn-success';
+        } 
+        if (!props.card.correctAnswered && props.card.userAnswer === answer) {
+            return 'btn btn-danger';
+        }
+        return 'btn btn-secondary';
+    }
+
+}
 
 </script>
 

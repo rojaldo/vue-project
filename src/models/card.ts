@@ -6,7 +6,11 @@ export class Card {
     private _difficulty = ''
     private _correctAnswer = ''
     private _incorrectAnswers: string[] = []
+
     private _answers: string[] = []
+    private _answered = false
+    private _correctAnswered?: boolean = undefined
+    private _userAnswer = ''
 
     constructor(json?: any) {
         if (json) {
@@ -46,6 +50,27 @@ export class Card {
 
     get answers() {
         return this._answers
+    }
+
+    get answered() {
+        return this._answered
+    }
+
+    set answered(answered: boolean) {
+        this._answered = answered
+    }
+
+    get correctAnswered() {
+        return this._correctAnswered
+    }
+
+    get userAnswer() {
+        return this._userAnswer
+    }
+
+    checkRightAnswer(answer: string) {
+        this._correctAnswered = this._correctAnswer === answer
+        this._userAnswer = answer
     }
     
 }
