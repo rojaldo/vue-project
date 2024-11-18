@@ -11,6 +11,7 @@ export class Card {
     private _answered = false
     private _correctAnswered?: boolean = undefined
     private _userAnswer = ''
+    private _isMultipleChoice?: boolean = undefined
 
     constructor(json?: any) {
         if (json) {
@@ -21,6 +22,7 @@ export class Card {
             this._correctAnswer = json.correct_answer
             this._incorrectAnswers = json.incorrect_answers
             this._answers = [...this._incorrectAnswers, this._correctAnswer]
+            this._isMultipleChoice = this._type === 'multiple'
         }
     }
 
@@ -68,9 +70,15 @@ export class Card {
         return this._userAnswer
     }
 
+    get isMultipleChoice() {
+        return this._isMultipleChoice
+    }
+    
     checkRightAnswer(answer: string) {
         this._correctAnswered = this._correctAnswer === answer
         this._userAnswer = answer
     }
+
+
     
 }

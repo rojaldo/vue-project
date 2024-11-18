@@ -22,8 +22,10 @@ const props = defineProps({
     }
 });
 
+const emits = defineEmits(['rightAnswer']);
+
 let buttonClasses: string[] = [];
-props.card.type === 'multiple' ? buttonClasses = ['btn btn-primary', 'btn btn-primary', 'btn btn-primary', 'btn btn-primary'] : buttonClasses = ['btn btn-primary', 'btn btn-primary'];
+props.card.isMultipleChoice ? buttonClasses = ['btn btn-primary', 'btn btn-primary', 'btn btn-primary', 'btn btn-primary'] : buttonClasses = ['btn btn-primary', 'btn btn-primary'];
 
 const handleAnswer = (answer: string, index: number) => {
     console.log(answer);
@@ -33,6 +35,7 @@ const handleAnswer = (answer: string, index: number) => {
     buttonClasses.forEach((buttonClass, i) => {
         buttonClasses[i] = getButtonClass(props.card.answers[i], i);
     });
+    emits('rightAnswer', props.card.correctAnswered ? true : false);
 }
 
 const getButtonClass = (answer: string, index: number) => {
