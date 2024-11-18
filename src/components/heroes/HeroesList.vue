@@ -1,8 +1,10 @@
 <template>
-        <ul>
-            <li v-for="(hero, index) in heroesList" :key="index">
-                <strong>{{ hero.name }}: </strong> {{ hero.power }} <button @click="removeHero(index)" >Remove</button></li>
-        </ul>
+
+    <ul class="list-group list-group">
+
+            <li class="list-group-item" v-for="(hero, index) in heroesList" :key="index">
+                <strong>{{ hero.name }}: </strong> {{ hero.power }} <button class="btn btn-danger" @click="removeHero(index)" >Remove</button></li>
+    </ul>
 </template>
 
 <script setup lang="ts">

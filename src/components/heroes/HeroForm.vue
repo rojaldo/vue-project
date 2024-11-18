@@ -1,12 +1,37 @@
 <template>
+
+    
         <h1>Heroes</h1>
-        <p>Hero Name</p>
-        <input type="text" v-model="heroName">
-        <p>Hero Power</p>
-        <input type="text" v-model="heroPower">
+        <div class="mb-3">
+        <label for="" class="form-label">Hero Name</label>
+        <input
+            type="text"
+            class="form-control"
+            name=""
+            id=""
+            aria-describedby="helpId"
+            placeholder=""
+            v-model="heroName"
+        />
+        <small id="helpId" class="form-text text-muted">Introduce the name of the hero</small>
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Hero Power</label>
+            <input
+                type="text"
+                class="form-control"
+                name=""
+                id=""
+                aria-describedby="helpId"
+                placeholder=""
+                v-model="heroPower"
+            />
+            <small id="helpId" class="form-text text-muted">Introduce the power of the hero</small>
+        </div>
+        
         <!-- <button @click="addHero" v-if="heroName !== ''" >Add Hero</button>
         <button @click="addHero" v-else disabled>Add Hero</button> -->
-        <button @click="onClick" :disabled="heroName === ''">Add Hero</button>
+        <button class="btn btn-primary mb-4" @click="onClick" :disabled="heroName === ''">Add Hero</button>
 </template>
 
 <script setup lang="ts">
