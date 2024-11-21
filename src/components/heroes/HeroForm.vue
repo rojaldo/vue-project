@@ -36,10 +36,15 @@
 
 <script setup lang="ts">
 import { Hero } from '@/models/hero';
-import { ref } from 'vue';
+import { useHeroesStore } from '@/stores/heroes';
+import { onBeforeUnmount, ref, type Reactive } from 'vue';
 
-let heroName = ref('');
-let heroPower = ref('');
+const heroStore = useHeroesStore();
+
+let myHero = heroStore.tmpHero;
+
+let heroName = ref(myHero?.name);
+let heroPower = ref(myHero?.power);
 
 const emits = defineEmits(['addHero']);
 
@@ -53,6 +58,11 @@ const onClick = () => {
     heroName.value = '';
     heroPower.value = '';
 }
+
+onBeforeUnmount(() => {
+    myHero.name = heroName.value;
+    myHero.power = heroPower.value;
+  });
 
 </script>
 

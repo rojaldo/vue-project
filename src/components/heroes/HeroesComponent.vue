@@ -9,7 +9,7 @@ import { useHeroesStore } from '@/stores/heroes';
 
 const heroesStore = useHeroesStore();
 
-let heroes = heroesStore.heroes;
+let heroes: Reactive<Hero[]> = reactive(heroesStore.heroes);
 
 // let heroInfo = computed(() => {
 //     return `${heroName.value}: ${heroPower.value}`;
@@ -20,11 +20,12 @@ onBeforeUnmount(() => {
   });
 
 const addHero = (hero: Hero) => {
-    heroesStore.addHero(hero);
+    // heroesStore.addHero(hero);
+    heroes.push(hero);
 }
 
 const remove = (index: number) => {
-    heroesStore.removeHero(index);
+    heroes.splice(index, 1);
 }   
 
 </script>

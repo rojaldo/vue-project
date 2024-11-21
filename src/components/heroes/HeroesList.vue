@@ -11,11 +11,13 @@
 
 // define props heroesList
 import type { Hero } from '@/models/hero';
+import { useHeroesStore } from '@/stores/heroes';
 import type { Reactive } from 'vue';
 
 const props = defineProps<{
     heroesList: Reactive<Hero[]>
 }>()
+
 
 const emits = defineEmits(['removeHero']);
 

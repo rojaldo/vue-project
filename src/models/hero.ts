@@ -9,4 +9,12 @@ export class Hero {
     get power() {
         return this._power
     }
+
+    set name(name: string) {
+        this._name = name
+    }
+
+    set power(power: string) {
+        this._power = power
+    }
 }
