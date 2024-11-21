@@ -20,13 +20,25 @@ const handleClick = (input: number | string) => {
 
 <template>
     <main>
-
-      <CalculatorDisplay :display="display" />
-      <CalculatorKeyboard @changeValue="handleClick" />
+      <div
+        class="container"
+      >
+        <div id="calculator">
+          <CalculatorDisplay :display="display" />
+          <CalculatorKeyboard @changeValue="handleClick" />
+        </div>
+      </div>
+      
 
     </main>
 </template>
 
 <style>
 
+#calculator {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  margin-top: 50px;
+}
 </style>
