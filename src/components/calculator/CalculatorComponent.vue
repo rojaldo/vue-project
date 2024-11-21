@@ -1,28 +1,26 @@
 <script setup lang="ts">
 import { Calculator } from '@/models/calculator';
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
 import CalculatorDisplay from './CalculatorDisplay.vue';
 import CalculatorKeyboard from './CalculatorKeyboard.vue';
+import { useCalculatorStore } from '@/stores/calculator';
 
-let display = ref('')
 
-let calculator = new Calculator()
+const calculatorStore = useCalculatorStore()
+
+let calculator = reactive(calculatorStore.getCalculator())
+
+let display = ref(calculator.displayString)
 
 const handleClick = (input: number | string) => {
-  if (typeof input === 'number') {
-    calculator.handleNumber(input)
-  } else if (typeof input === 'string') {
-    calculator.handleSymbol(input)
-  }
+  calculatorStore.updateCalculator(input)
   display.value = calculator.displayString
 }
 </script>
 
 <template>
     <main>
-      <div
-        class="container"
-      >
+      <div class="container">
         <div id="calculator">
           <CalculatorDisplay :display="display" />
           <CalculatorKeyboard @changeValue="handleClick" />
