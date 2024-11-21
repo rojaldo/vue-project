@@ -14,20 +14,24 @@
 </div>
 
 
-
 </template>
 
 <script setup lang="ts">
 import { Card } from '@/models/card';
 import { reactive, ref, type Reactive } from 'vue';
 import TrivialCard from './TrivialCard.vue';
+import { useTrivialStore } from '@/stores/trivial';
+
+const trivialStore = useTrivialStore();
 
 
-const trivialCards: Array<Card> = reactive ([]);
-const score = ref(0);
+const trivialCards = reactive (trivialStore.trivialCards);
+const score = ref(trivialStore.score);
     
 
 const getCards = async () => {
+    // if cards is empty, fetch cards
+    if(trivialCards.length > 0) return;
     const response = await fetch('https://opentdb.com/api.php?amount=10');
     const data = await response.json();
     let cards: Array<Card> = [];
@@ -39,6 +43,7 @@ const getCards = async () => {
 
 const handleScore = (value: boolean) => {
     console.log(value);
+    value ? trivialStore.score += 2 : trivialStore.score -= 1;
     value ? score.value += 2 : score.value -= 1;
 }
 

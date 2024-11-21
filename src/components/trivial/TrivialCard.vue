@@ -3,7 +3,7 @@
         <div class="card-body">
             <h4 class="card-title">{{card.question}}</h4>
             <div class="d-grid gap-2">
-                <button :class="buttonClasses[index]" type="button" v-for="(answer,index) in card.answers" :key="index" @click="handleAnswer(answer, index)" :disabled="card.answered">{{answer}}</button>
+                <button :class="myClasses[index]" type="button" v-for="(answer,index) in card.answers" :key="index" @click="handleAnswer(answer, index)" :disabled="card.answered">{{answer}}</button>
             </div>
         </div>
     </div>
@@ -13,19 +13,23 @@
 <script setup lang="ts">
 
 import { Card } from '@/models/card';
-import type { PropType } from 'vue';
+import { computed, type PropType, type Reactive } from 'vue';
 
-const props = defineProps({
-    card: {
-        type: Object as PropType<Card>,
-        required: true
-    }
-});
+const props = defineProps(['card'])
 
 const emits = defineEmits(['rightAnswer']);
 
 let buttonClasses: string[] = [];
+
 props.card.isMultipleChoice ? buttonClasses = ['btn btn-primary', 'btn btn-primary', 'btn btn-primary', 'btn btn-primary'] : buttonClasses = ['btn btn-primary', 'btn btn-primary'];
+
+const myClasses = computed(() => {buttonClasses.forEach((buttonClass, index) => {
+        buttonClasses[index] = getButtonClass(props.card.answers[index], index);
+        
+    });
+    return buttonClasses;
+});
+
 
 const handleAnswer = (answer: string, index: number) => {
     console.log(answer);
