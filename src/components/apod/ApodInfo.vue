@@ -57,7 +57,7 @@ const getApod = async (dateStr?: string) => {
     if (apod.value?.date === dateStr && dateStr !== undefined) return;
     let url = '';
     const baseUrl = 'https://api.nasa.gov/planetary/apod';
-    const apiKey  = 'tqz634Z1x0LiJzjbhSyUoExrZaGKLM0MG1VnROR6';
+    const apiKey  = 'DEMO_KEY';
     if (dateStr !== undefined && dateStr !== null && dateStr !== '') {
         url = `${baseUrl}?api_key=${apiKey}&date=${dateStr}`;
     } else {
