@@ -48,7 +48,12 @@ import HelloWorld from './components/HelloWorld.vue'
           <li class="nav-item">
             <RouterLink to="/trivial"> Trivial </RouterLink>
           </li>
-
+          <div>
+             |
+          </div>
+          <li class="nav-item">
+            <RouterLink to="/countries"> Countries </RouterLink>
+          </li>
         </ul>
 
       </div>
