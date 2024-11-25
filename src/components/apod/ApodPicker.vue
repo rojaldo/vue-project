@@ -6,12 +6,17 @@
 </template>
 
 <script setup lang="ts">
+import { useApodStore } from '@/stores/apod';
 import { ref, watch } from 'vue';
 
 const emits = defineEmits(['update:currentDate']);
 
-const today = new Date();
-const dateArray = [today.getFullYear().toString(), (today.getMonth() + 1).toString(), (today.getDate()).toString()];
+const apodStore = useApodStore();
+
+const storeDate = ref(apodStore.getDate());
+
+// split storeDate in format yyyy-mm-dd to array of strings [year, month, day], use split method
+const dateArray = [storeDate.value.split('-')[0], storeDate.value.split('-')[1], storeDate.value.split('-')[2]];
 
 const currentDate = ref(dateArray);
 

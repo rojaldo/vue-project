@@ -55,4 +55,20 @@ export class Apod {
     get isVideo() {
         return this._isVideo
     }
+
+    setInfo(json: any) {
+        this._title = json.title
+        this._date = json.date
+        this._explanation = json.explanation
+        this._url = json.url
+        this._mediaType = json.media_type
+        this._hdUrl = json.hdurl
+
+        this._isImage = this._mediaType === 'image'
+        this._isVideo = this._mediaType === 'video'
+    }   
+
+    isEmpty() {
+        return this._date === ''
+    }
 }

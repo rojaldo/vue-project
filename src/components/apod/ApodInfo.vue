@@ -35,43 +35,39 @@
 <script setup lang="ts">
 
 import { Apod } from '@/models/apod';
-import { get } from 'vant/lib/utils';
-import { onBeforeUpdate, ref, watch, type Ref } from 'vue';
+import { useApodStore } from '@/stores/apod';
+import { computed, onBeforeUpdate, reactive, ref, watch, type Ref } from 'vue';
 
 const props = defineProps<{
     apodInfo?: Apod;
     apodDate?: string;
 }>();
 
-onBeforeUpdate(() => {
+const apodStore = useApodStore();
+
+let apod: any = reactive<Apod>( new Apod());
+
+let apodInfo = new Apod();
+
+watch (apodStore.apod, (newVal, oldVal) => {
+    console.log('watch apodDate', newVal);
+    apod = newVal;
+});
+
+onBeforeUpdate(async () => {
     //check with regex if the date is in the correct format
     if (props.apodDate !== undefined && props.apodDate !== null && props.apodDate !== '') {
         console.log('apodDate', props.apodDate);
-        getApod(props.apodDate);
+        let res = await apodStore.getApod();
+        if (res !== undefined) {
+            apodInfo.setInfo(await apodStore.getApod())
+        }
     }
 });
 
-const apod: Ref<Apod | null> = ref(null);
 
-const getApod = async (dateStr?: string) => {
-    if (apod.value?.date === dateStr && dateStr !== undefined) return;
-    let url = '';
-    const baseUrl = 'https://api.nasa.gov/planetary/apod';
-    const apiKey  = 'DEMO_KEY';
-    if (dateStr !== undefined && dateStr !== null && dateStr !== '') {
-        url = `${baseUrl}?api_key=${apiKey}&date=${dateStr}`;
-    } else {
-    url = `${baseUrl}?api_key=${apiKey}`;
-    }
+apod.setInfo(await apodStore.getApod())
 
-    const response = await fetch(url);
-    const data = await response.json();
-    // check if date from api is different from the apod.date
-    console.log('data', data);
-    apod.value = new Apod(data);
-}
-
-getApod();
 
 
 </script>
